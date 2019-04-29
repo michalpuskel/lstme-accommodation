@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import { auth, database } from "../firebase";
+
 class LoginScreen extends Component {
   state = {
     emailInput: "",
-    passwordInput: ""
+    passwordInput: "",
+    user: null
   };
 
   handleInputChange = event => {
@@ -15,6 +18,34 @@ class LoginScreen extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+
+    let user = null;
+    try {
+      const userAuthData = await auth.signInWithEmailAndPassword(
+        this.state.emailInput,
+        this.state.passwordInput
+      );
+      const { uid, email } = userAuthData.user;
+      user = { uid, email };
+    } catch (err) {
+      console.info("error", err);
+    }
+
+    try {
+      const userDocRef = database.collection("users").doc(user.uid);
+      const userDoc = await userDocRef.get();
+      if (userDoc.exists) {
+        const userDocData = userDoc.data();
+        user = { ...user, ...userDocData };
+      } else {
+        console.info(`error: No document for user: ${user}`);
+      }
+    } catch (err) {
+      console.info("error", err);
+    }
+
+    this.setState({ user });
+    console.log(this.state.user);
   };
 
   render() {
