@@ -49,6 +49,8 @@ class LoginScreen extends Component {
   };
 
   render() {
+    const { emailInput, passwordInput } = this.state;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -74,7 +76,14 @@ class LoginScreen extends Component {
           />
         </label>
         <input type="submit" value="Prihlásiť" />
-        <Link to="/registration">Registrácia</Link>
+        <Link
+          to={{
+            pathname: "/registration",
+            state: { emailInput, passwordInput }
+          }}
+        >
+          Registrácia
+        </Link>
       </form>
     );
   }

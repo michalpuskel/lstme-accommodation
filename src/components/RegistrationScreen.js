@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 class RegistrationScreen extends Component {
   state = {
-    emailInput: "",
-    passwordInput: "",
+    emailInput: this.props.location.state.emailInput,
+    passwordInput: this.props.location.state.passwordInput,
     passwordConfirmInput: "",
     firstNameInput: "",
     lastNameInput: "",
