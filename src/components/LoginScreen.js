@@ -7,6 +7,7 @@ class LoginScreen extends Component {
   state = {
     emailInput: "",
     passwordInput: "",
+
     user: null
   };
 
