@@ -1,7 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NotFoundScreen = () => {
-  return <div>tato stranka sa nenasla - it works!</div>;
+  return (
+    <p>
+      Asi ste zablúdili. <br />
+      Vráťte sa na <Link to="/">hlavnú stránku</Link>.
+    </p>
+  );
 };
 
 export default NotFoundScreen;

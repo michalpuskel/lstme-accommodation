@@ -19,8 +19,6 @@ const useUserContext = () => {
         }
 
         setUser(user);
-      } else {
-        console.info("error: No user is signed in.");
       }
     });
   }, []);

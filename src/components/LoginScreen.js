@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import { auth } from "../firebase";
 import UserContext from "../UserContext";
-import loadUser from "../backend";
 
 class LoginScreen extends Component {
   state = {
@@ -28,26 +27,14 @@ class LoginScreen extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    let user = null;
     try {
-      const userAuthData = await auth.signInWithEmailAndPassword(
+      await auth.signInWithEmailAndPassword(
         this.state.emailInput,
         this.state.passwordInput
       );
-      const { uid, email } = userAuthData.user;
-      user = { uid, email };
     } catch (err) {
       console.info("error", err);
     }
-
-    try {
-      user = await loadUser(user);
-    } catch (err) {
-      console.info("error", err);
-    }
-
-    this.context.setUser(user);
-    console.log(this.context.user);
   };
 
   render() {
