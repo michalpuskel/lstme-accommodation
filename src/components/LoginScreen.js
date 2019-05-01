@@ -37,7 +37,7 @@ class LoginScreen extends Component {
           email:
           <input
             type="email"
-            value={this.state.emailInput}
+            value={emailInput}
             onChange={this.handleInputChange}
             name="emailInput"
             placeholder="meno@email.sk"
@@ -48,7 +48,7 @@ class LoginScreen extends Component {
           heslo:
           <input
             type="password"
-            value={this.state.passwordInput}
+            value={passwordInput}
             onChange={this.handleInputChange}
             name="passwordInput"
             placeholder="*****"

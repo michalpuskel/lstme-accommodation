@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import UserContext from "../UserContext";
 
 class HomeScreen extends Component {
-  render() {
+  renderTest = () => {
     return (
       <div>
         HomeScreen. rooms screen <br />
@@ -27,6 +27,10 @@ class HomeScreen extends Component {
         </ul>
       </div>
     );
+  };
+
+  render() {
+    return <>todo {this.renderTest()}</>;
   }
 }
 

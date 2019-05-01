@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import HomeScreen from "./HomeScreen";
 import LoginScreen from "./LoginScreen";
@@ -18,49 +18,47 @@ class Router extends Component {
     const user = this.context.user;
 
     return (
-      <BrowserRouter>
-        <Switch>
-          <ProtectedRoute
-            exact
-            path="/"
-            component={HomeScreen}
-            condition={user}
-            redirect="login"
-          />
-          <ProtectedRoute
-            path="/login"
-            component={LoginScreen}
-            condition={!user}
-            redirect="/"
-          />
-          <ProtectedRoute
-            path="/registration"
-            component={RegistrationScreen}
-            condition={!user}
-            redirect="/"
-          />
-          <ProtectedRoute
-            path="/room/:roomId"
-            component={RoomDetailScreen}
-            condition={user}
-            redirect="/login"
-          />
-          <ProtectedRoute
-            path="/users"
-            component={UsersScreen}
-            condition={user && user.is_super_admin}
-            redirect="/login"
-          />
-          <PrivateRoute
-            path="/user/:userId"
-            component={UserDetailScreen}
-            condition={user}
-            redirect="/login"
-            privateId={user && user.uid}
-          />
-          <Route component={NotFoundScreen} />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <ProtectedRoute
+          exact
+          path="/"
+          component={HomeScreen}
+          condition={user}
+          redirect="login"
+        />
+        <ProtectedRoute
+          path="/login"
+          component={LoginScreen}
+          condition={!user}
+          redirect="/"
+        />
+        <ProtectedRoute
+          path="/registration"
+          component={RegistrationScreen}
+          condition={!user}
+          redirect="/"
+        />
+        <ProtectedRoute
+          path="/room/:roomId"
+          component={RoomDetailScreen}
+          condition={user}
+          redirect="/login"
+        />
+        <ProtectedRoute
+          path="/users"
+          component={UsersScreen}
+          condition={user && user.is_super_admin}
+          redirect="/login"
+        />
+        <PrivateRoute
+          path="/user/:userId"
+          component={UserDetailScreen}
+          condition={user}
+          redirect="/login"
+          privateId={user && user.uid}
+        />
+        <Route component={NotFoundScreen} />
+      </Switch>
     );
   }
 }
