@@ -1,15 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import { auth, database } from "../firebase";
+import { auth } from "../firebase";
+import UserContext from "../UserContext";
+import loadUser from "../backend";
 
 class LoginScreen extends Component {
   state = {
     emailInput: "",
-    passwordInput: "",
-
-    user: null
+    passwordInput: ""
   };
+
+  componentDidMount() {
+    console.log("mount", this.context);
+  }
+
+  componentDidUpdate() {
+    console.log("update", this.context);
+  }
 
   handleInputChange = event => {
     this.setState({
@@ -33,20 +41,13 @@ class LoginScreen extends Component {
     }
 
     try {
-      const userDocRef = database.collection("users").doc(user.uid);
-      const userDoc = await userDocRef.get();
-      if (userDoc.exists) {
-        const userDocData = userDoc.data();
-        user = { ...user, ...userDocData };
-      } else {
-        console.info(`error: No document for user: ${user}`);
-      }
+      user = await loadUser(user);
     } catch (err) {
       console.info("error", err);
     }
 
-    this.setState({ user });
-    console.log(this.state.user);
+    this.context.setUser(user);
+    console.log(this.context.user);
   };
 
   render() {
@@ -85,9 +86,13 @@ class LoginScreen extends Component {
         >
           Registrácia
         </Link>
+
+        <Link to="/"> domov[tmp]</Link>
       </form>
     );
   }
 }
+
+LoginScreen.contextType = UserContext;
 
 export default LoginScreen;

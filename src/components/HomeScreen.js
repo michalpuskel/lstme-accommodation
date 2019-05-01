@@ -1,7 +1,21 @@
-import React from "react";
+import React, { Component } from "react";
 
-const HomeScreen = () => {
-  return <div>HomeScreen. rooms screen</div>;
-};
+import UserContext from "../UserContext";
+
+class HomeScreen extends Component {
+  componentDidMount() {
+    console.log("mount", this.context);
+  }
+
+  componentDidUpdate() {
+    console.log("update", this.context);
+  }
+
+  render() {
+    return <div>HomeScreen. rooms screen</div>;
+  }
+}
+
+HomeScreen.contextType = UserContext;
 
 export default HomeScreen;
