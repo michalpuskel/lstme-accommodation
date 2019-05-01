@@ -2,21 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import { auth } from "../firebase";
-import UserContext from "../UserContext";
 
 class LoginScreen extends Component {
   state = {
     emailInput: "",
     passwordInput: ""
   };
-
-  componentDidMount() {
-    console.log("mount", this.context);
-  }
-
-  componentDidUpdate() {
-    console.log("update", this.context);
-  }
 
   handleInputChange = event => {
     this.setState({
@@ -73,13 +64,9 @@ class LoginScreen extends Component {
         >
           Registrácia
         </Link>
-
-        <Link to="/"> domov[tmp]</Link>
       </form>
     );
   }
 }
-
-LoginScreen.contextType = UserContext;
 
 export default LoginScreen;
