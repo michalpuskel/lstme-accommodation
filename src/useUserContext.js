@@ -7,20 +7,17 @@ const useUserContext = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    let unsubscribeFromUser = null;
     auth.onAuthStateChanged(async currentUser => {
       if (currentUser) {
         const { uid, email } = currentUser;
-        let user = { uid, email };
-
-        try {
-          user = await loadUser(user);
-        } catch (err) {
-          console.info("error", err);
-        }
-
-        setUser(user);
+        unsubscribeFromUser = loadUser({ uid, email, setUser });
       }
     });
+
+    return () => {
+      unsubscribeFromUser();
+    };
   }, []);
 
   return { user, setUser };
