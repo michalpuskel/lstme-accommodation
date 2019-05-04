@@ -96,6 +96,19 @@ const loadBed = ({ userId, setBed }) => {
   return unsubscribe;
 };
 
+const addUserToBedList = async ({ roomId, userId }) => {
+  const bedRef = database
+    .collection("rooms")
+    .doc(roomId)
+    .collection("bed_list")
+    .doc(userId);
+  try {
+    await bedRef.set({});
+  } catch (err) {
+    console.info("error", err);
+  }
+};
+
 const updateDocumentProperty = async ({
   uid: { collection, document },
   property,
@@ -118,5 +131,6 @@ export {
   loadRoomWithId,
   loadBedList,
   loadBed,
+  addUserToBedList,
   updateDocumentProperty
 };

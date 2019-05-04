@@ -4,9 +4,11 @@ import UserContext from "../UserContext";
 import {
   loadRoomWithId,
   loadBedList,
+  addUserToBedList,
   updateDocumentProperty
 } from "../backend";
 import Bed from "./Bed";
+import BedEmpty from "./BedEmpty";
 
 class BedList extends Component {
   state = {
@@ -47,6 +49,30 @@ class BedList extends Component {
     return this.state.room.bed_count - this.state.bedList.length;
   };
 
+  generateEmptyBeds = count => {
+    return Array.from({ length: count }, (_, index) => index);
+  };
+
+  reservationBookUp = async userId => {
+    try {
+      await updateDocumentProperty({
+        uid: { collection: "users", document: userId },
+        property: "room_id",
+        value: this.props.roomId
+      });
+    } catch (err) {
+      console.info("error", err);
+    }
+
+    try {
+      await addUserToBedList({ roomId: this.props.roomId, userId });
+    } catch (err) {
+      console.info("error", err);
+    }
+  };
+
+  reservationCancel = userId => {};
+
   handleSupervisorOnlyChange = async () => {
     if (!this.context.user.is_supervisor) {
       return;
@@ -82,11 +108,17 @@ class BedList extends Component {
             {this.state.bedList.map(userId => (
               <Bed key={userId} userId={userId} />
             ))}
+            {this.generateEmptyBeds(this.getEmptyBedCount()).map(index => (
+              <BedEmpty
+                key={index}
+                roomIsSupervisorOnly={this.state.room.is_supervisor_only}
+                onReservationBookUp={this.reservationBookUp}
+              />
+            ))}
           </tbody>
           <tfoot>
             <tr>
-              <td>voľných miest:</td>
-              <td>{this.getEmptyBedCount()}</td>
+              <td colSpan="2">voľných miest: {this.getEmptyBedCount()}</td>
             </tr>
           </tfoot>
         </table>

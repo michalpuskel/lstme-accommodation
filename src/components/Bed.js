@@ -17,11 +17,9 @@ class Bed extends Component {
     if (this.isMyBed()) {
       const user = this.context.user;
       this.setUser({
-        user: {
-          first_name: user.first_name,
-          last_name: user.last_name,
-          birth_date: user.birth_date
-        }
+        first_name: user.first_name,
+        last_name: user.last_name,
+        birth_date: user.birth_date
       });
     } else {
       this.unsubscribeFromBed = loadBed({
@@ -55,7 +53,11 @@ class Bed extends Component {
 
   render() {
     return (
-      <tr>
+      <tr
+        style={{
+          backgroundColor: this.isMyBed() ? "deepskyblue" : "lightgray"
+        }}
+      >
         <td>{this.getUserName()}</td>
         <td>{this.getUserAge()}</td>
       </tr>
