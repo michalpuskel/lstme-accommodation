@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 import UserContext from "../UserContext";
 import { loadBed } from "../backend";
@@ -49,7 +50,7 @@ class Bed extends Component {
   };
 
   getUserAge = () => {
-    return 10;
+    return moment(this.state.user.birth_date).fromNow(true);
   };
 
   render() {

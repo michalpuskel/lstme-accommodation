@@ -1,10 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import moment from "moment";
+import "moment/locale/sk";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 import App from "./components/App";
 
 require("dotenv").config();
+
+moment.locale("sk");
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
