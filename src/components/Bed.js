@@ -51,12 +51,25 @@ class Bed extends Component {
     return moment(this.state.user.birth_date).fromNow(true);
   };
 
+  handleReservationCancel = async () => {
+    if (!this.isMyBed()) {
+      return;
+    }
+
+    try {
+      await this.props.onReservationCancel(this.props.userId);
+    } catch (err) {
+      console.info("error", err);
+    }
+  };
+
   render() {
     return (
       <tr
         style={{
           backgroundColor: this.isMyBed() ? "deepskyblue" : "lightgray"
         }}
+        onClick={this.handleReservationCancel}
       >
         <td>{this.getUserName()}</td>
         <td>{this.getUserAge()}</td>

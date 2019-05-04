@@ -5,6 +5,7 @@ import {
   loadRoomWithId,
   loadBedList,
   addUserToBedList,
+  deleteUserFromBedList,
   updateDocumentProperty
 } from "../backend";
 import Bed from "./Bed";
@@ -71,7 +72,23 @@ class BedList extends Component {
     }
   };
 
-  reservationCancel = userId => {};
+  reservationCancel = async userId => {
+    try {
+      await deleteUserFromBedList({ roomId: this.props.roomId, userId });
+    } catch (err) {
+      console.info("error", err);
+    }
+
+    try {
+      await updateDocumentProperty({
+        uid: { collection: "users", document: userId },
+        property: "room_id",
+        value: null
+      });
+    } catch (err) {
+      console.info("error", err);
+    }
+  };
 
   handleSupervisorOnlyChange = async () => {
     if (!this.context.user.is_supervisor) {
@@ -106,7 +123,11 @@ class BedList extends Component {
           </thead>
           <tbody>
             {this.state.bedList.map(userId => (
-              <Bed key={userId} userId={userId} />
+              <Bed
+                key={userId}
+                userId={userId}
+                onReservationCancel={this.reservationCancel}
+              />
             ))}
             {this.generateEmptyBeds(this.getEmptyBedCount()).map(index => (
               <BedEmpty

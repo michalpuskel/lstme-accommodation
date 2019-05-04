@@ -11,11 +11,16 @@ class BedEmpty extends Component {
     return this.context.user.room_id !== null;
   };
 
-  handleReservationBookUp = () => {
+  handleReservationBookUp = async () => {
     if (this.userIsAccommodated() || !this.isAvailableBed()) {
       return;
     }
-    this.props.onReservationBookUp(this.context.user.uid);
+
+    try {
+      await this.props.onReservationBookUp(this.context.user.uid);
+    } catch (err) {
+      console.info("error", err);
+    }
   };
 
   render() {
