@@ -26,7 +26,7 @@ class HomeScreen extends Component {
     return (
       <>
         {this.state.roomList.map(roomId => (
-          <BedList key={roomId} uid={roomId} />
+          <BedList key={roomId} roomId={roomId} />
         ))}
         {this.renderTest()}
       </>

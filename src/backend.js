@@ -62,6 +62,40 @@ const loadRoomWithId = ({ uid, setRoom }) => {
   return unsubscribe;
 };
 
+const loadBedList = ({ roomId, setBedList }) => {
+  const bedListRef = database
+    .collection("rooms")
+    .doc(roomId)
+    .collection("bed_list");
+  const unsubscribe = bedListRef.onSnapshot(
+    bedListSnapshot => {
+      let bedList = [];
+      bedListSnapshot.forEach(bedDoc => {
+        bedList.push(bedDoc.id);
+      });
+      setBedList(bedList);
+    },
+    err => {
+      console.info("error", err);
+    }
+  );
+  return unsubscribe;
+};
+
+const loadBed = ({ userId, setBed }) => {
+  const userDocRef = database.collection("users").doc(userId);
+  const unsubscribe = userDocRef.onSnapshot(
+    userDocSnapshot => {
+      const { first_name, last_name, birth_date } = userDocSnapshot.data();
+      setBed({ first_name, last_name, birth_date });
+    },
+    err => {
+      console.info("error", err);
+    }
+  );
+  return unsubscribe;
+};
+
 const updateDocumentProperty = async ({
   uid: { collection, document },
   property,
@@ -82,5 +116,7 @@ export {
   loadUserWithId,
   loadRoomList,
   loadRoomWithId,
+  loadBedList,
+  loadBed,
   updateDocumentProperty
 };

@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 
 import UserContext from "../UserContext";
-import { loadRoomWithId, updateDocumentProperty } from "../backend";
+import {
+  loadRoomWithId,
+  loadBedList,
+  updateDocumentProperty
+} from "../backend";
+import Bed from "./Bed";
 
 class BedList extends Component {
   state = {
@@ -10,22 +15,36 @@ class BedList extends Component {
       name: "",
       is_supervisor_only: false,
       description: ""
-    }
+    },
+    bedList: []
   };
 
   componentDidMount() {
     this.unsubscribeFromRoom = loadRoomWithId({
-      uid: this.props.uid,
+      uid: this.props.roomId,
       setRoom: this.setRoom
+    });
+    this.unsubscribeFromBedList = loadBedList({
+      roomId: this.props.roomId,
+      setBedList: this.setBedList
     });
   }
 
   componentWillUnmount() {
     this.unsubscribeFromRoom();
+    this.unsubscribeFromBedList();
   }
 
   setRoom = room => {
     this.setState({ room });
+  };
+
+  setBedList = bedList => {
+    this.setState({ bedList });
+  };
+
+  getEmptyBedCount = () => {
+    return this.state.room.bed_count - this.state.bedList.length;
   };
 
   handleSupervisorOnlyChange = async () => {
@@ -35,7 +54,7 @@ class BedList extends Component {
 
     try {
       await updateDocumentProperty({
-        uid: { collection: "rooms", document: this.props.uid },
+        uid: { collection: "rooms", document: this.props.roomId },
         property: "is_supervisor_only",
         value: !this.state.room.is_supervisor_only
       });
@@ -60,23 +79,14 @@ class BedList extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Meno 1</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>Meno 2</td>
-              <td>15</td>
-            </tr>
-            <tr>
-              <td>Meno 3</td>
-              <td>18</td>
-            </tr>
+            {this.state.bedList.map(userId => (
+              <Bed key={userId} userId={userId} />
+            ))}
           </tbody>
           <tfoot>
             <tr>
               <td>voľných miest:</td>
-              <td>2</td>
+              <td>{this.getEmptyBedCount()}</td>
             </tr>
           </tfoot>
         </table>
