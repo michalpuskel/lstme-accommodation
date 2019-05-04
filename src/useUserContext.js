@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { auth } from "./firebase";
-import loadUser from "./backend";
+import { loadUserWithId } from "./backend";
 
 const useUserContext = () => {
   const [user, setUser] = useState(null);
@@ -11,7 +11,7 @@ const useUserContext = () => {
     auth.onAuthStateChanged(async currentUser => {
       if (currentUser) {
         const { uid, email } = currentUser;
-        unsubscribeFromUser = loadUser({ uid, email, setUser });
+        unsubscribeFromUser = loadUserWithId({ uid, email, setUser });
       }
     });
 

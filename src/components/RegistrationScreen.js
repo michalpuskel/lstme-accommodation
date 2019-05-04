@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import { auth, database } from "../firebase";
+import { auth } from "../firebase";
+import { createUserWithId } from "../backend";
 
 class RegistrationScreen extends Component {
   state = {
@@ -43,18 +44,12 @@ class RegistrationScreen extends Component {
     }
 
     try {
-      await database
-        .collection("users")
-        .doc(newUser.uid)
-        .set({
-          first_name: this.state.firstNameInput,
-          last_name: this.state.lastNameInput,
-          birth_date: this.state.birthDateInput,
-          is_supervisor: false,
-          is_super_admin: false,
-          room_id: null,
-          swap_user_id: null
-        });
+      await createUserWithId({
+        uid: newUser.uid,
+        first_name: this.state.firstNameInput,
+        last_name: this.state.lastNameInput,
+        birth_date: this.state.birthDateInput
+      });
     } catch (err) {
       console.info("error", err);
     }
