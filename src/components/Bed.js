@@ -63,7 +63,17 @@ class Bed extends Component {
     }
   };
 
+  handleReservationKickOut = async () => {
+    try {
+      await this.props.onReservationCancel(this.props.userId);
+    } catch (err) {
+      console.info("error", err);
+    }
+  };
+
   render() {
+    const user = this.context.user;
+
     return (
       <tr
         style={{
@@ -73,6 +83,13 @@ class Bed extends Component {
       >
         <td>{this.getUserName()}</td>
         <td>{this.getUserAge()}</td>
+        {user.is_super_admin && !this.isMyBed() && (
+          <td>
+            <button onClick={this.handleReservationKickOut}>
+              Zrušiť rezerváciu
+            </button>
+          </td>
+        )}
       </tr>
     );
   }
