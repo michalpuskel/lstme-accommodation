@@ -70,6 +70,9 @@ const loadBedList = ({ roomId, setBedList }) => {
   const unsubscribe = bedListRef.onSnapshot(
     bedListSnapshot => {
       let bedList = [];
+      //todo
+      console.log(bedListSnapshot.docChanges());
+      //todo
       bedListSnapshot.forEach(bedDoc => {
         bedList.push(bedDoc.id);
       });

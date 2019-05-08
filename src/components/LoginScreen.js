@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 
 import { auth } from "../firebase";
 
+//todo
+const Input = ({ label, ...rest }) => (
+  <label>
+    {label}:
+    <input {...rest} />
+  </label>
+);
+//todo
+
 class LoginScreen extends Component {
   state = {
     emailInput: "",
@@ -31,8 +40,30 @@ class LoginScreen extends Component {
   render() {
     const { emailInput, passwordInput } = this.state;
 
+    //todo
+    const inputProps = (key, props) => {
+      return {
+        type: "text",
+        value: this.state[key],
+        onChange: this.handleInputChange,
+        name: key,
+        ...props
+      };
+    };
+    //todo
+
     return (
       <form onSubmit={this.handleSubmit}>
+        {/* todo */}
+        {["email", "name", "fooo"].map(key => (
+          <Input label={key} {...inputProps(key)} />
+        ))}
+        <Input
+          label="foobar"
+          {...inputProps("email")}
+          placeholder="foo@bar.com"
+        />
+        {/* todo */}
         <label>
           email:
           <input
