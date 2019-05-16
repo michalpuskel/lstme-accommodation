@@ -25,24 +25,28 @@ const Router = () => {
         redirect="/auth"
       />
       <ProtectedRoute
+        exact
         path="/auth"
         component={Auth}
         condition={!user}
         redirect="/"
       />
       <ProtectedRoute
+        exact
         path="/room/:roomId"
         component={RoomDetail}
         condition={user}
         redirect="/auth"
       />
       <ProtectedRoute
+        exact
         path="/users"
         component={Users}
         condition={user && user.is_super_admin}
         redirect="/auth"
       />
       <PrivateRoute
+        exact
         path="/user/:userId"
         component={UserDetail}
         condition={user}

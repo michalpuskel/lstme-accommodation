@@ -25,11 +25,11 @@ const App = () => {
     <UserContext.Provider value={userContext}>
       <BrowserRouter>
         <header>
-          <h1>Nadpis</h1>
           <Navigation />
           {userContext.user && <button onClick={logUserOut}>Odhlásiť</button>}
         </header>
         <section>
+          <h1>Nadpis</h1>
           <Router />
         </section>
         <footer>
