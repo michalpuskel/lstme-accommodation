@@ -4,7 +4,7 @@ import moment from "moment";
 import "moment/locale/sk";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
-import App from "./components/App";
+import App from "./application/app/App";
 
 require("dotenv").config();
 
