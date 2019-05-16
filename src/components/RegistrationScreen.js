@@ -7,6 +7,7 @@ class RegistrationScreen extends Component {
   state = {
     emailInput: "",
     passwordInput: "",
+
     passwordConfirmInput: "",
     firstNameInput: "",
     lastNameInput: "",

@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 
-import { auth } from "../../config/firebase";
+import { auth, database } from "../../config/firebase";
 import useFormBasic from "../../hooks/form/useFormBasic";
+import useFormRegistration from "../../hooks/form/useFormRegistration";
 import Layout from "../../application/layout/layout/Layout";
 import FormBasic from "../../lib/auth/formBasic/FormBasic";
+import FormRegistration from "../../lib/auth/formRegistration/FormRegistration";
 
 const Auth = () => {
   const [authType, setAuthType] = useState("login");
   const formBasic = useFormBasic();
+  const formRegistration = useFormRegistration();
 
   const handleRegistrationNav = () => {
     setAuthType("registration");
@@ -31,6 +34,38 @@ const Auth = () => {
 
   const handleRegistrationSubmit = async event => {
     event.preventDefault();
+
+    //TODO transaction begin
+
+    let newUserId = null;
+    try {
+      const createdUserAuthData = await auth.createUserWithEmailAndPassword(
+        formBasic.emailInput,
+        formBasic.passwordInput
+      );
+      const { uid } = createdUserAuthData.user;
+      newUserId = uid;
+    } catch (err) {
+      console.info("error", err);
+    }
+
+    const newUserDocRef = database.collection("users").doc(newUserId);
+    try {
+      await newUserDocRef.set({
+        first_name: formRegistration.firstNameInput,
+        last_name: formRegistration.lastNameInput,
+        birth_date: formRegistration.birthDateInput,
+        is_supervisor: false,
+        is_super_admin: false,
+        room_id: null,
+        swap_sent_to_id: null,
+        swap_received_from_id: null
+      });
+    } catch (err) {
+      console.info("error", err);
+    }
+
+    //TODO transaction end
   };
 
   return (
@@ -41,11 +76,15 @@ const Auth = () => {
         }
       >
         <FormBasic {...formBasic} />
+        {authType === "login" ? (
+          <input type="submit" value="Prihlásiť" />
+        ) : (
+          <FormRegistration
+            passwordInput={formBasic.passwordInput}
+            {...formRegistration}
+          />
+        )}
 
-        <input
-          type="submit"
-          value={authType === "login" ? "Prihlásiť" : "Registrovať"}
-        />
         <button
           type="button"
           onClick={
