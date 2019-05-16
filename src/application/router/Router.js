@@ -51,7 +51,7 @@ const Router = () => {
         component={UserDetail}
         condition={user}
         redirect="/auth"
-        privateId={user.uid}
+        privateId={user && user.uid}
       />
       <Route component={NotFound} />
     </Switch>
