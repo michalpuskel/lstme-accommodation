@@ -10,13 +10,11 @@ const useAuthedUser = () => {
 
     auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
-        const { uid, email } = currentUser;
-
+        const { uid } = currentUser;
         const userDocRef = database.collection("users").doc(uid);
         unsubscribeFromAuthedUser = userDocRef.onSnapshot(
           userDocSnapshot => {
-            const userDocData = userDocSnapshot.data();
-            setAuthedUser({ uid, email, ...userDocData });
+            setAuthedUser({ ...userDocSnapshot.data() });
           },
           err => {
             console.info("error", err);

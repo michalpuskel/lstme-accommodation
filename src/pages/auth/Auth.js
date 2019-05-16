@@ -37,21 +37,23 @@ const Auth = () => {
 
     //TODO transaction begin
 
-    let newUserId = null;
+    let newUser = null;
     try {
       const createdUserAuthData = await auth.createUserWithEmailAndPassword(
         formBasic.emailInput,
         formBasic.passwordInput
       );
-      const { uid } = createdUserAuthData.user;
-      newUserId = uid;
+      const { uid, email } = createdUserAuthData.user;
+      newUser = { uid, email };
     } catch (err) {
       console.info("error", err);
     }
 
-    const newUserDocRef = database.collection("users").doc(newUserId);
+    const newUserDocRef = database.collection("users").doc(newUser.uid);
     try {
       await newUserDocRef.set({
+        uid: newUser.uid,
+        email: newUser.email,
         first_name: formRegistration.firstNameInput,
         last_name: formRegistration.lastNameInput,
         birth_date: formRegistration.birthDateInput,
