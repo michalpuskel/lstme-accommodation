@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import { auth, database } from "../../config/firebase";
 import useFormBasic from "../../hooks/form/useFormBasic";
@@ -32,9 +32,7 @@ const Auth = () => {
     }
   };
 
-  const handleRegistrationSubmit = async event => {
-    event.preventDefault();
-
+  const useCreateUser = useCallback(async ({ formBasic, formRegistration }) => {
     //TODO transaction begin
 
     let newUserId = null;
@@ -66,6 +64,12 @@ const Auth = () => {
     }
 
     //TODO transaction end
+  }, []);
+
+  const handleRegistrationSubmit = async event => {
+    event.preventDefault();
+
+    const createUser = useCreateUser({ formBasic, formRegistration });
   };
 
   return (
