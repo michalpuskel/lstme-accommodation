@@ -1,10 +1,8 @@
 import React from "react";
 import "./App.css";
 
-import Bootstrapper from "../bootstrapper/Bootstrapper";
-
 const App = () => {
-  return <Bootstrapper />;
+  return <div> app </div>;
 };
 
 export default App;

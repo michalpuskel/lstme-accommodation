@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
 
-import { auth } from "../../config/firebase";
+import useAuthedUser from "../../hooks/user/useAuthedUser";
+import App from "../app/App";
 
 const Bootstrapper = () => {
-  const [redirect, setRedirect] = useState(null);
-
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  useEffect(() => {
-    const foo = async () => {
-      await sleep(3000);
-      console.log("timer");
-      auth.onAuthStateChanged(currentUser => {
-        if (currentUser) {
-          const { uid, email } = currentUser;
-          setRedirect("user");
-        } else {
-          setRedirect("login");
-        }
-      });
-    };
-    foo();
-  }, []);
-
-  const renderRedirect = () => {
-    return redirect === "user" ? "ok" : redirect === "login" ? "nope" : "";
-  };
+  const authedUser = useAuthedUser();
 
   return (
-    <>
-      <div>Loading</div>
-      {renderRedirect()}
-    </>
+    <BrowserRouter>
+      {authedUser === undefined ? (
+        <div>Loading...</div>
+      ) : (
+        <App user={authedUser} />
+      )}
+    </BrowserRouter>
   );
 };
 
