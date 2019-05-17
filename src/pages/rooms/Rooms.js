@@ -9,16 +9,14 @@ const Rooms = () => {
     switch (action.type) {
       case "added":
       case "modified":
-        prevRoomList[action.data.uid] = action.data;
-        break;
+        return { ...prevRoomList, [action.data.uid]: action.data };
       case "removed":
-        delete prevRoomList[action.data.uid];
-        break;
+        const roomList = { ...prevRoomList };
+        delete roomList[action.data.uid];
+        return roomList;
       default:
         throw new Error("error: Invalid reduceUpdateRoomList action:", action);
     }
-
-    return prevRoomList;
   };
 
   const [roomList, dispatchUpdateRoomList] = useReducer(
