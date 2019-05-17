@@ -33,6 +33,7 @@ const loadUserWithId = ({ uid, email, setUser }) => {
 
 const loadRoomList = ({ setRoomList }) => {
   const roomListRef = database.collection("room_list");
+
   const unsubscribe = roomListRef.onSnapshot(
     roomListSnapshot => {
       let roomList = [];
