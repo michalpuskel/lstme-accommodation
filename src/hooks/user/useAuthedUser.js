@@ -6,19 +6,17 @@ const useAuthedUser = () => {
   const [authedUser, setAuthedUser] = useState(undefined);
 
   useEffect(() => {
-    let unsubscribeFromAuthedUser = null;
+    let unsubscribe = null;
 
     auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
         const { uid } = currentUser;
-        const userDocRef = database.collection("users").doc(uid);
-        unsubscribeFromAuthedUser = userDocRef.onSnapshot(
-          userDocSnapshot => {
-            setAuthedUser({ ...userDocSnapshot.data() });
+        const ref = database.collection("users").doc(uid);
+        unsubscribe = ref.onSnapshot(
+          snapshot => {
+            setAuthedUser({ ...snapshot.data() });
           },
-          err => {
-            console.info("error", err);
-          }
+          error => console.error(error)
         );
       } else {
         setAuthedUser(null);
@@ -26,7 +24,7 @@ const useAuthedUser = () => {
     });
 
     return () => {
-      unsubscribeFromAuthedUser && unsubscribeFromAuthedUser();
+      unsubscribe && unsubscribe();
     };
   }, []);
 

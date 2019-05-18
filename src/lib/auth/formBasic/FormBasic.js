@@ -1,13 +1,6 @@
 import React from "react";
 
 const FormBasic = props => {
-  const handleEmailInputChange = event => {
-    props.setEmailInput(event.target.value);
-  };
-  const handlePasswordInputChange = event => {
-    props.setPasswordInput(event.target.value);
-  };
-
   return (
     <>
       <label>
@@ -15,7 +8,7 @@ const FormBasic = props => {
         <input
           type="email"
           value={props.emailInput}
-          onChange={handleEmailInputChange}
+          onChange={props.changeEmailInputHandler}
           placeholder="meno@email.sk"
           required
         />
@@ -25,7 +18,7 @@ const FormBasic = props => {
         <input
           type="password"
           value={props.passwordInput}
-          onChange={handlePasswordInputChange}
+          onChange={props.changePasswordInputHandler}
           placeholder="*****"
           required
         />

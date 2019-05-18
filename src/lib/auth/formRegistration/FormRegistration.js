@@ -1,22 +1,10 @@
 import React from "react";
 
-const FormRegistration = props => {
-  const handlePasswordConfirmInputChange = event => {
-    props.setPasswordConfirmInput(event.target.value);
-  };
-  const handleFirstNameInputChange = event => {
-    props.setFirstNameInput(event.target.value);
-  };
-  const handleLastNameInputChange = event => {
-    props.setLastNameInput(event.target.value);
-  };
-  const handleBirthDateInputChange = event => {
-    props.setBirthDateInput(event.target.value);
-  };
+import useCheckPasswordConfirmed from "../../../hooks/auth/useCheckPasswordConfirmed";
 
-  const checkPasswordConfirmed = () => {
-    return props.passwordInput !== props.passwordConfirmInput;
-  };
+const FormRegistration = props => {
+  const checkPasswordConfirmed = useCheckPasswordConfirmed();
+  const { passwordInput, passwordConfirmInput } = props;
 
   return (
     <>
@@ -25,11 +13,14 @@ const FormRegistration = props => {
         <input
           type="password"
           value={props.passwordConfirmInput}
-          onChange={handlePasswordConfirmInputChange}
+          onChange={props.changePasswordConfirmInputHandler}
           placeholder="*****"
           required
           style={{
-            backgroundColor: checkPasswordConfirmed()
+            backgroundColor: checkPasswordConfirmed({
+              passwordInput,
+              passwordConfirmInput
+            })
               ? "lightcoral"
               : "lightgreen"
           }}
@@ -40,7 +31,7 @@ const FormRegistration = props => {
         <input
           type="text"
           value={props.firstNameInput}
-          onChange={handleFirstNameInputChange}
+          onChange={props.changeFirstNameInputHandler}
           placeholder="Meno"
           required
         />
@@ -50,7 +41,7 @@ const FormRegistration = props => {
         <input
           type="text"
           value={props.lastNameInput}
-          onChange={handleLastNameInputChange}
+          onChange={props.changeLastNameInputHandler}
           placeholder="Priezvisko"
           required
         />
@@ -60,14 +51,17 @@ const FormRegistration = props => {
         <input
           type="date"
           value={props.birthDateInput}
-          onChange={handleBirthDateInputChange}
+          onChange={props.changeBirthDateInputHandler}
           required
         />
       </label>
       <input
         type="submit"
         value="Registrovať"
-        disabled={checkPasswordConfirmed()}
+        disabled={checkPasswordConfirmed({
+          passwordInput,
+          passwordConfirmInput
+        })}
       />
     </>
   );

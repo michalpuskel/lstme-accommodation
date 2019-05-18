@@ -2,31 +2,22 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import UserContext from "../../../config/UserContext";
-import { auth } from "../../../config/firebase";
+import useUserName from "../../../hooks/user/useUserName";
+import useLogOut from "../../../hooks/user/useLogOut";
 
 const NavUser = () => {
   const user = useContext(UserContext);
-
-  const getUserName = () => {
-    return `${user.first_name} ${user.last_name}`;
-  };
-
-  const logUserOut = async () => {
-    try {
-      await auth.signOut();
-    } catch (err) {
-      console.info("error", err);
-    }
-  };
+  const userName = useUserName();
+  const logOut = useLogOut();
 
   return (
     <ul>
       <li>
-        <NavLink to={`/user/${user.uid}`}>{getUserName()}</NavLink>
+        <NavLink to={`/user/${user.uid}`}>{userName(user)}</NavLink>
       </li>
 
       <li>
-        <button onClick={logUserOut}>Odhlásiť</button>
+        <button onClick={logOut}>Odhlásiť</button>
       </li>
     </ul>
   );

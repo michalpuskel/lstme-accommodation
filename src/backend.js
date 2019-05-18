@@ -1,59 +1,11 @@
 import { database } from "./firebase";
 
-const createUserWithId = async ({ uid, first_name, last_name, birth_date }) => {
-  const newUserDocRef = database.collection("users").doc(uid);
-  try {
-    await newUserDocRef.set({
-      first_name,
-      last_name,
-      birth_date,
-      is_supervisor: false,
-      is_super_admin: false,
-      room_id: null,
-      swap_user_id: null
-    });
-  } catch (err) {
-    console.info("error", err);
-  }
-};
-
 const loadUserWithId = ({ uid, email, setUser }) => {
   const userDocRef = database.collection("users").doc(uid);
   const unsubscribe = userDocRef.onSnapshot(
     userDocSnapshot => {
       const userDocData = userDocSnapshot.data();
       setUser({ uid, email, ...userDocData });
-    },
-    err => {
-      console.info("error", err);
-    }
-  );
-  return unsubscribe;
-};
-
-const loadRoomList = ({ setRoomList }) => {
-  const roomListRef = database.collection("room_list");
-  const unsubscribe = roomListRef.onSnapshot(
-    roomListSnapshot => {
-      let roomList = [];
-      roomListSnapshot.forEach(roomDoc => {
-        roomList.push(roomDoc.id);
-      });
-      setRoomList(roomList);
-    },
-    err => {
-      console.info("error", err);
-    }
-  );
-  return unsubscribe;
-};
-
-const loadRoomWithId = ({ uid, setRoom }) => {
-  const roomDocRef = database.collection("rooms").doc(uid);
-  const unsubscribe = roomDocRef.onSnapshot(
-    roomDocSnapshot => {
-      const roomDocData = roomDocSnapshot.data();
-      setRoom(roomDocData);
     },
     err => {
       console.info("error", err);
@@ -138,10 +90,7 @@ const updateDocumentProperty = async ({
 };
 
 export {
-  createUserWithId,
   loadUserWithId,
-  loadRoomList,
-  loadRoomWithId,
   loadBedList,
   loadBed,
   addUserToBedList,
