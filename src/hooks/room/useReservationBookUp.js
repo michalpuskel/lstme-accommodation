@@ -5,25 +5,23 @@ import { database, dbTimestamp } from "../../config/firebase";
 const useReservationBookUp = roomId => {
   const reservationBookUp = useCallback(
     async userId => {
-      //TODO transaction begin
+      const batch = database.batch();
+
       const userRef = database.collection("users").doc(userId);
-      try {
-        await userRef.update({ room_id: roomId });
-      } catch (error) {
-        console.error(error);
-      }
+      batch.update(userRef, { room_id: roomId });
 
       const bedRef = database
         .collection("rooms")
         .doc(roomId)
         .collection("beds")
         .doc(userId);
+      batch.set(bedRef, { timestamp: dbTimestamp });
+
       try {
-        await bedRef.set({ timestamp: dbTimestamp });
+        await batch.commit();
       } catch (error) {
         console.error(error);
       }
-      //TODO transaction end
     },
     [roomId]
   );
