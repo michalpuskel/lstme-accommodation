@@ -31,18 +31,7 @@ const loadBed = ({ userId, setBed }) => {
 
 
 
-const deleteUserFromBedList = async ({ roomId, userId }) => {
-  const bedRef = database
-    .collection("rooms")
-    .doc(roomId)
-    .collection("bed_list")
-    .doc(userId);
-  try {
-    await bedRef.delete();
-  } catch (err) {
-    console.info("error", err);
-  }
-};
+
 
 const updateDocumentProperty = async ({
   uid: { collection, document },
@@ -61,9 +50,6 @@ const updateDocumentProperty = async ({
 
 export {
   loadUserWithId,
-  loadBedList,
   loadBed,
-  addUserToBedList,
-  deleteUserFromBedList,
   updateDocumentProperty
 };

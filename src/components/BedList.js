@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import UserContext from "../UserContext";
 import {
-  addUserToBedList,
-  deleteUserFromBedList,
   updateDocumentProperty
 } from "../backend";
 import Bed from "./Bed";
@@ -36,23 +34,23 @@ class BedList extends Component {
   //   }
   // };
 
-  reservationCancel = async userId => {
-    try {
-      await deleteUserFromBedList({ roomId: this.props.roomId, userId });
-    } catch (err) {
-      console.info("error", err);
-    }
+  // reservationCancel = async userId => {
+  //   try {
+  //     await deleteUserFromBedList({ roomId: this.props.roomId, userId });
+  //   } catch (err) {
+  //     console.info("error", err);
+  //   }
 
-    try {
-      await updateDocumentProperty({
-        uid: { collection: "users", document: userId },
-        property: "room_id",
-        value: null
-      });
-    } catch (err) {
-      console.info("error", err);
-    }
-  };
+  //   try {
+  //     await updateDocumentProperty({
+  //       uid: { collection: "users", document: userId },
+  //       property: "room_id",
+  //       value: null
+  //     });
+  //   } catch (err) {
+  //     console.info("error", err);
+  //   }
+  // };
 
   handleSupervisorOnlyChange = async () => {
     if (!this.context.user.is_supervisor) {
