@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import UserContext from "../UserContext";
 import {
-  loadRoomWithId,
-  loadBedList,
   addUserToBedList,
   deleteUserFromBedList,
   updateDocumentProperty
@@ -12,65 +10,31 @@ import Bed from "./Bed";
 import BedEmpty from "./BedEmpty";
 
 class BedList extends Component {
-  state = {
-    room: {
-      bed_count: 0,
-      name: "",
-      is_supervisor_only: false,
-      description: ""
-    },
-    bedList: []
-  };
+  // getEmptyBedCount = () => {
+  //   return this.state.room.bed_count - this.state.bedList.length;
+  // };
 
-  componentDidMount() {
-    this.unsubscribeFromRoom = loadRoomWithId({
-      uid: this.props.roomId,
-      setRoom: this.setRoom
-    });
-    this.unsubscribeFromBedList = loadBedList({
-      roomId: this.props.roomId,
-      setBedList: this.setBedList
-    });
-  }
+  // generateEmptyBeds = count => {
+  //   return Array.from({ length: count }, (_, index) => index);
+  // };
 
-  componentWillUnmount() {
-    this.unsubscribeFromRoom();
-    this.unsubscribeFromBedList();
-  }
+  // reservationBookUp = async userId => {
+  //   try {
+  //     await updateDocumentProperty({
+  //       uid: { collection: "users", document: userId },
+  //       property: "room_id",
+  //       value: this.props.roomId
+  //     });
+  //   } catch (err) {
+  //     console.info("error", err);
+  //   }
 
-  setRoom = room => {
-    this.setState({ room });
-  };
-
-  setBedList = bedList => {
-    this.setState({ bedList });
-  };
-
-  getEmptyBedCount = () => {
-    return this.state.room.bed_count - this.state.bedList.length;
-  };
-
-  generateEmptyBeds = count => {
-    return Array.from({ length: count }, (_, index) => index);
-  };
-
-  reservationBookUp = async userId => {
-    try {
-      await updateDocumentProperty({
-        uid: { collection: "users", document: userId },
-        property: "room_id",
-        value: this.props.roomId
-      });
-    } catch (err) {
-      console.info("error", err);
-    }
-
-    try {
-      await addUserToBedList({ roomId: this.props.roomId, userId });
-    } catch (err) {
-      console.info("error", err);
-    }
-  };
+  //   try {
+  //     await addUserToBedList({ roomId: this.props.roomId, userId });
+  //   } catch (err) {
+  //     console.info("error", err);
+  //   }
+  // };
 
   reservationCancel = async userId => {
     try {

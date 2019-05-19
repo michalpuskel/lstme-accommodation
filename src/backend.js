@@ -14,25 +14,6 @@ const loadUserWithId = ({ uid, email, setUser }) => {
   return unsubscribe;
 };
 
-const loadBedList = ({ roomId, setBedList }) => {
-  const bedListRef = database
-    .collection("rooms")
-    .doc(roomId)
-    .collection("bed_list");
-  const unsubscribe = bedListRef.onSnapshot(
-    bedListSnapshot => {
-      let bedList = [];
-      bedListSnapshot.forEach(bedDoc => {
-        bedList.push(bedDoc.id);
-      });
-      setBedList(bedList);
-    },
-    err => {
-      console.info("error", err);
-    }
-  );
-  return unsubscribe;
-};
 
 const loadBed = ({ userId, setBed }) => {
   const userDocRef = database.collection("users").doc(userId);
@@ -48,18 +29,7 @@ const loadBed = ({ userId, setBed }) => {
   return unsubscribe;
 };
 
-const addUserToBedList = async ({ roomId, userId }) => {
-  const bedRef = database
-    .collection("rooms")
-    .doc(roomId)
-    .collection("bed_list")
-    .doc(userId);
-  try {
-    await bedRef.set({});
-  } catch (err) {
-    console.info("error", err);
-  }
-};
+
 
 const deleteUserFromBedList = async ({ roomId, userId }) => {
   const bedRef = database
