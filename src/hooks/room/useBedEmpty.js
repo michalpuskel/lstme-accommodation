@@ -1,18 +1,18 @@
-import { useContext, usecallback } from "react";
+import { useContext, useCallback } from "react";
 
 import UserContext from "../../config/UserContext";
 
 const useBedEmpty = (roomIsSupervisorOnly, onReservationBookUp) => {
-  const isAvailableBed = usecallback(
+  const isAvailableBed = useCallback(
     user => user.is_supervisor || !roomIsSupervisorOnly,
     [roomIsSupervisorOnly]
   );
 
-  const userIsAccommodated = usecallback(user => user.room_id !== null, []);
+  const userIsAccommodated = useCallback(user => user.room_id !== null, []);
 
   const user = useContext(UserContext);
 
-  const reservationBookUpHandler = usecallback(async () => {
+  const reservationBookUpHandler = useCallback(async () => {
     if (userIsAccommodated(user) || !isAvailableBed(user)) return;
 
     try {
@@ -20,7 +20,7 @@ const useBedEmpty = (roomIsSupervisorOnly, onReservationBookUp) => {
     } catch (error) {
       console.error(error);
     }
-  }, [user]);
+  }, [user, userIsAccommodated, isAvailableBed, onReservationBookUp]);
 
   return { user, isAvailableBed, userIsAccommodated, reservationBookUpHandler };
 };
