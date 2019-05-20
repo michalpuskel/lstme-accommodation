@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useCallback } from "react";
 
 import { database } from "../../config/firebase";
-import bedListReducer from "../reducers/listReducer";
+import bedListReducer from "../reducers/idListReducer";
 
 const useBeds = roomId => {
   const [bedList, dispatch] = useReducer(bedListReducer, {});
@@ -10,7 +10,7 @@ const useBeds = roomId => {
     bedChange => {
       dispatch({
         type: bedChange.type,
-        data: bedChange.doc.data()
+        id: bedChange.doc.id
       });
     },
     [dispatch]

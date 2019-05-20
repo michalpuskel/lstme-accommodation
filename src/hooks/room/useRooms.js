@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useCallback } from "react";
 
 import { database } from "../../config/firebase";
-import roomListReducer from "../reducers/listReducer";
+import roomListReducer from "../reducers/dataListReducer";
 
 const useRooms = () => {
   const [roomList, dispatch] = useReducer(roomListReducer, {});

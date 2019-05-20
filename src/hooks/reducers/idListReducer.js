@@ -1,11 +1,11 @@
-const listReducer = (state, action) => {
+const idListReducer = (state, action) => {
   switch (action.type) {
     case "added":
     case "modified":
-      return { ...state, [action.data.uid]: action.data };
+      return { ...state, [action.id]: action.id };
     case "removed":
       const newState = { ...state };
-      delete newState[action.data.uid];
+      delete newState[action.id];
       return newState;
     default:
       console.info("unknown action", action);
@@ -13,4 +13,4 @@ const listReducer = (state, action) => {
   }
 };
 
-export default listReducer;
+export default idListReducer;
