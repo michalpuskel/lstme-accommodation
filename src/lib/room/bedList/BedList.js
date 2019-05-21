@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import useBeds from "../../../hooks/room/useBeds";
 import useEmptyBedCount from "../../../hooks/room/useEmptyBedCount";
@@ -23,7 +24,9 @@ const BedList = props => {
       <table>
         <thead>
           <tr>
-            <th colSpan="2">izba: {props.name}</th>
+            <th colSpan="2">
+              <Link to={`/room/${props.uid}`}> izba: {props.name} </Link>
+            </th>
           </tr>
         </thead>
         <tbody>
