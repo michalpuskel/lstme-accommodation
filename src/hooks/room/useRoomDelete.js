@@ -1,11 +1,9 @@
 import { useCallback } from "react";
 
 import { database } from "../../config/firebase";
-import useBeds from "../../hooks/room/useBeds";
 
-const useRoomDelete = roomId => {
+const useRoomDelete = (roomId, accommodatedUsers) => {
   //TODO transaction 'collection' read / delete
-  const accommodatedUsers = useBeds(roomId);
 
   const roomDelete = useCallback(async () => {
     const roomRef = database.collection("rooms").doc(roomId);

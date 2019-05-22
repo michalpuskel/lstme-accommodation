@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import UserContext from "../../../config/UserContext";
 import useBeds from "../../../hooks/room/useBeds";
 import useEmptyBedCount from "../../../hooks/room/useEmptyBedCount";
 import useEmptyBeds from "../../../hooks/room/useEmptyBeds";
 import useReservationBookUp from "../../../hooks/room/useReservationBookUp";
 import useReservationCancel from "../../../hooks/room/useReservationCancel";
 import useChangeSupervisorOnlyHandler from "../../../hooks/room/useChangeSupervisorOnlyHandler";
+import useRoomDelete from "../../../hooks/room/useRoomDelete";
 
 import Bed from "../bed/Bed";
 import BedEmpty from "../bedEmpty/BedEmpty";
 
 const BedList = props => {
+  const user = useContext(UserContext);
   const bedList = useBeds(props.uid);
   const emptyBedCount = useEmptyBedCount();
   const emptyBeds = useEmptyBeds();
   const reservationBookUp = useReservationBookUp(props.uid);
   const reservationCancel = useReservationCancel(props.uid);
   const changeSupervisorOnlyHandler = useChangeSupervisorOnlyHandler(props.uid);
+  const roomDelete = useRoomDelete(props.uid, bedList);
 
   return (
     <div>
@@ -65,6 +69,7 @@ const BedList = props => {
         />
       </label>
       <div>{props.description}</div>
+      {user.is_supervisor && <button onClick={roomDelete}>Vymazať izbu</button>}
     </div>
   );
 };
