@@ -13,13 +13,14 @@ const FormBasic = props => {
           required
         />
       </label>
+
       <label>
         heslo:
         <input
           type="password"
           value={props.passwordInput}
           onChange={props.changePasswordInputHandler}
-          placeholder="*****"
+          placeholder="Heslo"
           required
         />
       </label>

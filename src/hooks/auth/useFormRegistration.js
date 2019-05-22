@@ -36,13 +36,9 @@ const useFormRegistration = () => {
 
   return {
     passwordConfirmInput,
-    setPasswordConfirmInput,
     firstNameInput,
-    setFirstNameInput,
     lastNameInput,
-    setLastNameInput,
     birthDateInput,
-    setBirthDateInput,
     changePasswordConfirmInputHandler,
     changeFirstNameInputHandler,
     changeLastNameInputHandler,

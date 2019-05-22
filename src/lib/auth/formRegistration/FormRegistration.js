@@ -14,7 +14,7 @@ const FormRegistration = props => {
           type="password"
           value={props.passwordConfirmInput}
           onChange={props.changePasswordConfirmInputHandler}
-          placeholder="*****"
+          placeholder="Potvrdenie hesla"
           required
           style={{
             backgroundColor: checkPasswordConfirmed({
@@ -26,6 +26,7 @@ const FormRegistration = props => {
           }}
         />
       </label>
+
       <label>
         meno:
         <input
@@ -36,6 +37,7 @@ const FormRegistration = props => {
           required
         />
       </label>
+
       <label>
         priezvisko:
         <input
@@ -46,6 +48,7 @@ const FormRegistration = props => {
           required
         />
       </label>
+
       <label>
         dátum narodenia:
         <input
@@ -55,6 +58,7 @@ const FormRegistration = props => {
           required
         />
       </label>
+
       <input
         type="submit"
         value="Registrovať"

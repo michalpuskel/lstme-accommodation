@@ -20,9 +20,7 @@ const useFormBasic = () => {
 
   return {
     emailInput,
-    setEmailInput,
     passwordInput,
-    setPasswordInput,
     changeEmailInputHandler,
     changePasswordInputHandler
   };

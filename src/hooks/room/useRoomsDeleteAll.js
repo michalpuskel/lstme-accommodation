@@ -8,7 +8,11 @@ const useRoomsDeleteAll = () => {
     setDeleteRooms(true);
   }, []);
 
-  return { deleteRooms, roomsDeleteAll };
+  const enableRoomsAdd = useCallback(() => {
+    setDeleteRooms(false);
+  }, []);
+
+  return { deleteRooms, roomsDeleteAll, enableRoomsAdd };
 };
 
 export default useRoomsDeleteAll;

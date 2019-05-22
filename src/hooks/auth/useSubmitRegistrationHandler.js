@@ -45,7 +45,8 @@ const useSubmitRegistrationHandler = ({ formBasic, formRegistration }) => {
       formRegistration.birthDateInput,
       formRegistration.firstNameInput,
       formRegistration.lastNameInput
-    ] //TODO question: is it worth to memoize? callback will update quite often on every input change...
+    ]
+    //TODO question: is it worth to memoize? callback will update quite often on every input change...
   );
 
   return submitRegistrationHandler;
