@@ -21,12 +21,7 @@ const Rooms = () => {
         </>
       )}
       {Object.keys(roomList).map(roomId => (
-        <BedList
-          key={roomId}
-          {...roomList[roomId]}
-          deleteAble={false}
-          deleteRooms={deleteRooms}
-        />
+        <BedList key={roomId} {...roomList[roomId]} deleteRooms={deleteRooms} />
       ))}
     </Layout>
   );

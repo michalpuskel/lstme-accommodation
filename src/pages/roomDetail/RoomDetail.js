@@ -15,7 +15,7 @@ const RoomDetail = props => {
       ) : room === null ? (
         <Redirect to="/" />
       ) : (
-        <BedList {...room} deleteAble={true} />
+        <BedList {...room} detail={true} />
       )}
     </Layout>
   );

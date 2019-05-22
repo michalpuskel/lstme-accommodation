@@ -9,6 +9,7 @@ import useReservationBookUp from "../../../hooks/room/useReservationBookUp";
 import useReservationCancel from "../../../hooks/room/useReservationCancel";
 import useChangeSupervisorOnlyHandler from "../../../hooks/room/useChangeSupervisorOnlyHandler";
 import useRoomDelete from "../../../hooks/room/useRoomDelete";
+import useBedAdd from "../../../hooks/room/useBedAdd";
 
 import Bed from "../bed/Bed";
 import BedEmpty from "../bedEmpty/BedEmpty";
@@ -22,6 +23,7 @@ const BedList = props => {
   const reservationCancel = useReservationCancel(props.uid);
   const changeSupervisorOnlyHandler = useChangeSupervisorOnlyHandler(props.uid);
   const roomDelete = useRoomDelete(props.uid, bedList);
+  const bedAdd = useBedAdd(props.uid);
 
   if (props.deleteRooms) {
     roomDelete();
@@ -29,9 +31,10 @@ const BedList = props => {
 
   return (
     <div>
-      {user.is_supervisor && props.deleteAble && (
+      {user.is_supervisor && props.detail && (
         <button onClick={roomDelete}>Vymazať izbu</button>
       )}
+
       <table>
         <thead>
           <tr>
@@ -75,7 +78,16 @@ const BedList = props => {
           onChange={changeSupervisorOnlyHandler}
         />
       </label>
-      <div>{props.description}</div>
+
+      {props.detail && (
+        <>
+          <div>{props.description}</div>
+
+          {user.is_supervisor && (
+            <button onClick={bedAdd}>Pridať posteľ</button>
+          )}
+        </>
+      )}
     </div>
   );
 };
