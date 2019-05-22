@@ -25,3 +25,4 @@ yarn-error.log*
 # private
 /.env.development
 /.env.production
+/src/resources/private
