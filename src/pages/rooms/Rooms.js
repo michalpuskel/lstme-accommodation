@@ -9,7 +9,9 @@ import BedList from "../../lib/room/bedList/BedList";
 const Rooms = () => {
   const user = useContext(UserContext);
   const roomList = useRooms();
-  const roomsDeleteAll = useRoomsDeleteAll(Object.keys(roomList));
+  const { deleteRooms, roomsDeleteAll } = useRoomsDeleteAll();
+
+  //TODO add room set deleteRooms={false}
 
   return (
     <Layout title="Rezervácia ubytovania">
@@ -17,7 +19,12 @@ const Rooms = () => {
         <button onClick={roomsDeleteAll}>Vymazať všetky izby</button>
       )}
       {Object.keys(roomList).map(roomId => (
-        <BedList key={roomId} {...roomList[roomId]} />
+        <BedList
+          key={roomId}
+          {...roomList[roomId]}
+          deleteAble={false}
+          deleteRooms={deleteRooms}
+        />
       ))}
     </Layout>
   );

@@ -4,7 +4,6 @@ import { database } from "../../config/firebase";
 
 const useRoomDelete = (roomId, accommodatedUsers) => {
   //TODO transaction 'collection' read / delete
-
   const roomDelete = useCallback(async () => {
     const roomRef = database.collection("rooms").doc(roomId);
     const bedsRef = database

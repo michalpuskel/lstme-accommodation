@@ -23,8 +23,15 @@ const BedList = props => {
   const changeSupervisorOnlyHandler = useChangeSupervisorOnlyHandler(props.uid);
   const roomDelete = useRoomDelete(props.uid, bedList);
 
+  if (props.deleteRooms) {
+    roomDelete();
+  }
+
   return (
     <div>
+      {user.is_supervisor && props.deleteAble && (
+        <button onClick={roomDelete}>Vymazať izbu</button>
+      )}
       <table>
         <thead>
           <tr>
@@ -69,7 +76,6 @@ const BedList = props => {
         />
       </label>
       <div>{props.description}</div>
-      {user.is_supervisor && <button onClick={roomDelete}>Vymazať izbu</button>}
     </div>
   );
 };
