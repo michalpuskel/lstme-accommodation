@@ -3,6 +3,7 @@ import React from "react";
 import useUserName from "../../../hooks/user/useUserName";
 import useUserAge from "../../../hooks/user/useUserAge";
 import useBed from "../../../hooks/room/useBed";
+import useIsMySwapper from "../../../hooks/room/useIsMySwapper";
 
 const Bed = props => {
   const userName = useUserName();
@@ -11,22 +12,30 @@ const Bed = props => {
     authedUser,
     user,
     isMyBed,
+    isSwapReady,
     reservationCancelHandler,
-    reservationKickOutHandler
+    onClickHandler
   } = useBed(props.userId, props.onReservationCancel);
+  const isMySwapper = useIsMySwapper();
 
   return (
     <tr
       style={{
-        backgroundColor: isMyBed() ? "deepskyblue" : "beige"
+        backgroundColor: isMyBed()
+          ? "deepskyblue"
+          : isSwapReady(user, authedUser)
+          ? "beige"
+          : isMySwapper(user, authedUser)
+          ? "orange"
+          : "lightgray"
       }}
-      onClick={reservationCancelHandler}
+      onClick={onClickHandler}
     >
       <td>{userName(user)}</td>
       <td>{userAge(user)}</td>
       {authedUser.is_super_admin && !isMyBed() && (
         <td>
-          <button onClick={reservationKickOutHandler}>Zrušiť rezerváciu</button>
+          <button onClick={reservationCancelHandler}>Zrušiť rezerváciu</button>
         </td>
       )}
     </tr>

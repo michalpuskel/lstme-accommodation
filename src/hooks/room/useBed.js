@@ -2,24 +2,17 @@ import { useCallback } from "react";
 
 import useUser from "../../hooks/user/useUser";
 import useIsMyRow from "../../hooks/user/useIsMyRow";
+import useIsSwapReady from "../../hooks/room/useIsSwapReady";
+import useSwapRequest from "../../hooks/room/useSwapRequest";
 
 const useBed = (userId, onReservationCancel) => {
   const user = useUser(userId);
-
   const { isMyRow, authedUser } = useIsMyRow(userId);
   const isMyBed = isMyRow;
+  const isSwapReady = useIsSwapReady();
+  const swapRequest = useSwapRequest(authedUser.uid, user.uid);
 
   const reservationCancelHandler = useCallback(async () => {
-    if (!isMyBed()) return;
-
-    try {
-      await onReservationCancel(userId);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMyBed, onReservationCancel, userId]);
-
-  const reservationKickOutHandler = useCallback(async () => {
     try {
       await onReservationCancel(userId);
     } catch (error) {
@@ -27,12 +20,32 @@ const useBed = (userId, onReservationCancel) => {
     }
   }, [onReservationCancel, userId]);
 
+  const onClickHandler = useCallback(async () => {
+    try {
+      if (isMyBed()) {
+        await reservationCancelHandler();
+      } else if (isSwapReady(user, authedUser)) {
+        await swapRequest();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [
+    isMyBed,
+    isSwapReady,
+    user,
+    authedUser,
+    reservationCancelHandler,
+    swapRequest
+  ]);
+
   return {
     authedUser,
     user,
     isMyBed,
+    isSwapReady,
     reservationCancelHandler,
-    reservationKickOutHandler
+    onClickHandler
   };
 };
 

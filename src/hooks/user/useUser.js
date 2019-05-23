@@ -6,7 +6,9 @@ const useUser = userId => {
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
-    birth_date: 0
+    birth_date: 0,
+    swap_received_from_id: null,
+    swap_sent_to_id: null
   });
 
   useEffect(() => {
