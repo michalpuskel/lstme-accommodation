@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import useUser from "../../hooks/user/useUser";
 import useIsMyRow from "../../hooks/user/useIsMyRow";
 import useIsSwapReady from "../../hooks/room/useIsSwapReady";
+import useLiveInSameRoom from "../../hooks/room/useLiveInSameRoom";
 import useSwapRequest from "../../hooks/room/useSwapRequest";
 
 const useBed = (userId, onReservationCancel) => {
@@ -10,6 +11,7 @@ const useBed = (userId, onReservationCancel) => {
   const { isMyRow, authedUser } = useIsMyRow(userId);
   const isMyBed = isMyRow;
   const isSwapReady = useIsSwapReady();
+  const liveInSameRoom = useLiveInSameRoom();
   const swapRequest = useSwapRequest(authedUser.uid, user.uid);
 
   const reservationCancelHandler = useCallback(async () => {
@@ -24,7 +26,10 @@ const useBed = (userId, onReservationCancel) => {
     try {
       if (isMyBed()) {
         await reservationCancelHandler();
-      } else if (isSwapReady(user, authedUser)) {
+      } else if (
+        isSwapReady(user, authedUser) &&
+        !liveInSameRoom(user, authedUser)
+      ) {
         await swapRequest();
       }
     } catch (error) {
@@ -33,6 +38,7 @@ const useBed = (userId, onReservationCancel) => {
   }, [
     isMyBed,
     isSwapReady,
+    liveInSameRoom,
     user,
     authedUser,
     reservationCancelHandler,
