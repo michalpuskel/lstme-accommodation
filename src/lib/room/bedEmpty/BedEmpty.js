@@ -14,7 +14,7 @@ const BedEmpty = props => {
     <tr
       style={{
         backgroundColor: userIsAccommodated(user)
-          ? "lightgray"
+          ? "beige"
           : isAvailableBed(user)
           ? "lightgreen"
           : "lightcoral"

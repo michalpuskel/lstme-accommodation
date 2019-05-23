@@ -18,7 +18,7 @@ const Bed = props => {
   return (
     <tr
       style={{
-        backgroundColor: isMyBed() ? "deepskyblue" : "lightgray"
+        backgroundColor: isMyBed() ? "deepskyblue" : "beige"
       }}
       onClick={reservationCancelHandler}
     >
