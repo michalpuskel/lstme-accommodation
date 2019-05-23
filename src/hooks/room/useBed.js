@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-import UserContext from "../../config/UserContext";
 import { database } from "../../config/firebase";
+import useIsMyRow from "../../hooks/user/useIsMyRow";
 
 const useBed = (userId, onReservationCancel) => {
   const [user, setUser] = useState({});
@@ -20,12 +20,8 @@ const useBed = (userId, onReservationCancel) => {
     };
   }, [userId]);
 
-  const authedUser = useContext(UserContext);
-
-  const isMyBed = useCallback(() => userId === authedUser.uid, [
-    userId,
-    authedUser.uid
-  ]);
+  const { isMyRow, authedUser } = useIsMyRow(userId);
+  const isMyBed = isMyRow;
 
   const reservationCancelHandler = useCallback(async () => {
     if (!isMyBed()) return;
