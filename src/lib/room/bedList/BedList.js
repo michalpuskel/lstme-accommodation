@@ -68,26 +68,37 @@ const BedList = props => {
               {emptyBedCount(props.bed_count, Object.keys(bedList).length)}
             </td>
           </tr>
+
+          <tr>
+            <td colSpan="2">
+              <label>
+                izba len pre vedúcich:
+                <input
+                  type="checkbox"
+                  checked={props.is_supervisor_only}
+                  onChange={changeSupervisorOnlyHandler}
+                />
+              </label>
+            </td>
+          </tr>
+
+          {props.detail && (
+            <>
+              <tr>
+                <td colSpan="2">{props.description}</td>
+              </tr>
+
+              {user.is_supervisor && (
+                <tr>
+                  <td colSpan="2">
+                    <button onClick={bedAdd}>Pridať posteľ</button>
+                  </td>
+                </tr>
+              )}
+            </>
+          )}
         </tfoot>
       </table>
-      <label>
-        izba len pre vedúcich:
-        <input
-          type="checkbox"
-          checked={props.is_supervisor_only}
-          onChange={changeSupervisorOnlyHandler}
-        />
-      </label>
-
-      {props.detail && (
-        <>
-          <div>{props.description}</div>
-
-          {user.is_supervisor && (
-            <button onClick={bedAdd}>Pridať posteľ</button>
-          )}
-        </>
-      )}
     </div>
   );
 };
