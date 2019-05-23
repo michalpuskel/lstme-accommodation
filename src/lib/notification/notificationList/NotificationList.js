@@ -25,7 +25,14 @@ const NotificationList = () => {
           onSwapCancel={swapCancel}
         />
       )}
-      {swapReceivedFromUser && <SwapReceived />}
+      {swapReceivedFromUser && (
+        <SwapReceived
+          {...swapReceivedFromUser}
+          roomNameMy={roomNameMy()}
+          roomNameSwapReceivedFrom={roomNameSwapReceivedFrom()}
+          onSwapDeny={swapDeny}
+        />
+      )}
     </>
   );
 };
