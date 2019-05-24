@@ -28,7 +28,7 @@ const useUser = userId => {
         unsubscribe();
       };
     }
-  }, [user, userId]);
+  }, [userId]);
 
   return user;
 };
