@@ -8,15 +8,17 @@ const Content = props => {
 
   return (
     <div className="hero-body">
-      <section>
-        <h1>{props.title}</h1>
-        {props.children}
-      </section>
-      {user && (
-        <aside>
-          <NotificationList />
-        </aside>
-      )}
+      <div className="container">
+        <section>
+          <h1>{props.title}</h1>
+          {props.children}
+        </section>
+        {user && (
+          <aside>
+            <NotificationList />
+          </aside>
+        )}
+      </div>
     </div>
   );
 };
