@@ -4,6 +4,7 @@ import UserContext from "../../config/UserContext";
 import useUser from "../../hooks/user/useUser";
 import useRoomName from "../../hooks/room/useRoomName";
 import useSwapCancel from "../../hooks/room/useSwapCancel";
+import useSwapAccept from "../../hooks/room/useSwapAccept";
 import useUserId from "../../hooks/user/useUserId";
 
 const useSwaps = () => {
@@ -21,6 +22,7 @@ const useSwaps = () => {
 
   const swapCancel = useSwapCancel(authedUserId(), swapSentToUserId());
   const swapDeny = useSwapCancel(swapReceivedFromUserId(), authedUserId());
+  const swapAccept = useSwapAccept(swapReceivedFromUserId(), authedUserId());
 
   return {
     swapSentToUser,
@@ -29,7 +31,8 @@ const useSwaps = () => {
     roomNameSwapSentTo,
     roomNameSwapReceivedFrom,
     swapCancel,
-    swapDeny
+    swapDeny,
+    swapAccept
   };
 };
 

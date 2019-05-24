@@ -13,7 +13,7 @@ const SwapReceived = props => {
         <em>{props.roomNameSwapReceivedFrom}</em> Ťa žiada o výmenu nocľahu. Ty
         bývaš na izbe <em>{props.roomNameMy}</em>.
       </p>
-      <button onClick={props.TODO}>Prijať</button>
+      <button onClick={props.onSwapAccept}>Prijať</button>
       <button onClick={props.onSwapDeny}>Odmietnuť</button>
     </div>
   );

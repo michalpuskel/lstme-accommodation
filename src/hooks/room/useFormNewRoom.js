@@ -15,7 +15,7 @@ const useFormNewRoom = () => {
 
   const changeBedCount = useCallback(
     event => {
-      setBedCount(event.target.value);
+      setBedCount(Number(event.target.value));
     },
     [setBedCount]
   );

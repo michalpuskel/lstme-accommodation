@@ -12,7 +12,8 @@ const NotificationList = () => {
     roomNameSwapSentTo,
     roomNameSwapReceivedFrom,
     swapCancel,
-    swapDeny
+    swapDeny,
+    swapAccept
   } = useSwaps();
 
   return (
@@ -31,6 +32,7 @@ const NotificationList = () => {
           roomNameMy={roomNameMy()}
           roomNameSwapReceivedFrom={roomNameSwapReceivedFrom()}
           onSwapDeny={swapDeny}
+          onSwapAccept={swapAccept}
         />
       )}
     </>
