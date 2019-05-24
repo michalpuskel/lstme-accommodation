@@ -9,15 +9,22 @@ const Content = props => {
   return (
     <div className="hero-body">
       <div className="container">
-        <section>
-          <h1>{props.title}</h1>
-          {props.children}
-        </section>
-        {user && (
-          <aside>
-            <NotificationList />
-          </aside>
-        )}
+        <div className="columns">
+          <div className="column is-three-quarters">
+            <section>
+              <h1 className="title">{props.title}</h1>
+              {props.children}
+            </section>
+          </div>
+
+          {user && (
+            <div className="column">
+              <aside>
+                <NotificationList />
+              </aside>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
