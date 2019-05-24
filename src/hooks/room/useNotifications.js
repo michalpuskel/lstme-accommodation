@@ -21,7 +21,7 @@ const useNotifications = userId => {
       .collection("notifications")
       .doc(userId)
       .collection("denials")
-      .orderBy("timestamp", "desc");
+      .orderBy("timestamp");
     const unsubscribe = ref.onSnapshot(
       snapshot => {
         snapshot.docChanges().forEach(changeHandler);

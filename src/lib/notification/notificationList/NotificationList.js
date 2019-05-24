@@ -46,6 +46,7 @@ const NotificationList = () => {
         <SwapDenied
           key={notificationId}
           {...notificationList[notificationId]}
+          authedUserId={authedUser.uid}
         />
       ))}
     </>
