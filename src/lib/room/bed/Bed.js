@@ -4,6 +4,7 @@ import useUserName from "../../../hooks/user/useUserName";
 import useUserAge from "../../../hooks/user/useUserAge";
 import useBed from "../../../hooks/room/useBed";
 import useIsMySwapper from "../../../hooks/room/useIsMySwapper";
+import useLiveInSameRoom from "../../../hooks/room/useLiveInSameRoom";
 
 const Bed = props => {
   const userName = useUserName();
@@ -17,6 +18,7 @@ const Bed = props => {
     onClickHandler
   } = useBed(props.userId, props.onReservationCancel);
   const isMySwapper = useIsMySwapper();
+  const liveInSameRoom = useLiveInSameRoom();
 
   return (
     <tr
@@ -27,6 +29,8 @@ const Bed = props => {
           ? "beige"
           : isMySwapper(user, authedUser)
           ? "orange"
+          : liveInSameRoom(user, authedUser)
+          ? "beige"
           : "lightgray"
       }}
       onClick={onClickHandler}
