@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./App.css";
+import "./App.scss";
 import UserContext from "../../config/UserContext";
 import Router from "../router/Router";
 

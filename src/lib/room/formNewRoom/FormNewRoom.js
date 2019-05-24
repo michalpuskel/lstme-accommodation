@@ -41,6 +41,18 @@ const FormNewRoom = props => {
         />
       </label>
 
+      {/* test */}
+      <div className="field">
+        <input
+          className="is-checkradio"
+          id="exampleCheckbox"
+          type="checkbox"
+          name="exampleCheckbox"
+        />
+        <label htmlFor="exampleCheckbox">Check me</label>
+      </div>
+      {/* test */}
+
       <label>
         popis:
         <textarea
