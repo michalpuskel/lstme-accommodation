@@ -8,9 +8,9 @@ const NotificationList = () => {
   const {
     swapSentToUser,
     swapReceivedFromUser,
-    roomNameMy,
-    roomNameSwapSentTo,
-    roomNameSwapReceivedFrom,
+    roomMy,
+    roomSwapSentTo,
+    roomSwapReceivedFrom,
     swapCancel,
     swapDeny,
     swapAccept
@@ -21,16 +21,16 @@ const NotificationList = () => {
       {swapSentToUser && (
         <SwapSent
           {...swapSentToUser}
-          roomNameMy={roomNameMy()}
-          roomNameSwapSentTo={roomNameSwapSentTo()}
+          roomMy={roomMy}
+          roomSwapSentTo={roomSwapSentTo}
           onSwapCancel={swapCancel}
         />
       )}
       {swapReceivedFromUser && (
         <SwapReceived
           {...swapReceivedFromUser}
-          roomNameMy={roomNameMy()}
-          roomNameSwapReceivedFrom={roomNameSwapReceivedFrom()}
+          roomMy={roomMy}
+          roomSwapReceivedFrom={roomSwapReceivedFrom}
           onSwapDeny={swapDeny}
           onSwapAccept={swapAccept}
         />

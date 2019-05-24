@@ -1,11 +1,11 @@
 import { useContext } from "react";
 
 import UserContext from "../../config/UserContext";
-import useUser from "../../hooks/user/useUser";
-import useRoomName from "../../hooks/room/useRoomName";
-import useSwapCancel from "../../hooks/room/useSwapCancel";
-import useSwapAccept from "../../hooks/room/useSwapAccept";
-import useUserId from "../../hooks/user/useUserId";
+import useUser from "../user/useUser";
+import useRoomInfo from "./useRoomInfo";
+import useSwapCancel from "./useSwapCancel";
+import useSwapAccept from "./useSwapAccept";
+import useUserId from "../user/useUserId";
 
 const useSwaps = () => {
   const authedUser = useContext(UserContext);
@@ -16,9 +16,9 @@ const useSwaps = () => {
   const swapSentToUserId = useUserId(swapSentToUser);
   const swapReceivedFromUserId = useUserId(swapReceivedFromUser);
 
-  const roomNameMy = useRoomName(authedUser);
-  const roomNameSwapSentTo = useRoomName(swapSentToUser);
-  const roomNameSwapReceivedFrom = useRoomName(swapReceivedFromUser);
+  const roomMy = useRoomInfo(authedUser);
+  const roomSwapSentTo = useRoomInfo(swapSentToUser);
+  const roomSwapReceivedFrom = useRoomInfo(swapReceivedFromUser);
 
   const swapCancel = useSwapCancel(authedUserId(), swapSentToUserId());
   const swapDeny = useSwapCancel(swapReceivedFromUserId(), authedUserId());
@@ -27,9 +27,9 @@ const useSwaps = () => {
   return {
     swapSentToUser,
     swapReceivedFromUser,
-    roomNameMy,
-    roomNameSwapSentTo,
-    roomNameSwapReceivedFrom,
+    roomMy,
+    roomSwapSentTo,
+    roomSwapReceivedFrom,
     swapCancel,
     swapDeny,
     swapAccept
