@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import useRoom from "../../hooks/room/useRoom";
 import Layout from "../../application/layout/layout/Layout";
 import BedList from "../../lib/room/bedList/BedList";
+import Loading from "../../lib/loading/Loading";
 
 const RoomDetail = props => {
   const room = useRoom(props.match.params.roomId);
@@ -11,7 +12,7 @@ const RoomDetail = props => {
   return (
     <Layout title={room ? `Rezervácia izby: ${room.name}` : ""}>
       {room === undefined ? (
-        <div>Loading...</div>
+        <Loading />
       ) : room === null ? (
         <Redirect to="/" />
       ) : (
