@@ -6,7 +6,7 @@ import Navigation from "../../../lib/nav/navigation/Navigation";
 const Header = () => {
   const user = useContext(UserContext);
 
-  return <header> {user && <Navigation />} </header>;
+  return <header className="hero-head"> {user && <Navigation />} </header>;
 };
 
 export default Header;

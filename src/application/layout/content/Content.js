@@ -7,7 +7,7 @@ const Content = props => {
   const user = useContext(UserContext);
 
   return (
-    <>
+    <div className="hero-body">
       <section>
         <h1>{props.title}</h1>
         {props.children}
@@ -17,7 +17,7 @@ const Content = props => {
           <NotificationList />
         </aside>
       )}
-    </>
+    </div>
   );
 };
 

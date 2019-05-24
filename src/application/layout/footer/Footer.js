@@ -6,9 +6,13 @@ const Footer = () => {
   const campTitle = useCampTitle();
 
   return (
-    <footer>
-      &copy; {campTitle()}
-      <a href={`mailto:${process.env.REACT_APP_CONTACT_EMAIL}`}>kontakt</a>
+    <footer className="footer hero-foot">
+      <div className="content has-text-centered">
+        <p>
+          &copy; {campTitle()}
+          <a href={`mailto:${process.env.REACT_APP_CONTACT_EMAIL}`}>kontakt</a>
+        </p>
+      </div>
     </footer>
   );
 };
