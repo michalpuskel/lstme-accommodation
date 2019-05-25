@@ -11,9 +11,11 @@ const Content = props => {
       <div className="container">
         <div className="columns">
           <div className="column is-three-quarters">
-            <section>
-              <h1 className="title">{props.title}</h1>
-              {props.children}
+            <section className="hero is-fullheight">
+              <div className="hero-head">
+                <h1 className="title">{props.title}</h1>
+              </div>
+              <div className="hero-body">{props.children}</div>
             </section>
           </div>
 
