@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./Navigation.scss";
 import useNav from "../../../hooks/utils/useNav";
 import NavLinks from "../navLinks/NavLinks";
 import NavUser from "../navUser/NavUser";

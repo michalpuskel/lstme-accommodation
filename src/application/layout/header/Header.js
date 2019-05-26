@@ -9,8 +9,9 @@ const Header = props => {
 
   return (
     <header className="hero-head">
-      {user && <Navigation />}
+      <div className="nav__border--bottom" />
       <div className="container">
+        {user && <Navigation />}
         <h1 className="title header__title">{props.title}</h1>
       </div>
     </header>
