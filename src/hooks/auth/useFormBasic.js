@@ -18,11 +18,15 @@ const useFormBasic = () => {
     [setPasswordInput]
   );
 
+  const email = "emailInput";
+  const password = "passwordInput";
+
   return {
     emailInput,
     passwordInput,
     changeEmailInputHandler,
-    changePasswordInputHandler
+    changePasswordInputHandler,
+    id: { email, password }
   };
 };
 
