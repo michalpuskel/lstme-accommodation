@@ -5,7 +5,7 @@ const FormBasic = props => {
   return (
     <>
       <div className="field">
-        <label className="label" for={props.id.email}>
+        <label className="label" htmlFor={props.id.email}>
           Email
         </label>
         <div className="control has-icons-left">
@@ -25,7 +25,7 @@ const FormBasic = props => {
       </div>
 
       <div className="field">
-        <label className="label" for={props.id.password}>
+        <label className="label" htmlFor={props.id.password}>
           Heslo
         </label>
         <div className="control has-icons-left">
