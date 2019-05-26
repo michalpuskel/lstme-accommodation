@@ -1,36 +1,23 @@
 import React from "react";
 
 import "./Navigation.scss";
+import useNav from "../../../hooks/utils/useNav";
 import NavLinks from "../navLinks/NavLinks";
 import NavUser from "../navUser/NavUser";
+import NavBrand from "../navBrand/NavBrand";
 
 const Navigation = () => {
+  const { showMenu, toggleMenu } = useNav();
+
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a
-          className="navbar-item"
-          href="http://lstme.sk"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h1 className="title">LSTME</h1>
-        </a>
-
-        <div
-          role="button"
-          className="navbar-burger burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navMenu"
-        >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-        </div>
+        <NavBrand showMenu={showMenu} toggleMenu={toggleMenu} />
       </div>
-
-      <div id="navMenu" className="navbar-menu">
+      <div
+        id="navMenu"
+        className={`navbar-menu ${showMenu ? "is-active" : ""}`}
+      >
         <NavLinks />
         <NavUser />
       </div>
