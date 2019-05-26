@@ -34,6 +34,11 @@ const useFormRegistration = () => {
     [setBirthDateInput]
   );
 
+  const passwordConfirm = "passwordConfirmInput";
+  const firstName = "firstNameInput";
+  const lastName = "lastNameInput";
+  const birthDate = "birthDateInput";
+
   return {
     passwordConfirmInput,
     firstNameInput,
@@ -42,7 +47,8 @@ const useFormRegistration = () => {
     changePasswordConfirmInputHandler,
     changeFirstNameInputHandler,
     changeLastNameInputHandler,
-    changeBirthDateInputHandler
+    changeBirthDateInputHandler,
+    id: { passwordConfirm, firstName, lastName, birthDate }
   };
 };
 
