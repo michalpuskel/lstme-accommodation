@@ -1,6 +1,7 @@
 import React from "react";
 
 import useCampTitle from "../../../hooks/user/useCampTitle";
+import logo from "../../../resources/img/lstme_logo_inverted.svg";
 
 const Footer = () => {
   const campTitle = useCampTitle();
@@ -11,6 +12,11 @@ const Footer = () => {
         <div className="level content">
           <div className="level-left">
             <div className="level-item">&copy; {campTitle()}</div>
+          </div>
+          <div className="level-item">
+            <a href="http://lstme.sk" target="_blank" rel="noopener noreferrer">
+              <img src={logo} alt="LSTME" width="96" height="96" />
+            </a>
           </div>
           <div className="level-right">
             <div className="level-item">
