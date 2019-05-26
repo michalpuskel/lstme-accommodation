@@ -40,9 +40,7 @@ const FormRegistration = props => {
             />
           </span> */}
         </div>
-        {check && (
-          <p className="help is-danger">Zadané emaily nie sú rovnaké</p>
-        )}
+        {check && <p className="help is-danger">Zadané heslá nie sú rovnaké</p>}
       </div>
 
       <div className="field">
