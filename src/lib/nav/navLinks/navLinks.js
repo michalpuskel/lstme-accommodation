@@ -7,16 +7,17 @@ const NavLinks = () => {
   const user = useContext(UserContext);
 
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Izby</NavLink>
-      </li>
+    <div className="navbar-start">
+      <NavLink className="navbar-item" to="/">
+        Izby
+      </NavLink>
+
       {user.is_super_admin && (
-        <li>
-          <NavLink to="/users">Účastníci</NavLink>
-        </li>
+        <NavLink className="navbar-item" to="/users">
+          Účastníci
+        </NavLink>
       )}
-    </ul>
+    </div>
   );
 };
 

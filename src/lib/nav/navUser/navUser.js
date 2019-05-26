@@ -11,15 +11,19 @@ const NavUser = () => {
   const logOut = useLogOut();
 
   return (
-    <ul>
-      <li>
-        <NavLink to={`/user/${user.uid}`}>{userName(user)}</NavLink>
-      </li>
+    <div className="navbar-end">
+      <div className="navbar-item">
+        <div className="buttons">
+          <NavLink className="button is-primary" to={`/user/${user.uid}`}>
+            <strong>{userName(user)}</strong>
+          </NavLink>
 
-      <li>
-        <button onClick={logOut}>Odhlásiť</button>
-      </li>
-    </ul>
+          <button className="button is-light" onClick={logOut}>
+            Odhlásiť
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
