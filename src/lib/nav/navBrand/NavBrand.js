@@ -1,5 +1,7 @@
 import React from "react";
 
+import NavBurger from "../navBurger/NavBurger";
+
 const NavBrand = props => {
   return (
     <>
@@ -11,18 +13,8 @@ const NavBrand = props => {
       >
         <h1 className="title">LSTME</h1>
       </a>
-      <div
-        role="button"
-        className={`navbar-burger burger ${props.showMenu ? "is-active" : ""}`}
-        aria-label="menu"
-        aria-expanded="false"
-        data-target="navMenu"
-        onClick={props.toggleMenu}
-      >
-        <span aria-hidden="true" />
-        <span aria-hidden="true" />
-        <span aria-hidden="true" />
-      </div>
+
+      <NavBurger showMenu={props.showMenu} toggleMenu={props.toggleMenu} />
     </>
   );
 };
