@@ -9,7 +9,7 @@ const Navigation = () => {
   const { showMenu, toggleMenu } = useNav();
 
   return (
-    <nav className="navbar" role="navigation" aria-label="main navigation">
+    <>
       <div className="navbar-brand">
         <NavBrand showMenu={showMenu} toggleMenu={toggleMenu} />
       </div>
@@ -20,7 +20,7 @@ const Navigation = () => {
         <NavLinks />
         <NavUser />
       </div>
-    </nav>
+    </>
   );
 };
 
