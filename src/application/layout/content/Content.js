@@ -11,10 +11,7 @@ const Content = props => {
       <div className="container">
         <div className="columns">
           <div className="column is-three-quarters">
-            <section>
-              <h1 className="title">{props.title}</h1>
-              {props.children}
-            </section>
+            <section>{props.children}</section>
           </div>
 
           {user && (

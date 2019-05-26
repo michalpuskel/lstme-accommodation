@@ -1,18 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import NavBurger from "../navBurger/NavBurger";
 
 const NavBrand = props => {
   return (
     <>
-      <a
-        className="navbar-item"
-        href="http://lstme.sk"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Link className="navbar-item" to="/">
         <h1 className="title">LSTME</h1>
-      </a>
+      </Link>
 
       <NavBurger showMenu={props.showMenu} toggleMenu={props.toggleMenu} />
     </>
