@@ -2,21 +2,19 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 
 import useRoom from "../../hooks/room/useRoom";
+import useRoomBreadcrumb from "../../hooks/room/useRoomBreadcrumb";
 import Layout from "../../application/layout/layout/Layout";
 import BedList from "../../lib/room/bedList/BedList";
 import Loading from "../../lib/loading/Loading";
 
 const RoomDetail = props => {
   const room = useRoom(props.match.params.roomId);
-  const breadcrumb = [
-    { path: "/", label: "Izby" },
-    { path: `/room/${room && room.uid}`, label: `Izba: ${room && room.name}` }
-  ];
+  const breadcrumb = useRoomBreadcrumb();
 
   return (
     <Layout
       title={room ? `Rezervácia izby: ${room.name}` : ""}
-      breadcrumb={breadcrumb}
+      breadcrumb={breadcrumb(room)}
     >
       {room === undefined ? (
         <Loading />

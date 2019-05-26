@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import "./Header.scss";
 import UserContext from "../../../config/UserContext";
 import Navigation from "../../../lib/nav/navigation/Navigation";
+import Breadcrumb from "../../../lib/nav/breadcrumb/Breadcrumb";
 
 const Header = props => {
   const user = useContext(UserContext);
@@ -12,6 +13,7 @@ const Header = props => {
       <div className="nav__border--bottom" />
       <div className="container">
         {user && <Navigation />}
+        {props.breadcrumb && <Breadcrumb breadcrumb={props.breadcrumb} />}
         <h1 className="title header__title">{props.title}</h1>
       </div>
     </header>

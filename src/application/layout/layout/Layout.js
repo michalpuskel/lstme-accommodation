@@ -7,7 +7,7 @@ import Footer from "../footer/Footer";
 const Layout = props => {
   return (
     <>
-      <Header title={props.title} />
+      <Header title={props.title} breadcrumb={props.breadcrumb} />
       <Content>{props.children}</Content>
       <Footer />
     </>

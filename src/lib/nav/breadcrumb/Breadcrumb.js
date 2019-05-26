@@ -1,25 +1,15 @@
 import React from "react";
 
+import "./Breadcrumb.scss";
 import BreadcrumbItem from "../breadcrumbItem/BreadcrumbItem";
 
 const Breadcrumb = props => {
   return (
     <nav className="breadcrumb" aria-label="breadcrumbs">
       <ul>
-        <li>
-          <a href="#">Bulma</a>
-        </li>
-        <li>
-          <a href="#">Documentation</a>
-        </li>
-        <li>
-          <a href="#">Components</a>
-        </li>
-        <li class="is-active">
-          <a href="#" aria-current="page">
-            Breadcrumb
-          </a>
-        </li>
+        {props.breadcrumb.map((item, index) => (
+          <BreadcrumbItem key={index} {...item} />
+        ))}
       </ul>
     </nav>
   );
