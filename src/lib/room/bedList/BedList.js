@@ -30,7 +30,7 @@ const BedList = props => {
   }
 
   return (
-    <div>
+    <div className="column is-narrow">
       {user.is_supervisor && props.detail && (
         <button onClick={roomDelete}>Vymazať izbu</button>
       )}

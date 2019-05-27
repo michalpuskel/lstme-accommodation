@@ -96,9 +96,16 @@ const Rooms = () => {
           </div>
         </>
       )}
-      {Object.keys(roomList).map(roomId => (
-        <BedList key={roomId} {...roomList[roomId]} deleteRooms={deleteRooms} />
-      ))}
+
+      <div className="columns is-multiline is-centered">
+        {Object.keys(roomList).map(roomId => (
+          <BedList
+            key={roomId}
+            {...roomList[roomId]}
+            deleteRooms={deleteRooms}
+          />
+        ))}
+      </div>
     </Layout>
   );
 };
