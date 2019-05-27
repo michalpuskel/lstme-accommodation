@@ -17,6 +17,8 @@ const useUsers = () => {
   );
 
   useEffect(() => {
+    dispatch({ type: "reset" });
+
     const ref = database
       .collection("users")
       .orderBy("is_supervisor", "desc")

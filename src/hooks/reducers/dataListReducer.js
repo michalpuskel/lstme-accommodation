@@ -7,6 +7,8 @@ const dataListReducer = (state, action) => {
       const newState = { ...state };
       delete newState[action.data.uid];
       return newState;
+    case "reset":
+      return {};
     default:
       console.info("unknown action", action);
       return state;

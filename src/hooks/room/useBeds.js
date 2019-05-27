@@ -17,6 +17,8 @@ const useBeds = roomId => {
   );
 
   useEffect(() => {
+    dispatch({ type: "reset" });
+
     const ref = database
       .collection("rooms")
       .doc(roomId)

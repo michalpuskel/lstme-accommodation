@@ -17,6 +17,8 @@ const useRooms = () => {
   );
 
   useEffect(() => {
+    dispatch({ type: "reset" });
+
     const ref = database.collection("rooms").orderBy("timestamp");
     const unsubscribe = ref.onSnapshot(
       snapshot => {

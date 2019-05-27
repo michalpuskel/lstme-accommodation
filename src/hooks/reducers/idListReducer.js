@@ -7,6 +7,8 @@ const idListReducer = (state, action) => {
       const newState = { ...state };
       delete newState[action.id];
       return newState;
+    case "reset":
+      return {};
     default:
       console.info("unknown action", action);
       return state;

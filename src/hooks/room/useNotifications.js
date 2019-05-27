@@ -17,6 +17,8 @@ const useNotifications = userId => {
   );
 
   useEffect(() => {
+    dispatch({ type: "reset" });
+
     const ref = database
       .collection("notifications")
       .doc(userId)
