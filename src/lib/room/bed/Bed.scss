@@ -1,0 +1,11 @@
+@import "src/resources/sass/variables";
+
+.table__tr-text--warning {
+  color: $warning-color-invert;
+
+  td {
+    strong {
+      color: $warning-color-invert;
+    }
+  }
+}

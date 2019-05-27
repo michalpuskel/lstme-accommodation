@@ -12,13 +12,13 @@ const BedEmpty = props => {
 
   return (
     <tr
-      style={{
-        backgroundColor: userIsAccommodated(user)
-          ? "beige"
+      className={
+        userIsAccommodated(user)
+          ? ""
           : isAvailableBed(user)
-          ? "lightgreen"
-          : "lightcoral"
-      }}
+          ? "has-background-success"
+          : "has-background-danger"
+      }
       onClick={reservationBookUpHandler}
     >
       <td colSpan={user.is_super_admin ? "3" : "2"}>&nbsp;</td>

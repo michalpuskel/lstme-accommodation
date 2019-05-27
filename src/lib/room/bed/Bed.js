@@ -1,5 +1,6 @@
 import React from "react";
 
+import "./Bed.scss";
 import useUserName from "../../../hooks/user/useUserName";
 import useUserAge from "../../../hooks/user/useUserAge";
 import useBed from "../../../hooks/room/useBed";
@@ -22,24 +23,31 @@ const Bed = props => {
 
   return (
     <tr
-      style={{
-        backgroundColor: isMyBed()
-          ? "deepskyblue"
+      className={
+        isMyBed()
+          ? "is-selected"
           : isSwapReady(user, authedUser)
-          ? "beige"
+          ? ""
           : isMySwapper(user, authedUser)
-          ? "orange"
+          ? "has-background-warning table__tr-text--warning"
           : liveInSameRoom(user, authedUser)
-          ? "beige"
-          : "lightgray"
-      }}
+          ? ""
+          : "has-background-grey-lighter"
+      }
       onClick={onClickHandler}
     >
-      <td>{userName(user)}</td>
+      <td>
+        <strong>{userName(user)}</strong>
+      </td>
       <td>{userAge(user)}</td>
       {authedUser.is_super_admin && !isMyBed() && (
         <td>
-          <button onClick={reservationCancelHandler}>Zrušiť rezerváciu</button>
+          <button
+            className="button is-danger is-outlined"
+            onClick={reservationCancelHandler}
+          >
+            Zrušiť rezerváciu
+          </button>
         </td>
       )}
     </tr>
