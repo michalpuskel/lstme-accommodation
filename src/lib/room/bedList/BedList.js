@@ -160,7 +160,7 @@ const BedList = props => {
                           placeholder="Bližší popis izby"
                           rows={4}
                           value={props.description}
-                          readonly
+                          readOnly
                         />
                       </div>
                     </div>
