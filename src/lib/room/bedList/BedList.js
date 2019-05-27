@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import "./BedList.scss";
 import UserContext from "../../../config/UserContext";
 import useBeds from "../../../hooks/room/useBeds";
 import useEmptyBedCount from "../../../hooks/room/useEmptyBedCount";
@@ -89,7 +90,7 @@ const BedList = props => {
 
       <div className="column is-narrow">
         <div className="box">
-          <table className="table">
+          <table className="table bed-list__table">
             <thead>
               <tr>
                 <th

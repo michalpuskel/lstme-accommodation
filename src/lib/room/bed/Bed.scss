@@ -26,3 +26,27 @@ table {
     vertical-align: middle;
   }
 }
+
+.is-hidden-mobile-xxs {
+  display: flex;
+
+  @media screen and (max-width: $breakpoint-mobile-xxs - 1px) {
+    display: none;
+  }
+}
+
+.is-visible-mobile-xxs {
+  display: none;
+
+  @media screen and (max-width: $breakpoint-mobile-xxs - 1px) {
+    display: flex;
+  }
+}
+
+.button {
+  .icon:last-child:not(:first-child) {
+    &.bed-list__icon--ban {
+      margin: auto;
+    }
+  }
+}

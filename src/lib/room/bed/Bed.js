@@ -41,13 +41,16 @@ const Bed = props => {
       </td>
       <td className="td--v-center">{userAge(user)}</td>
       {authedUser.is_super_admin && (
-        <td>
+        <td className="has-text-centered td--v-center">
           {!isMyBed() && (
             <button
               className="button is-danger is-outlined"
               onClick={reservationCancelHandler}
             >
-              Zrušiť rezerváciu
+              <span className="is-hidden-mobile-xxs">Zrušiť rezerváciu</span>
+              <span className="icon is-visible-mobile-xxs bed-list__icon--ban">
+                <i className="fas fa-ban" />
+              </span>
             </button>
           )}
         </td>
