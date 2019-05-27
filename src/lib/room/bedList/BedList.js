@@ -136,7 +136,9 @@ const BedList = props => {
                 >
                   <div className="field">
                     <input
-                      className="is-checkradio is-warning"
+                      className={`is-checkradio ${
+                        user.is_supervisor ? "is-success" : "is-danger"
+                      }`}
                       id={`room_${props.uid}`}
                       name={`room_${props.uid}`}
                       type="checkbox"

@@ -49,7 +49,7 @@ const FormNewRoom = props => {
 
       <div className="field">
         <input
-          className="is-checkradio is-warning"
+          className="is-checkradio is-success"
           id={id.isSupervisorOnly}
           name={id.isSupervisorOnly}
           type="checkbox"
