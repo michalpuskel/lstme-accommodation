@@ -3,7 +3,7 @@ import moment from "moment";
 
 const useElapsedTime = () => {
   const elapsedTime = useCallback(
-    timestamp => moment(timestamp.toDate()).fromNow(),
+    timestamp => timestamp && moment(timestamp.toDate()).fromNow(),
     []
   );
 
