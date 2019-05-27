@@ -9,7 +9,7 @@ const Content = props => {
   return (
     <div className="hero-body">
       <div className="container">
-        <div className="columns">
+        <div className="columns is-variable is-8">
           <div className="column is-three-quarters">
             <section>{props.children}</section>
           </div>

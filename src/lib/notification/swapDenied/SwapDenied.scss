@@ -1,0 +1,33 @@
+@keyframes notification-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(1deg);
+  }
+  40% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg) scale(1.02);
+  }
+  60% {
+    transform: rotate(-1deg) scale(0.99);
+  }
+  70% {
+    transform: rotate(1deg) scale(1.02);
+  }
+  80% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.notification--ring {
+  animation-name: notification-animation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
