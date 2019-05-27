@@ -21,7 +21,9 @@ const RoomDetail = props => {
       ) : room === null ? (
         <Redirect to="/" />
       ) : (
-        <BedList {...room} detail={true} />
+        <div className="columns is-multiline is-centered">
+          <BedList {...room} detail={true} />
+        </div>
       )}
     </Layout>
   );
