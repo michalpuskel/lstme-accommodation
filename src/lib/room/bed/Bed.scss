@@ -1,11 +1,28 @@
 @import "src/resources/sass/variables";
+@import "bulma";
 
 .table__tr-text--warning {
-  color: $warning-color-invert;
+  color: findColorInvert($warning);
 
   td {
     strong {
-      color: $warning-color-invert;
+      color: findColorInvert($warning);
     }
+  }
+}
+
+.table__tr-text--disabled {
+  color: findColorInvert($grey-lighter);
+
+  td {
+    strong {
+      color: findColorInvert($grey-lighter);
+    }
+  }
+}
+
+table {
+  .td--v-center {
+    vertical-align: middle;
   }
 }

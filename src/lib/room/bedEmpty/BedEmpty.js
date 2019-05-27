@@ -1,5 +1,6 @@
 import React from "react";
 
+import "./BedEmpty.scss";
 import useBedEmpty from "../../../hooks/room/useBedEmpty";
 
 const BedEmpty = props => {
@@ -16,8 +17,8 @@ const BedEmpty = props => {
         userIsAccommodated(user)
           ? ""
           : isAvailableBed(user)
-          ? "has-background-success"
-          : "has-background-danger"
+          ? "has-background-success item--clickable"
+          : "has-background-danger item--forbidden"
       }
       onClick={reservationBookUpHandler}
     >

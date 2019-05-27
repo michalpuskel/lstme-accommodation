@@ -25,21 +25,21 @@ const Bed = props => {
     <tr
       className={
         isMyBed()
-          ? "is-selected"
-          : isSwapReady(user, authedUser)
-          ? ""
-          : isMySwapper(user, authedUser)
-          ? "has-background-warning table__tr-text--warning"
+          ? "is-selected item--clickable"
           : liveInSameRoom(user, authedUser)
-          ? ""
-          : "has-background-grey-lighter"
+          ? "item--forbidden"
+          : isSwapReady(user, authedUser)
+          ? "item--clickable"
+          : isMySwapper(user, authedUser)
+          ? "has-background-warning table__tr-text--warning item--forbidden"
+          : "has-background-grey-lighter table__tr-text--disabled item--forbidden"
       }
       onClick={onClickHandler}
     >
-      <td>
+      <td className="td--v-center">
         <strong>{userName(user)}</strong>
       </td>
-      <td>{userAge(user)}</td>
+      <td className="td--v-center">{userAge(user)}</td>
       {authedUser.is_super_admin && !isMyBed() && (
         <td>
           <button

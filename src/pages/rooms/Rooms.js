@@ -97,7 +97,7 @@ const Rooms = () => {
         </>
       )}
 
-      <div className="columns is-multiline is-centered">
+      <div className="columns is-multiline is-centered is-vcentered">
         {Object.keys(roomList).map(roomId => (
           <BedList
             key={roomId}
