@@ -19,7 +19,7 @@ const Rooms = () => {
   const roomList = useRooms();
   const { deleteRooms, roomsDeleteAll, enableRoomsAdd } = useRoomsDeleteAll();
 
-  const { input, handler } = useFormNewRoom();
+  const { input, handler, id } = useFormNewRoom();
   const validName = useValidateNewRoomName(input.name);
   const newRoom = useModal();
   const submitRoomAddHandler = useSubmitRoomAddHandler(input, enableRoomsAdd);
@@ -48,7 +48,7 @@ const Rooms = () => {
             onSubmit={submitRoomAddHandler}
             active={newRoom.showModal}
           >
-            <FormNewRoom input={input} handler={handler} />
+            <FormNewRoom input={input} handler={handler} id={id} />
           </Modal>
 
           <Modal

@@ -46,6 +46,12 @@ const useFormNewRoom = () => {
       changeBedCount,
       changeIsSupervisorOnly,
       changeDescription
+    },
+    id: {
+      name: "nameInput",
+      bedCount: "bedCountInput",
+      isSupervisorOnly: "isSupervisorOnlyInput",
+      description: "descriptionInput"
     }
   };
 };
