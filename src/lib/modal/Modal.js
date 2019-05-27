@@ -24,7 +24,7 @@ const Modal = props => {
 
           <footer className="modal-card-foot">
             <input
-              className="button is-success"
+              className={`button ${props.button.action.class}`}
               type="submit"
               value={props.button.action.label}
               onClick={

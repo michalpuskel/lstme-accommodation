@@ -5,8 +5,9 @@ import useRooms from "../../hooks/room/useRooms";
 import useRoomsDeleteAll from "../../hooks/room/useRoomsDeleteAll";
 import useFormNewRoom from "../../hooks/room/useFormNewRoom";
 import useSubmitRoomAddHandler from "../../hooks/room/useSubmitRoomAddHandler";
-import useModalNewRoom from "../../hooks/modal/useModalNewRoom";
+import useModal from "../../hooks/utils/useModal";
 import useValidateNewRoomName from "../../hooks/room/useValidateNewRoomName";
+import useTrue from "../../hooks/utils/useTrue";
 
 import Layout from "../../application/layout/layout/Layout";
 import BedList from "../../lib/room/bedList/BedList";
@@ -20,9 +21,13 @@ const Rooms = () => {
 
   const { input, handler } = useFormNewRoom();
   const validName = useValidateNewRoomName(input.name);
-  const newRoom = useModalNewRoom();
+  const newRoom = useModal();
   const submitRoomAddHandler = useSubmitRoomAddHandler(input, enableRoomsAdd);
 
+  const deleteAll = useModal();
+  const trueFunction = useTrue();
+
+  //TODO refactor buttons
   return (
     <Layout title="Rezervácia ubytovania">
       {user.is_supervisor && (
@@ -32,27 +37,63 @@ const Rooms = () => {
             button={{
               action: {
                 label: "Vytvoriť izbu",
-                check: validName
+                check: validName,
+                class: "is-success"
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: newRoom.toggleModalNewRoom
+                handler: newRoom.toggleModal
               }
             }}
             onSubmit={submitRoomAddHandler}
-            active={newRoom.showModalNewRoom}
+            active={newRoom.showModal}
           >
             <FormNewRoom input={input} handler={handler} />
           </Modal>
 
-          <button
-            className="button is-success is-outlined"
-            onClick={newRoom.toggleModalNewRoom}
+          <Modal
+            title="Vymazanie izieb"
+            button={{
+              action: {
+                label: "Vymazať všetky izby",
+                check: trueFunction,
+                class: "is-danger"
+              },
+              dismiss: {
+                label: "Zrušiť",
+                handler: deleteAll.toggleModal
+              }
+            }}
+            onSubmit={roomsDeleteAll}
+            active={deleteAll.showModal}
           >
-            Pridať izbu
-          </button>
+            Skutočne si praješ vymazať všetky izby? Je to{" "}
+            <strong>nenávratná</strong> akcia.
+          </Modal>
 
-          <button onClick={roomsDeleteAll}>Vymazať všetky izby</button>
+          <div className="level auth__buttons">
+            <div className="level-left">
+              <div className="level-item">
+                <button
+                  className="button is-success is-outlined"
+                  onClick={newRoom.toggleModal}
+                >
+                  Pridať izbu
+                </button>
+              </div>
+            </div>
+
+            <div className="level-right">
+              <div className="level-item">
+                <button
+                  className="button is-danger is-outlined"
+                  onClick={deleteAll.toggleModal}
+                >
+                  Vymazať všetky izby
+                </button>
+              </div>
+            </div>
+          </div>
         </>
       )}
       {Object.keys(roomList).map(roomId => (
