@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import useBedEmpty from "../../../hooks/room/useBedEmpty";
 
@@ -21,7 +21,7 @@ const BedEmpty = props => {
       }}
       onClick={reservationBookUpHandler}
     >
-      <td colSpan="2">&nbsp;</td>
+      <td colSpan={user.is_super_admin ? "3" : "2"}>&nbsp;</td>
     </tr>
   );
 };

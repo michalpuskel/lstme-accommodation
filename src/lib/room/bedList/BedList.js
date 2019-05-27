@@ -88,60 +88,88 @@ const BedList = props => {
       )}
 
       <div className="column is-narrow">
-        <table>
-          <thead>
-            <tr>
-              <th colSpan="2">
-                <Link to={`/room/${props.uid}`}> izba: {props.name} </Link>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(bedList).map(userId => (
-              <Bed
-                key={userId}
-                userId={userId}
-                onReservationCancel={reservationCancel}
-              />
-            ))}
-            {emptyBeds(
-              emptyBedCount(props.bed_count, Object.keys(bedList).length)
-            ).map(index => (
-              <BedEmpty
-                key={index}
-                roomIsSupervisorOnly={props.is_supervisor_only}
-                onReservationBookUp={reservationBookUp}
-              />
-            ))}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan="2">
-                voľných miest:{" "}
-                {emptyBedCount(props.bed_count, Object.keys(bedList).length)}
-              </td>
-            </tr>
-
-            <tr>
-              <td colSpan="2">
-                <label>
-                  izba len pre vedúcich:
-                  <input
-                    type="checkbox"
-                    checked={props.is_supervisor_only}
-                    onChange={changeSupervisorOnlyHandler}
-                  />
-                </label>
-              </td>
-            </tr>
-
-            {props.detail && (
+        <div className="box">
+          <table className="table">
+            <thead>
               <tr>
-                <td colSpan="2">{props.description}</td>
+                <th
+                  colSpan={user.is_super_admin ? "3" : "2"}
+                  className="has-text-centered"
+                >
+                  <Link to={`/room/${props.uid}`}> izba: {props.name} </Link>
+                </th>
               </tr>
-            )}
-          </tfoot>
-        </table>
+            </thead>
+            <tbody>
+              {Object.keys(bedList).map(userId => (
+                <Bed
+                  key={userId}
+                  userId={userId}
+                  onReservationCancel={reservationCancel}
+                />
+              ))}
+              {emptyBeds(
+                emptyBedCount(props.bed_count, Object.keys(bedList).length)
+              ).map(index => (
+                <BedEmpty
+                  key={index}
+                  roomIsSupervisorOnly={props.is_supervisor_only}
+                  onReservationBookUp={reservationBookUp}
+                />
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td
+                  colSpan={user.is_super_admin ? "3" : "2"}
+                  className="has-text-centered"
+                >
+                  voľných miest:{" "}
+                  {emptyBedCount(props.bed_count, Object.keys(bedList).length)}
+                </td>
+              </tr>
+
+              <tr>
+                <td
+                  colSpan={user.is_super_admin ? "3" : "2"}
+                  className="has-text-centered"
+                >
+                  <div className="field">
+                    <input
+                      className="is-checkradio is-warning"
+                      id={`room_${props.uid}`}
+                      name={`room_${props.uid}`}
+                      type="checkbox"
+                      checked={props.is_supervisor_only}
+                      onChange={changeSupervisorOnlyHandler}
+                    />
+                    <label htmlFor={`room_${props.uid}`}>
+                      Izba len pre vedúcich
+                    </label>
+                  </div>
+                </td>
+              </tr>
+
+              {props.detail && (
+                <tr>
+                  <td colSpan={user.is_super_admin ? "3" : "2"}>
+                    <div className="field">
+                      <div className="control">
+                        <textarea
+                          className="textarea"
+                          placeholder="Bližší popis izby"
+                          rows={4}
+                          value={props.description}
+                          readonly
+                        />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              )}
+            </tfoot>
+          </table>
+        </div>
       </div>
     </>
   );
