@@ -1,14 +1,11 @@
 import React from "react";
 
-import useFormNewRoom from "../../../hooks/room/useFormNewRoom";
-import useSubmitRoomAddHandler from "../../../hooks/room/useSubmitRoomAddHandler";
-
+//TODO refactor
 const FormNewRoom = props => {
-  const { input, handler } = useFormNewRoom();
-  const submitRoomAddHandler = useSubmitRoomAddHandler(input, props.onRoomAdd);
+  const { input, handler } = props;
 
   return (
-    <form onSubmit={submitRoomAddHandler}>
+    <>
       <label>
         meno:
         <input
@@ -19,7 +16,6 @@ const FormNewRoom = props => {
           required
         />
       </label>
-
       <label>
         počet postelí:
         <input
@@ -31,7 +27,6 @@ const FormNewRoom = props => {
           required
         />
       </label>
-
       <label>
         izba len pre vedúcich:
         <input
@@ -40,7 +35,6 @@ const FormNewRoom = props => {
           onChange={handler.changeIsSupervisorOnly}
         />
       </label>
-
       <label>
         popis:
         <textarea
@@ -50,9 +44,7 @@ const FormNewRoom = props => {
           rows={4}
         />
       </label>
-
-      <input type="submit" value="Pridať izbu" />
-    </form>
+    </>
   );
 };
 
