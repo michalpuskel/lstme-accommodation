@@ -40,14 +40,16 @@ const Bed = props => {
         <strong>{userName(user)}</strong>
       </td>
       <td className="td--v-center">{userAge(user)}</td>
-      {authedUser.is_super_admin && !isMyBed() && (
+      {authedUser.is_super_admin && (
         <td>
-          <button
-            className="button is-danger is-outlined"
-            onClick={reservationCancelHandler}
-          >
-            Zrušiť rezerváciu
-          </button>
+          {!isMyBed() && (
+            <button
+              className="button is-danger is-outlined"
+              onClick={reservationCancelHandler}
+            >
+              Zrušiť rezerváciu
+            </button>
+          )}
         </td>
       )}
     </tr>
