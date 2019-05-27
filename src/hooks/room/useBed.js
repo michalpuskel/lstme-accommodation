@@ -14,13 +14,18 @@ const useBed = (userId, onReservationCancel) => {
   const liveInSameRoom = useLiveInSameRoom();
   const swapRequest = useSwapRequest(authedUser.uid, user.uid);
 
-  const reservationCancelHandler = useCallback(async () => {
-    try {
-      await onReservationCancel(userId);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [onReservationCancel, userId]);
+  const reservationCancelHandler = useCallback(
+    async event => {
+      event.stopPropagation();
+
+      try {
+        await onReservationCancel(userId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [onReservationCancel, userId]
+  );
 
   const onClickHandler = useCallback(async () => {
     try {
