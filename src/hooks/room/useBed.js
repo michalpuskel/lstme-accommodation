@@ -16,7 +16,7 @@ const useBed = (userId, onReservationCancel) => {
 
   const reservationCancelHandler = useCallback(
     async event => {
-      event.stopPropagation();
+      event && event.stopPropagation();
 
       try {
         await onReservationCancel(userId);
