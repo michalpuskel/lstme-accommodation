@@ -1,6 +1,6 @@
 import React from "react";
 
-import useCampTitle from "../../../hooks/user/useCampTitle";
+import useCampTitle from "../../../hooks/utils/useCampTitle";
 import logo from "../../../resources/img/logo.svg";
 
 const Footer = () => {
