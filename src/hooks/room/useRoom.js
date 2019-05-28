@@ -20,6 +20,7 @@ const useRoom = roomId => {
 
       return () => {
         unsubscribe();
+        setRoom(undefined);
       };
     }
   }, [roomId]);

@@ -17,8 +17,6 @@ const useUsers = () => {
   );
 
   useEffect(() => {
-    dispatch({ type: "reset" });
-
     const ref = database
       .collection("users")
       .orderBy("is_supervisor", "desc")
@@ -33,6 +31,7 @@ const useUsers = () => {
 
     return () => {
       unsubscribe();
+      dispatch({ type: "reset" });
     };
   }, [changeHandler]);
 

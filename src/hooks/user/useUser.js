@@ -26,6 +26,7 @@ const useUser = userId => {
 
       return () => {
         unsubscribe();
+        setUser(undefined);
       };
     }
   }, [userId]);

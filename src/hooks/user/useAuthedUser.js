@@ -25,6 +25,7 @@ const useAuthedUser = () => {
 
     return () => {
       unsubscribe && unsubscribe();
+      setAuthedUser(undefined);
     };
   }, []);
 

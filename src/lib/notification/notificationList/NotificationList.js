@@ -25,6 +25,7 @@ const NotificationList = () => {
 
   return (
     <>
+      {/* {console.log("SENT usr", swapSentToUser)} TODO feedback */}
       {swapSentToUser && (
         <SwapSent
           {...swapSentToUser}
@@ -33,6 +34,7 @@ const NotificationList = () => {
           onSwapCancel={swapCancel}
         />
       )}
+      {/* {console.log("RECEIVED usr", swapReceivedFromUser)} TODO feedback */}
       {swapReceivedFromUser && (
         <SwapReceived
           {...swapReceivedFromUser}

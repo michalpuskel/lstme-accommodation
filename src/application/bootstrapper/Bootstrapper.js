@@ -10,6 +10,7 @@ const Bootstrapper = () => {
 
   return (
     <BrowserRouter>
+      {/* {console.log("AUTH", authedUser)} TODO feedabck */}
       {authedUser === undefined ? <Loading /> : <App user={authedUser} />}
     </BrowserRouter>
   );

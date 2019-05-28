@@ -17,8 +17,6 @@ const useBeds = roomId => {
   );
 
   useEffect(() => {
-    dispatch({ type: "reset" });
-
     const ref = database
       .collection("rooms")
       .doc(roomId)
@@ -33,6 +31,7 @@ const useBeds = roomId => {
 
     return () => {
       unsubscribe();
+      dispatch({ type: "reset" });
     };
   }, [changeHandler, roomId]);
 
