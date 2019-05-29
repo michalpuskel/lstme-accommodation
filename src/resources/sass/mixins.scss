@@ -1,0 +1,17 @@
+@import "src/resources/sass/variables";
+
+@mixin display-is-hidden($breakpoint, $display) {
+  display: $display;
+
+  @media screen and (max-width: $breakpoint - 1px) {
+    display: none;
+  }
+}
+
+@mixin display-is-visible($breakpoint, $display) {
+  display: none;
+
+  @media screen and (max-width: $breakpoint - 1px) {
+    display: $display;
+  }
+}

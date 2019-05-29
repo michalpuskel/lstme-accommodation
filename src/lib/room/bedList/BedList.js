@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import "./BedList.scss";
 import UserContext from "../../../config/UserContext";
 import useBeds from "../../../hooks/room/useBeds";
 import useEmptyBedCount from "../../../hooks/room/useEmptyBedCount";
@@ -30,7 +29,7 @@ const BedList = props => {
   const roomDelete = useRoomDelete(props.uid, bedList);
   const bedAdd = useBedAdd(props.uid);
 
-  const deleteRoom = useModal();
+  const deleteRoomModal = useModal();
   const trueFunction = useTrue();
 
   if (props.deleteRooms) {
@@ -52,11 +51,11 @@ const BedList = props => {
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: deleteRoom.toggleModal
+                handler: deleteRoomModal.toggleModal
               }
             }}
             onSubmit={roomDelete}
-            active={deleteRoom.showModal}
+            active={deleteRoomModal.showModal}
           >
             Skutočne si praješ vymazať izbu: <em>{props.name}</em>? Je to{" "}
             <strong>nenávratná</strong> akcia.
@@ -78,7 +77,7 @@ const BedList = props => {
               <div className="level-item">
                 <button
                   className="button is-danger is-outlined"
-                  onClick={deleteRoom.toggleModal}
+                  onClick={deleteRoomModal.toggleModal}
                 >
                   Vymazať izbu
                 </button>
@@ -90,7 +89,7 @@ const BedList = props => {
 
       <div className="column is-narrow">
         <div className="box">
-          <table className="table bed-list__table">
+          <table className="table is-fullwidth">
             <thead>
               <tr>
                 <th

@@ -1,5 +1,6 @@
-@import "src/resources/sass/variables";
 @import "bulma";
+@import "src/resources/sass/variables";
+@import "src/resources/sass/mixins";
 
 .table__tr-text--warning {
   color: findColorInvert($warning);
@@ -28,19 +29,11 @@ table {
 }
 
 .is-hidden-mobile-xxs {
-  display: flex;
-
-  @media screen and (max-width: $breakpoint-mobile-xxs - 1px) {
-    display: none;
-  }
+  @include display-is-hidden($breakpoint-mobile-xxs, flex);
 }
 
 .is-visible-mobile-xxs {
-  display: none;
-
-  @media screen and (max-width: $breakpoint-mobile-xxs - 1px) {
-    display: flex;
-  }
+  @include display-is-visible($breakpoint-mobile-xxs, flex);
 }
 
 .button {

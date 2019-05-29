@@ -1,0 +1,18 @@
+@import "src/resources/sass/variables";
+@import "src/resources/sass/mixins";
+
+.td--is-hidden-mobile-xxs {
+  @include display-is-hidden($breakpoint-mobile-xxs, table-cell);
+}
+
+.td--is-visible-mobile-xxs {
+  @include display-is-visible($breakpoint-mobile-xxs, table-cell);
+}
+
+.td--is-hidden-fullhd {
+  @include display-is-hidden($breakpoint-fullhd, table-cell);
+}
+
+.td--is-visible-fullhd {
+  @include display-is-visible($breakpoint-fullhd, table-cell);
+}

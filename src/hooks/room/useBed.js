@@ -2,11 +2,11 @@ import { useCallback } from "react";
 
 import useUser from "../../hooks/user/useUser";
 import useIsMyRow from "../../hooks/user/useIsMyRow";
-import useIsSwapReady from "../../hooks/room/useIsSwapReady";
-import useLiveInSameRoom from "../../hooks/room/useLiveInSameRoom";
-import useSwapRequest from "../../hooks/room/useSwapRequest";
-import useSwapCancel from "../../hooks/room/useSwapCancel";
-import useSwapDeny from "../../hooks/room/useSwapDeny";
+import useIsSwapReady from "./useIsSwapReady";
+import useLiveInSameRoom from "./useLiveInSameRoom";
+import useSwapRequest from "./useSwapRequest";
+import useSwapCancel from "./useSwapCancel";
+import useSwapDeny from "./useSwapDeny";
 import useUserInfo from "../user/useUserInfo";
 import useRoomInfo from "./useRoomInfo";
 

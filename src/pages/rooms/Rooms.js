@@ -21,10 +21,10 @@ const Rooms = () => {
 
   const { input, handler, id } = useFormNewRoom();
   const validName = useValidateNewRoomName(input.name);
-  const newRoom = useModal();
+  const newRoomModal = useModal();
   const submitRoomAddHandler = useSubmitRoomAddHandler(input, enableRoomsAdd);
 
-  const deleteAll = useModal();
+  const deleteAllModal = useModal();
   const trueFunction = useTrue();
 
   //TODO refactor buttons
@@ -42,11 +42,11 @@ const Rooms = () => {
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: newRoom.toggleModal
+                handler: newRoomModal.toggleModal
               }
             }}
             onSubmit={submitRoomAddHandler}
-            active={newRoom.showModal}
+            active={newRoomModal.showModal}
           >
             <FormNewRoom input={input} handler={handler} id={id} />
           </Modal>
@@ -61,11 +61,11 @@ const Rooms = () => {
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: deleteAll.toggleModal
+                handler: deleteAllModal.toggleModal
               }
             }}
             onSubmit={roomsDeleteAll}
-            active={deleteAll.showModal}
+            active={deleteAllModal.showModal}
           >
             Skutočne si praješ vymazať všetky izby? Je to{" "}
             <strong>nenávratná</strong> akcia.
@@ -76,7 +76,7 @@ const Rooms = () => {
               <div className="level-item">
                 <button
                   className="button is-success is-outlined"
-                  onClick={newRoom.toggleModal}
+                  onClick={newRoomModal.toggleModal}
                 >
                   Pridať izbu
                 </button>
@@ -87,7 +87,7 @@ const Rooms = () => {
               <div className="level-item">
                 <button
                   className="button is-danger is-outlined"
-                  onClick={deleteAll.toggleModal}
+                  onClick={deleteAllModal.toggleModal}
                 >
                   Vymazať všetky izby
                 </button>

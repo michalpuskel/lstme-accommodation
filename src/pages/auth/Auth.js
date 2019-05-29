@@ -2,6 +2,7 @@ import React from "react";
 
 import "./Auth.scss";
 import useAuth from "../../hooks/auth/useAuth";
+
 import Layout from "../../application/layout/layout/Layout";
 import FormBasic from "../../lib/auth/formBasic/FormBasic";
 import FormRegistration from "../../lib/auth/formRegistration/FormRegistration";

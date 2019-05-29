@@ -8,8 +8,10 @@ const TableHeader = () => {
       <th>Priezvisko</th>
       <th>Vek</th>
       <th>Email</th>
-      <th colSpan="2">Práva</th>
-      <th>Izba</th>
+      <th colSpan="2" className="has-text-centered">
+        Práva
+      </th>
+      <th colSpan="2">Izba</th>
     </tr>
   );
 };

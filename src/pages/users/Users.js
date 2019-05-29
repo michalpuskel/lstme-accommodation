@@ -1,42 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 
 import useUsers from "../../hooks/user/useUsers";
 import useRooms from "../../hooks/room/useRooms";
-import User from "../../lib/user/user/User";
+import useModal from "../../hooks/utils/useModal";
+import useTrue from "../../hooks/utils/useTrue";
+import useUserName from "../../hooks/user/useUserName";
+
 import Layout from "../../application/layout/layout/Layout";
 import TableHeader from "../../lib/user/tableHeader/TableHeader";
+import UserRow from "../../lib/user/userRow/UserRow";
+import Modal from "../../lib/modal/Modal";
 
 const Users = () => {
   const userList = useUsers();
   const roomList = useRooms();
   const usersDeleteAll = null; // TODO admin auth
 
+  const deleteUserModal = useModal();
+  const trueFunction = useTrue();
+  const [deleteUser, setDeleteUser] = useState({});
+  const userName = useUserName();
+
   return (
     <Layout title="Zoznam účastníkov">
       <button onClick={usersDeleteAll}>Vymazať všetkých účastníkov</button>
 
-      <table>
-        <thead>
-          <TableHeader />
-        </thead>
-        <tbody>
-          {Object.keys(userList).map((userId, index) => {
-            const roomId = userList[userId].room_id;
-            const room = roomList[roomId];
-            return (
-              <User
-                key={userId}
-                {...userList[userId]}
-                roomName={room ? room.name : null}
-                index={index}
-              />
-            );
-          })}
-        </tbody>
-        <tfoot>
-          <TableHeader />
-        </tfoot>
-      </table>
+      <div className="box">
+        <table className="table is-fullwidth is-hoverable">
+          <thead>
+            <TableHeader />
+          </thead>
+
+          <tbody>
+            {Object.keys(userList).map((userId, index) => {
+              const roomId = userList[userId].room_id;
+              const room = roomList[roomId];
+              return (
+                <UserRow
+                  key={userId}
+                  {...userList[userId]}
+                  roomName={room ? room.name : null}
+                  index={index}
+                  setDeleteUser={setDeleteUser}
+                  toggleModal={deleteUserModal.toggleModal}
+                />
+              );
+            })}
+          </tbody>
+
+          <tfoot>
+            <TableHeader />
+          </tfoot>
+        </table>
+      </div>
+
+      <Modal
+        title={`Vymazanie používateľa: ${userName(deleteUser)}`}
+        button={{
+          action: {
+            label: "Vymazať konto",
+            check: trueFunction,
+            class: "is-danger"
+          },
+          dismiss: {
+            label: "Zrušiť",
+            handler: deleteUserModal.toggleModal
+          }
+        }}
+        onSubmit={deleteUser.userDelete}
+        active={deleteUserModal.showModal}
+      >
+        Skutočne si praješ vymazať účastníka: <em>{userName(deleteUser)}</em>?
+        Je to <strong>nenávratná</strong> akcia.
+      </Modal>
     </Layout>
   );
 };
