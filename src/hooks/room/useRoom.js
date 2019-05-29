@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 
 import { database } from "../../config/firebase";
+import useUnbreakableSpaces from "../utils/useUnbreakableSpaces";
 
 const useRoom = roomId => {
   const [room, setRoom] = useState(undefined);
+  const glueFormat = useUnbreakableSpaces();
 
   useEffect(() => {
     if (roomId === null) {
@@ -13,7 +15,12 @@ const useRoom = roomId => {
       const unsubscribe = ref.onSnapshot(
         snapshot => {
           const data = snapshot.data();
-          setRoom(data === undefined ? null : data);
+          if (data === undefined) {
+            setRoom(null);
+          } else {
+            data.name = glueFormat(data.name);
+            setRoom(data);
+          }
         },
         error => console.error(error)
       );
@@ -23,7 +30,7 @@ const useRoom = roomId => {
         setRoom(undefined);
       };
     }
-  }, [roomId]);
+  }, [glueFormat, roomId]);
 
   return room;
 };
