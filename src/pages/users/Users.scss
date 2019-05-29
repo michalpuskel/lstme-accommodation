@@ -1,0 +1,10 @@
+@import "src/resources/sass/variables";
+@import "src/resources/sass/mixins";
+
+.thead--is-hidden-mobile-xs {
+  @include display-is-hidden($breakpoint-mobile-xs, table-header-group);
+}
+
+.tfoot--is-hidden-mobile-xs {
+  @include display-is-hidden($breakpoint-mobile-xs, table-footer-group);
+}

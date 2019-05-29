@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import "./Users.scss";
 import useUsers from "../../hooks/user/useUsers";
 import useRooms from "../../hooks/room/useRooms";
 import useModal from "../../hooks/utils/useModal";
@@ -26,8 +27,8 @@ const Users = () => {
       <button onClick={usersDeleteAll}>Vymazať všetkých účastníkov</button>
 
       <div className="box">
-        <table className="table is-fullwidth is-hoverable">
-          <thead>
+        <table className="table is-fullwidth">
+          <thead className="thead--is-hidden-mobile-xs">
             <TableHeader />
           </thead>
 
@@ -48,14 +49,14 @@ const Users = () => {
             })}
           </tbody>
 
-          <tfoot>
+          <tfoot className="tfoot--is-hidden-mobile-xs">
             <TableHeader />
           </tfoot>
         </table>
       </div>
 
       <Modal
-        title={`Vymazanie používateľa: ${userName(deleteUser)}`}
+        title="Vymazanie používateľa"
         button={{
           action: {
             label: "Vymazať konto",

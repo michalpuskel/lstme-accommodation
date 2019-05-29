@@ -29,10 +29,10 @@ const SwapReceived = props => {
       </div>
 
       <footer className="card-footer">
-        <a href="#" className="card-footer-item" onClick={props.onSwapAccept}>
+        <a className="card-footer-item" onClick={props.onSwapAccept}>
           Prijať
         </a>
-        <a href="#" className="card-footer-item" onClick={props.onSwapDeny}>
+        <a className="card-footer-item" onClick={props.onSwapDeny}>
           Odmietnuť
         </a>
       </footer>

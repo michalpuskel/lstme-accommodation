@@ -28,7 +28,7 @@ const SwapSent = props => {
       </div>
 
       <footer className="card-footer">
-        <a href="#" className="card-footer-item" onClick={props.onSwapCancel}>
+        <a className="card-footer-item" onClick={props.onSwapCancel}>
           Zrušiť žiadosť
         </a>
       </footer>

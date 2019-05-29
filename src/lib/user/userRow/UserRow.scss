@@ -1,18 +1,67 @@
 @import "src/resources/sass/variables";
 @import "src/resources/sass/mixins";
 
-.td--is-hidden-mobile-xxs {
-  @include display-is-hidden($breakpoint-mobile-xxs, table-cell);
-}
-
-.td--is-visible-mobile-xxs {
-  @include display-is-visible($breakpoint-mobile-xxs, table-cell);
-}
-
 .td--is-hidden-fullhd {
   @include display-is-hidden($breakpoint-fullhd, table-cell);
 }
 
 .td--is-visible-fullhd {
   @include display-is-visible($breakpoint-fullhd, table-cell);
+}
+
+.td--is-hidden-desktop {
+  @include display-is-hidden($breakpoint-desktop, table-cell);
+}
+
+.td--is-hidden-tablet-xl {
+  @include display-is-hidden($breakpoint-tablet-xl, table-cell);
+}
+
+.td--is-visible-tablet-xl {
+  @include display-is-visible($breakpoint-tablet-xl, table-cell);
+}
+
+.td--is-visible-mobile-xs {
+  @include display-is-visible($breakpoint-mobile-xs, table-cell);
+}
+
+.td--hide-mobile-xs {
+  @include display-hide($breakpoint-mobile-xs);
+}
+
+table {
+  .mini-users__td {
+    padding: 16px 12px 6px 12px;
+  }
+}
+
+.mini-users__table {
+  tr {
+    &:first-child {
+      td {
+        padding-bottom: 16px;
+
+        span {
+          line-height: 36px;
+        }
+      }
+    }
+
+    td {
+      padding: 0;
+      border: none;
+
+      button {
+        float: right;
+      }
+
+      .radio--left {
+        float: left;
+      }
+
+      .radio--right {
+        float: right;
+      }
+    }
+  }
 }

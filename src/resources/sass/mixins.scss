@@ -15,3 +15,9 @@
     display: $display;
   }
 }
+
+@mixin display-hide($breakpoint) {
+  @media screen and (max-width: $breakpoint - 1px) {
+    display: none;
+  }
+}
