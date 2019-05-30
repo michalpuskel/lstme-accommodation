@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import "./BedList.scss";
 import UserContext from "../../../config/UserContext";
 import useBeds from "../../../hooks/room/useBeds";
 import useEmptyBedCount from "../../../hooks/room/useEmptyBedCount";
@@ -19,15 +20,19 @@ import Modal from "../../../lib/modal/Modal";
 
 // TODO refactor buttons
 const BedList = props => {
-  const user = useContext(UserContext);
   const bedList = useBeds(props.uid);
+  const user = useContext(UserContext);
+
   const emptyBedCount = useEmptyBedCount();
   const emptyBeds = useEmptyBeds();
+
   const reservationBookUp = useReservationBookUp(props.uid);
   const reservationCancel = useReservationCancel(props.uid);
   const changeSupervisorOnlyHandler = useChangeSupervisorOnlyHandler(props.uid);
+
   const roomDelete = useRoomDelete(props.uid, bedList);
   const bedAdd = useBedAdd(props.uid);
+  const bedDelete = null; // TODO bed remove
 
   const deleteRoomModal = useModal();
   const trueFunction = useTrue();
@@ -40,7 +45,52 @@ const BedList = props => {
   return (
     <>
       {user.is_supervisor && props.detail && (
-        <div className="column is-full">
+        <>
+          <div className="column is-full">
+            <div className="level">
+              <div className="level-left">
+                <div className="level-item room-detail__button--margin">
+                  <button className="button is-info is-outlined" onClick={null}>
+                    Upraviť izbu
+                  </button>
+                </div>
+              </div>
+
+              <div className="level-item">
+                <div className="columns">
+                  <div className="column has-text-centered">
+                    <button
+                      className="button is-success is-outlined"
+                      onClick={bedAdd}
+                    >
+                      Pridať posteľ
+                    </button>
+                  </div>
+
+                  <div className="column has-text-centered">
+                    <button
+                      className="button is-danger is-outlined"
+                      onClick={bedDelete}
+                    >
+                      Odobrať posteľ
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="level-right">
+                <div className="level-item room-detail__button--margin">
+                  <button
+                    className="button is-danger is-outlined"
+                    onClick={deleteRoomModal.toggleModal}
+                  >
+                    Vymazať izbu
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <Modal
             title={`Vymazanie izby: ${props.name}`}
             button={{
@@ -60,31 +110,7 @@ const BedList = props => {
             Skutočne si praješ vymazať izbu: <em>{props.name}</em>? Je to{" "}
             <strong>nenávratná</strong> akcia.
           </Modal>
-
-          <div className="level auth__buttons">
-            <div className="level-left">
-              <div className="level-item">
-                <button
-                  className="button is-success is-outlined"
-                  onClick={bedAdd}
-                >
-                  Pridať posteľ
-                </button>
-              </div>
-            </div>
-
-            <div className="level-right">
-              <div className="level-item">
-                <button
-                  className="button is-danger is-outlined"
-                  onClick={deleteRoomModal.toggleModal}
-                >
-                  Vymazať izbu
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        </>
       )}
 
       <div className="column is-narrow">

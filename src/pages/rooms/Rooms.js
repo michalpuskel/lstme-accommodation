@@ -71,7 +71,7 @@ const Rooms = () => {
             <strong>nenávratná</strong> akcia.
           </Modal>
 
-          <div className="level auth__buttons">
+          <div className="level">
             <div className="level-left">
               <div className="level-item">
                 <button
