@@ -15,16 +15,28 @@ import Modal from "../../lib/modal/Modal";
 const Users = () => {
   const userList = useUsers();
   const roomList = useRooms();
+
+  const deleteAllModal = useModal();
   const usersDeleteAll = null; // TODO admin auth
 
   const deleteUserModal = useModal();
-  const trueFunction = useTrue();
   const [deleteUser, setDeleteUser] = useState({});
+
+  const trueFunction = useTrue();
   const userName = useUserName();
 
   return (
     <Layout title="Zoznam účastníkov">
-      <button onClick={usersDeleteAll}>Vymazať všetkých účastníkov</button>
+      <div className="level">
+        <div className="level-item">
+          <button
+            className="button is-danger is-outlined"
+            onClick={deleteAllModal.toggleModal}
+          >
+            Vymazať všetkých účastníkov
+          </button>
+        </div>
+      </div>
 
       <div className="box">
         <table className="table is-fullwidth">
@@ -73,6 +85,26 @@ const Users = () => {
       >
         Skutočne si praješ vymazať účastníka: <em>{userName(deleteUser)}</em>?
         Je to <strong>nenávratná</strong> akcia.
+      </Modal>
+
+      <Modal
+        title="Vymazanie používateľov"
+        button={{
+          action: {
+            label: "Vymazať všetkých účastníkov",
+            check: trueFunction,
+            class: "is-danger"
+          },
+          dismiss: {
+            label: "Zrušiť",
+            handler: deleteAllModal.toggleModal
+          }
+        }}
+        onSubmit={usersDeleteAll}
+        active={deleteAllModal.showModal}
+      >
+        Skutočne si praješ vymazať všetkých účastníkov? Je to{" "}
+        <strong>nenávratná</strong> akcia.
       </Modal>
     </Layout>
   );
