@@ -2,7 +2,9 @@ import { useCallback } from "react";
 
 import { database, dbTimestamp } from "../../config/firebase";
 
-const useSwapDeny = (senderId, recipientInfo, recipientRoom) => {
+const useSwapDeny = (senderId, recipientInfo, recipientRoom, type) => {
+  // console.log(type); // TODO
+
   const swapDeny = useCallback(async () => {
     const batch = database.batch();
 
@@ -24,6 +26,7 @@ const useSwapDeny = (senderId, recipientInfo, recipientRoom) => {
         last_name: recipientInfo.last_name()
       },
       room: recipientRoom.name(),
+      type,
       timestamp: dbTimestamp
     });
 
@@ -32,7 +35,7 @@ const useSwapDeny = (senderId, recipientInfo, recipientRoom) => {
     } catch (error) {
       console.error(error);
     }
-  }, [recipientInfo, recipientRoom, senderId]);
+  }, [recipientInfo, recipientRoom, senderId, type]);
 
   return swapDeny;
 };

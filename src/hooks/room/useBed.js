@@ -22,7 +22,12 @@ const useBed = (userId, onReservationCancel) => {
 
   const userInfo = useUserInfo(user);
   const roomInfo = useRoomInfo(user);
-  const swapDeny = useSwapDeny(user.swap_received_from_id, userInfo, roomInfo);
+  const swapDeny = useSwapDeny(
+    user.swap_received_from_id,
+    userInfo,
+    roomInfo,
+    "user-abandon"
+  );
 
   const reservationCancelHandler = useCallback(
     async event => {

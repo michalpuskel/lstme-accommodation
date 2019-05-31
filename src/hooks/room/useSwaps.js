@@ -28,7 +28,8 @@ const useSwaps = () => {
   const swapDeny = useSwapDeny(
     swapReceivedFromUserInfo.uid(),
     authedUserInfo,
-    roomMy
+    roomMy,
+    "user-deny"
   );
   const swapAccept = useSwapAccept(
     swapReceivedFromUserInfo.uid(),
