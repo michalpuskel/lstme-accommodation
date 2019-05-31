@@ -13,11 +13,15 @@ import useChangeSupervisorOnlyHandler from "../../../hooks/room/useChangeSupervi
 import useRoomDelete from "../../../hooks/room/useRoomDelete";
 import useBedAdd from "../../../hooks/room/useBedAdd";
 import useBedDelete from "../../../hooks/room/useBedDelete";
+import useSubmitRoomEditHandler from "../../../hooks/room/useSubmitRoomEditHandler";
+import useFormEditRoom from "../../../hooks/room/useFormEditRoom";
 import useModal from "../../../hooks/utils/useModal";
+import useValidateNewRoomName from "../../../hooks/room/useValidateNewRoomName";
 import useTrue from "../../../hooks/utils/useTrue";
 
 import Bed from "../bed/Bed";
 import BedEmpty from "../bedEmpty/BedEmpty";
+import FormEditRoom from "../../../lib/room/formEditRoom/FormEditRoom";
 import Modal from "../../../lib/modal/Modal";
 
 // TODO refactor buttons
@@ -43,6 +47,11 @@ const BedList = props => {
   const deleteRoomModal = useModal();
   const trueFunction = useTrue();
 
+  const { input, handler, id } = useFormEditRoom(props.name, props.description);
+  const validName = useValidateNewRoomName(input.name);
+  const editRoomModal = useModal();
+  const submitRoomEditHandler = useSubmitRoomEditHandler(props.uid, input);
+
   if (props.deleteRooms) {
     roomDelete();
   }
@@ -56,7 +65,10 @@ const BedList = props => {
             <div className="level">
               <div className="level-left">
                 <div className="level-item room-detail__button--margin">
-                  <button className="button is-info is-outlined" onClick={null}>
+                  <button
+                    className="button is-info is-outlined"
+                    onClick={editRoomModal.toggleModal}
+                  >
                     Upraviť izbu
                   </button>
                 </div>
@@ -116,6 +128,25 @@ const BedList = props => {
           >
             Skutočne si praješ vymazať izbu: <em>{props.name}</em>? Je to{" "}
             <strong>nenávratná</strong> akcia.
+          </Modal>
+
+          <Modal
+            title="Úprava izby"
+            button={{
+              action: {
+                label: "Uložiť úpravy",
+                check: validName,
+                class: "is-info"
+              },
+              dismiss: {
+                label: "Zrušiť",
+                handler: editRoomModal.toggleModal
+              }
+            }}
+            onSubmit={submitRoomEditHandler}
+            active={editRoomModal.showModal}
+          >
+            <FormEditRoom input={input} handler={handler} id={id} />
           </Modal>
         </>
       )}
