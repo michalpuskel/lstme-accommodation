@@ -18,3 +18,4 @@ export const auth = firebase.auth();
 export const database = firebase.firestore();
 export const dbTimestamp = firebase.firestore.FieldValue.serverTimestamp();
 export const dbIncrement = firebase.firestore.FieldValue.increment(1);
+export const dbDecrement = firebase.firestore.FieldValue.increment(-1);

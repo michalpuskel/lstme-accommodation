@@ -6,11 +6,13 @@ import UserContext from "../../../config/UserContext";
 import useBeds from "../../../hooks/room/useBeds";
 import useEmptyBedCount from "../../../hooks/room/useEmptyBedCount";
 import useEmptyBeds from "../../../hooks/room/useEmptyBeds";
+import useFreeBedExists from "../../../hooks/room/useFreeBedExists";
 import useReservationBookUp from "../../../hooks/room/useReservationBookUp";
 import useReservationCancel from "../../../hooks/room/useReservationCancel";
 import useChangeSupervisorOnlyHandler from "../../../hooks/room/useChangeSupervisorOnlyHandler";
 import useRoomDelete from "../../../hooks/room/useRoomDelete";
 import useBedAdd from "../../../hooks/room/useBedAdd";
+import useBedDelete from "../../../hooks/room/useBedDelete";
 import useModal from "../../../hooks/utils/useModal";
 import useTrue from "../../../hooks/utils/useTrue";
 
@@ -25,6 +27,10 @@ const BedList = props => {
 
   const emptyBedCount = useEmptyBedCount();
   const emptyBeds = useEmptyBeds();
+  const freeBedExists = useFreeBedExists(
+    props.bed_count,
+    Object.keys(bedList).length
+  );
 
   const reservationBookUp = useReservationBookUp(props.uid);
   const reservationCancel = useReservationCancel(props.uid);
@@ -32,7 +38,7 @@ const BedList = props => {
 
   const roomDelete = useRoomDelete(props.uid, bedList);
   const bedAdd = useBedAdd(props.uid);
-  const bedDelete = null; // TODO bed remove
+  const bedDelete = useBedDelete(props.uid);
 
   const deleteRoomModal = useModal();
   const trueFunction = useTrue();
@@ -71,6 +77,7 @@ const BedList = props => {
                     <button
                       className="button is-danger is-outlined"
                       onClick={bedDelete}
+                      disabled={!freeBedExists()}
                     >
                       Odobrať posteľ
                     </button>
