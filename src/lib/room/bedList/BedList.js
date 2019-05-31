@@ -62,7 +62,7 @@ const BedList = props => {
       {user.is_supervisor && props.detail && (
         <>
           <div className="column is-full">
-            <div className="level">
+            <div className="level room-detail__buttons">
               <div className="level-left">
                 <div className="level-item room-detail__button--margin">
                   <button
@@ -74,7 +74,7 @@ const BedList = props => {
                 </div>
               </div>
 
-              <div className="level-item">
+              <div className="level-item room-detail__buttons--middle">
                 <div className="columns">
                   <div className="column has-text-centered">
                     <button

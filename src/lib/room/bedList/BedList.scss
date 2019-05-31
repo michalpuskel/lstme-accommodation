@@ -1,3 +1,18 @@
+@import "src/resources/sass/variables";
+
+$buttons-margin: 12px;
+
+.room-detail__buttons {
+  margin-bottom: $buttons-margin;
+}
+
 .room-detail__button--margin {
-  margin-bottom: 12px;
+  @media screen and (max-width: $breakpoint-tablet - 1px) {
+    margin-bottom: $buttons-margin;
+  }
+}
+
+.room-detail__buttons--middle {
+  margin-left: $buttons-margin;
+  margin-right: $buttons-margin;
 }
