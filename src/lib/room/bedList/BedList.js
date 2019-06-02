@@ -170,6 +170,7 @@ const BedList = props => {
                   key={userId}
                   userId={userId}
                   onReservationCancel={reservationCancel}
+                  detail={props.detail}
                 />
               ))}
               {emptyBeds(

@@ -42,7 +42,7 @@ const Bed = props => {
       <td className="td--v-center">{userAge(user)}</td>
       {authedUser.is_super_admin && (
         <td className="has-text-centered td--v-center">
-          {!isMyBed() && (
+          {!isMyBed() && props.detail && (
             <button
               className="button is-danger is-outlined"
               onClick={reservationCancelHandler}
