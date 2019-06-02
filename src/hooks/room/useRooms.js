@@ -1,24 +1,24 @@
 import { useReducer, useEffect, useCallback } from "react";
 
 import { database } from "../../config/firebase";
-import roomListReducer from "../reducers/dataListReducer";
+import reducer from "../_reducers/reducer";
 import useUnbreakableSpaces from "../utils/useUnbreakableSpaces";
 
 const useRooms = () => {
-  const [roomList, dispatch] = useReducer(roomListReducer, {});
+  const [roomList, dispatch] = useReducer(reducer, {});
   const glueFormat = useUnbreakableSpaces();
 
   const changeHandler = useCallback(
-    roomChange => {
-      const data = roomChange.doc.data();
+    change => {
+      const data = change.doc.data();
       data.name = glueFormat(data.name);
-
       dispatch({
-        type: roomChange.type,
+        type: change.type,
+        id: data.uid,
         data
       });
     },
-    [dispatch, glueFormat]
+    [glueFormat]
   );
 
   useEffect(() => {

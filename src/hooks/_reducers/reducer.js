@@ -1,11 +1,11 @@
-const dataListReducer = (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case "added":
     case "modified":
-      return { ...state, [action.data.uid]: action.data };
+      return { ...state, [action.id]: action.data };
     case "removed":
       const newState = { ...state };
-      delete newState[action.data.uid];
+      delete newState[action.id];
       return newState;
     case "reset":
       return {};
@@ -15,4 +15,4 @@ const dataListReducer = (state, action) => {
   }
 };
 
-export default dataListReducer;
+export default reducer;

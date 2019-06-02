@@ -1,20 +1,19 @@
 import { useReducer, useEffect, useCallback } from "react";
 
 import { database } from "../../config/firebase";
-import userListReducer from "../reducers/dataListReducer";
+import reducer from "../_reducers/reducer";
 
 const useUsers = () => {
-  const [userList, dispatch] = useReducer(userListReducer, {});
+  const [userList, dispatch] = useReducer(reducer, {});
 
-  const changeHandler = useCallback(
-    userChange => {
-      dispatch({
-        type: userChange.type,
-        data: userChange.doc.data()
-      });
-    },
-    [dispatch]
-  );
+  const changeHandler = useCallback(change => {
+    const data = change.doc.data();
+    dispatch({
+      type: change.type,
+      id: data.uid,
+      data
+    });
+  }, []);
 
   useEffect(() => {
     const ref = database
