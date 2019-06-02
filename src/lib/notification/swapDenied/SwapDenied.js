@@ -19,27 +19,32 @@ const SwapDenied = props => {
         case "user-deny":
           return (
             <>
-              Účastník <strong>{userName(props.user)}</strong> z izby{" "}
-              <em>{props.room}</em> <strong>zamietol</strong> Tvoju žiadosť o
+              Účastník <strong> {userName(props.user)} </strong> z izby{" "}
+              <em> {props.room} </em> <strong>zamietol</strong> Tvoju žiadosť o
               výmenu postele.
             </>
           );
         case "user-abandon":
           return (
             <>
-              Účastník <strong>{userName(props.user)}</strong> sa{" "}
-              <strong>odhlásil</strong> z izby <em>{props.room}</em>.
+              Účastník <strong> {userName(props.user)} </strong> sa{" "}
+              <strong>odhlásil</strong> z izby <em> {props.room} </em>.
             </>
           );
         case "user-delete":
           return (
             <>
-              Účastník <strong>{userName(props.user)}</strong> z izby{" "}
-              <em>{props.room}</em> bol <strong>vymazaný</strong> zo systému.
+              Účastník <strong> {userName(props.user)} </strong> z izby{" "}
+              <em> {props.room} </em> bol <strong>vymazaný</strong> zo systému.
             </>
           );
         case "room-delete":
-          return <>foo</>;
+          return (
+            <>
+              Izba <strong> {props.room} </strong> bola{" "}
+              <strong>vymazaná</strong> zo systému.
+            </>
+          );
         default:
           return "Tvoja žiadosť bola zamietnutá z neznámych dôvodov.";
       }
