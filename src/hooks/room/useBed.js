@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 
-import useUser from "../../hooks/user/useUser";
-import useIsMyRow from "../../hooks/user/useIsMyRow";
+import useUser from "../user/useUser";
+import useIsMyRow from "../user/useIsMyRow";
 import useIsSwapReady from "./useIsSwapReady";
 import useLiveInSameRoom from "./useLiveInSameRoom";
 import useSwapRequest from "./useSwapRequest";
