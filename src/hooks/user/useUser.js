@@ -13,7 +13,7 @@ const useUser = userId => {
   });
 
   useEffect(() => {
-    if (userId === null) {
+    if (!userId) {
       setUser(null);
     } else {
       const ref = database.collection("users").doc(userId);
@@ -26,7 +26,7 @@ const useUser = userId => {
 
       return () => {
         unsubscribe();
-        setUser(undefined);
+        // setUser(undefined);
       };
     }
   }, [userId]);

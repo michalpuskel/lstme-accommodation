@@ -8,7 +8,7 @@ const useRoom = roomId => {
   const glueFormat = useUnbreakableSpaces();
 
   useEffect(() => {
-    if (roomId === null) {
+    if (!roomId) {
       setRoom(null);
     } else {
       const ref = database.collection("rooms").doc(roomId);
@@ -27,7 +27,7 @@ const useRoom = roomId => {
 
       return () => {
         unsubscribe();
-        setRoom(undefined);
+        // setRoom(undefined);
       };
     }
   }, [glueFormat, roomId]);

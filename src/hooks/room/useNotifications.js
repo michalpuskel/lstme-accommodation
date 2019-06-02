@@ -16,6 +16,8 @@ const useNotifications = userId => {
   }, []);
 
   useEffect(() => {
+    if (!userId) return;
+
     const ref = database
       .collection("notifications")
       .doc(userId)
@@ -30,7 +32,7 @@ const useNotifications = userId => {
 
     return () => {
       unsubscribe();
-      dispatch({ type: "reset" });
+      // dispatch({ type: "reset" });
     };
   }, [changeHandler, userId]);
 
