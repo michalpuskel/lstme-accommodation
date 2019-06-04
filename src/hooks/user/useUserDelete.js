@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 
 import { auth, database } from "../../config/firebase";
-// import { adminAuth } from "../../config/firebaseAdmin";
 
 const useUserDelete = userId => {
   const userDelete = useCallback(async () => {
@@ -23,9 +22,9 @@ const useUserDelete = userId => {
         transaction.delete(userRef);
       });
 
-      await auth.currentUser.delete();
-      // TODO delete any user
-      // await adminAuth.deleteUser(userId);
+      if (auth.currentUser.uid === userId) {
+        await auth.currentUser.delete();
+      }
 
       //TODO transaction end
     } catch (error) {
