@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 
 import UserContext from "../../hooks/_context/UserContext";
 import ProtectedRoute from "./ProtectedRoute";
-import PrivateRoute from "./PrivateRoute";
 
 import Auth from "../../pages/Auth";
 import Rooms from "../../pages/Rooms";
@@ -45,7 +44,7 @@ const Router = () => {
         condition={user && user.is_super_admin}
         redirect="/auth"
       />
-      <PrivateRoute
+      <ProtectedRoute
         exact
         path="/user/:userId"
         component={UserDetail}

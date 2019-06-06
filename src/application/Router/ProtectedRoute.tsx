@@ -6,6 +6,8 @@ interface ProtectedRouteProps {
   condition: boolean;
   redirect: string;
 
+  privateId?: string;
+
   exact?: boolean;
   path: string;
 }
@@ -15,12 +17,14 @@ const ProtectedRoute = ({
   condition,
   redirect,
 
+  privateId,
+
   exact,
   path
 }: ProtectedRouteProps) => (
   <Route
     render={props =>
-      condition ? (
+      condition && props.match.params.userId === privateId ? (
         createElement(component, { ...(props as Attributes) }, null)
       ) : (
         <Redirect
