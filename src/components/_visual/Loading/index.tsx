@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import React from "react";
 
-const Loading = memo(() => (
+const Loading = () => (
   <div className="hero-body">
     <div className="container">
       <div className="level">
@@ -10,6 +10,6 @@ const Loading = memo(() => (
       </div>
     </div>
   </div>
-));
+);
 
 export default Loading;
