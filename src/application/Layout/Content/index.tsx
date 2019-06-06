@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, ReactNode } from "react";
 
-import UserContext from "../../../config/UserContext";
-import NotificationList from "../../../lib/notification/notificationList/NotificationList";
+import UserContext from "../../../hooks/_context/UserContext";
+import Notifications from "../../../components/Notifications";
 
-const Content = props => {
+interface ContentProps {
+  children: ReactNode;
+}
+
+const Content = (props: ContentProps) => {
   const user = useContext(UserContext);
 
   return (
@@ -17,7 +21,7 @@ const Content = props => {
           {user && (
             <div className="column">
               <aside>
-                <NotificationList />
+                <Notifications />
               </aside>
             </div>
           )}
