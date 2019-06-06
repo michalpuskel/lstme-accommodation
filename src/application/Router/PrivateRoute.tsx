@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Component } from "react";
+import React, { FunctionComponent, createElement, Attributes } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 interface PrivateRouteProps {
@@ -19,20 +19,22 @@ const PrivateRoute = ({
 
   exact,
   path
-}: PrivateRouteProps) => (
-  <Route
-    render={props =>
-      condition && props.match.params.userId === privateId ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{ pathname: redirect, state: { from: props.location } }}
-        />
-      )
-    }
-    exact={exact}
-    path={path}
-  />
-);
+}: PrivateRouteProps) => {
+  return (
+    <Route
+      render={props =>
+        condition && props.match.params.userId === privateId ? (
+          createElement(component, { ...(props as Attributes) }, null)
+        ) : (
+          <Redirect
+            to={{ pathname: redirect, state: { from: props.location } }}
+          />
+        )
+      }
+      exact={exact}
+      path={path}
+    />
+  );
+};
 
 export default PrivateRoute;

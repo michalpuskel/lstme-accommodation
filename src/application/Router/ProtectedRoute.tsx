@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Component } from "react";
+import React, { FunctionComponent, createElement, Attributes } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 interface ProtectedRouteProps {
@@ -21,7 +21,7 @@ const ProtectedRoute = ({
   <Route
     render={props =>
       condition ? (
-        <Component {...props} />
+        createElement(component, { ...(props as Attributes) }, null)
       ) : (
         <Redirect
           to={{ pathname: redirect, state: { from: props.location } }}
