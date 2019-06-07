@@ -1,4 +1,4 @@
-import React, { FunctionComponent, createElement, Attributes } from "react";
+import { FunctionComponent, createElement, Attributes } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 interface ProtectedRouteProps {
@@ -6,7 +6,7 @@ interface ProtectedRouteProps {
   condition: boolean;
   redirect: string;
 
-  privateId?: string;
+  privateId?: string | null;
 
   exact?: boolean;
   path: string;

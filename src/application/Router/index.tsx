@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import UserContext from "../../hooks/_context/UserContext";
+import { useUserContext } from "../../hooks/_context/UserContext";
 import ProtectedRoute from "./ProtectedRoute";
 
 import Auth from "../../pages/Auth";
@@ -12,7 +11,10 @@ import UserDetail from "../../pages/UserDetail";
 import NotFound from "../../pages/NotFound";
 
 const Router = () => {
-  const user = useContext(UserContext) as any;
+  const user = useUserContext();
+  const isLoggedIn = !!user;
+  const isSuperAdmin = !!(user && user.is_super_admin);
+  const userId = user && user.uid;
 
   return (
     <Switch>
@@ -20,37 +22,37 @@ const Router = () => {
         exact
         path="/"
         component={Rooms}
-        condition={user}
+        condition={isLoggedIn}
         redirect="/auth"
       />
       <ProtectedRoute
         exact
         path="/auth"
         component={Auth}
-        condition={!user}
+        condition={!isLoggedIn}
         redirect="/"
       />
       <ProtectedRoute
         exact
         path="/room/:roomId"
         component={RoomDetail}
-        condition={user}
+        condition={isLoggedIn}
         redirect="/auth"
       />
       <ProtectedRoute
         exact
         path="/users"
         component={Users}
-        condition={user && user.is_super_admin}
+        condition={isSuperAdmin}
         redirect="/auth"
       />
       <ProtectedRoute
         exact
         path="/user/:userId"
         component={UserDetail}
-        condition={user}
+        condition={isLoggedIn}
         redirect="/auth"
-        privateId={user && user.uid}
+        privateId={userId}
       />
       <Route component={NotFound} />
     </Switch>

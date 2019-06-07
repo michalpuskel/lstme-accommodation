@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 import { auth, database } from "../../config/firebase";
-import IUser from "../../interfaces/IUser";
+import { IUser, IError } from "../../interfaces";
 
-const useAuthedUser = (setError: any) => {
+const useAuthedUser = (pushError: any) => {
   const [authedUser, setAuthedUser] = useState<IUser | null | undefined>(
     undefined
   );
@@ -27,7 +27,11 @@ const useAuthedUser = (setError: any) => {
                 console.error(error);
               }
 
-              setError({ code: "user-ban" });
+              pushError((buffer: IError[]) => {
+                buffer.concat({
+                  code: "user-ban"
+                });
+              });
               setAuthedUser(null);
             } else {
               setAuthedUser(data);
@@ -43,7 +47,7 @@ const useAuthedUser = (setError: any) => {
     return () => {
       unsubscribe && unsubscribe();
     };
-  }, [setError]);
+  }, []); // TODO inputs - TS lint
 
   return authedUser;
 };

@@ -1,11 +1,13 @@
-import React from "react";
+import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import { IErrorState } from "../../interfaces/IError";
+import { IError } from "../../interfaces";
+import UserContext from "../../hooks/_context/UserContext";
+import ErrorContext from "../../hooks/_context/ErrorContext";
 import useAuthedUser from "../../hooks/user/useAuthedUser";
-import useError from "../../hooks/useError";
 
-import App from "../App";
+import Router from "../Router";
+import ErrorHandler from "../ErrorHandler";
 import Loading from "../../components/_visual/Loading";
 
 // import { auth } from "../../config/firebase";
@@ -17,15 +19,20 @@ const Bootstrapper = () => {
 
   // **************************
 
-  const errorState = useError() as IErrorState;
-  const authedUser = useAuthedUser(errorState.setError);
+  const [errorBuffer, setErrorBuffer] = useState<IError[]>([]);
+  const authedUser = useAuthedUser(setErrorBuffer);
 
   return (
     <BrowserRouter>
       {authedUser === undefined ? (
         <Loading />
       ) : (
-        <App user={authedUser} errorState={errorState} />
+        <UserContext.Provider value={authedUser}>
+          <ErrorContext.Provider value={setErrorBuffer}>
+            <Router />
+            <ErrorHandler errorBuffer={errorBuffer} />
+          </ErrorContext.Provider>
+        </UserContext.Provider>
       )}
     </BrowserRouter>
   );
