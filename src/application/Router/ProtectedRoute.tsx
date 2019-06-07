@@ -1,4 +1,4 @@
-import { FunctionComponent, createElement, Attributes } from "react";
+import React, { FunctionComponent, createElement, Attributes } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 interface ProtectedRouteProps {
