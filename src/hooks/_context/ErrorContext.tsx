@@ -1,6 +1,7 @@
-import React from "react";
-import { IErrorState } from "../../interfaces/IError";
+import { createContext, useContext } from "react";
 
-const ErrorContext = React.createContext<IErrorState | undefined>(undefined);
+const ErrorContext = createContext<any>(undefined);
 
-export default ErrorContext;
+const usePushErrorContext = () => useContext<any>(ErrorContext);
+
+export default usePushErrorContext;

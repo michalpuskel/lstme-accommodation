@@ -1,6 +1,8 @@
-import React from "react";
-import IUser from "../../interfaces/IUser";
+import { createContext, useContext } from "react";
+import { IUser } from "../../interfaces";
 
-const UserContext = React.createContext<IUser | null | undefined>(undefined);
+const UserContext = createContext<IUser | null | undefined>(undefined);
 
-export default UserContext;
+const useUserContext = () => useContext<IUser | null | undefined>(UserContext);
+
+export default useUserContext;

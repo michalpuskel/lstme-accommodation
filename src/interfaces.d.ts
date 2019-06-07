@@ -1,4 +1,4 @@
-export default interface IUser {
+export interface IUser {
   uid: string;
   email: string;
   first_name: string;
@@ -9,4 +9,9 @@ export default interface IUser {
   room_id: string;
   swap_received_from_id: string;
   swap_sent_to_id: string;
+}
+
+export interface IError {
+  code: string;
+  data?: any;
 }
