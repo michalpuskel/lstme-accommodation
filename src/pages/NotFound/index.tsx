@@ -1,9 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const NotFound = () => {
-  console.log("TODO tsx router");
+import Layout from "../../application/Layout";
 
-  return <div>TODO TypeScript NotFound</div>;
-};
+const NotFound = () => (
+  <Layout title="Neexistujúca stránka">
+    <p>
+      Asi ste zablúdili. <br />
+      Vráťte sa na <Link to="/">hlavnú stránku</Link>.
+    </p>
+  </Layout>
+);
 
 export default NotFound;

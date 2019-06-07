@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+import React, { memo } from "react";
 
 import "./Header.scss";
-import UserContext from "../../../config/UserContext";
+import { useUserContext } from "../../../hooks/_context/UserContext";
 
-import Navigation from "../../../lib/nav/navigation/Navigation";
-import Breadcrumb from "../../../lib/nav/breadcrumb/Breadcrumb";
+import Navigation from "../../../components/nav/Navigation";
+import Breadcrumb from "../../../components/nav/Breadcrumb";
 
-const Header = props => {
-  const user = useContext(UserContext);
+interface HeaderProps {
+  title: string;
+  breadcrumb: any; // TODO
+}
+
+const Header = memo((props: HeaderProps) => {
+  const user = useUserContext();
 
   return (
     <header className="hero-head">
@@ -23,6 +28,6 @@ const Header = props => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

@@ -1,6 +1,6 @@
-import React, { useContext, ReactNode } from "react";
+import React, { ReactNode } from "react";
 
-import UserContext from "../../../hooks/_context/UserContext";
+import { useUserContext } from "../../../hooks/_context/UserContext";
 import Notifications from "../../../components/Notifications";
 
 interface ContentProps {
@@ -8,7 +8,7 @@ interface ContentProps {
 }
 
 const Content = (props: ContentProps) => {
-  const user = useContext(UserContext);
+  const user = useUserContext();
 
   return (
     <div className="hero-body">
