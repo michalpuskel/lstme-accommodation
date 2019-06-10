@@ -1,4 +1,4 @@
-import { IError } from "../../interfaces";
+import { IError } from "../../ts/interfaces";
 
 interface ErrorHandlerProps {
   errorBuffer: IError[];
