@@ -27,11 +27,11 @@ const useAuthedUser = (pushError: any) => {
                 console.error(error);
               }
 
-              pushError((buffer: IError[]) => {
+              pushError((buffer: IError[]) =>
                 buffer.concat({
                   code: "user-ban"
-                });
-              });
+                })
+              );
               setAuthedUser(null);
             } else {
               setAuthedUser(data);

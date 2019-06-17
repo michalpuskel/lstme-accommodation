@@ -2,9 +2,9 @@ import React, { memo } from "react";
 
 import useToggleable from "../../../hooks/useToggleable";
 
+import NavBrand from "./NavBrand";
 import NavLinks from "./NavLinks";
 import NavUser from "./NavUser";
-import NavBrand from "./NavBrand";
 
 const Navigation = memo(() => {
   const showMenu = useToggleable();

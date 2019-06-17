@@ -16,6 +16,7 @@ const Bootstrapper = () => {
   // auth.signOut();
 
   // auth.signInWithEmailAndPassword("test3@gmail.com", "123456");
+  // auth.signInWithEmailAndPassword("test4@gmail.com", "123456");
 
   // **************************
 

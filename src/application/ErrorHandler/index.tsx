@@ -5,7 +5,7 @@ interface ErrorHandlerProps {
 }
 
 const ErrorHandler = (props: ErrorHandlerProps) => {
-  console.log(props.errorBuffer); // TODO toast
+  console.log("ERR BUFFER", props.errorBuffer); // TODO toast
 
   return null;
 };
