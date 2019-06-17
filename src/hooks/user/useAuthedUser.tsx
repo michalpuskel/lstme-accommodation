@@ -47,7 +47,7 @@ const useAuthedUser = (pushError: any) => {
     return () => {
       unsubscribe && unsubscribe();
     };
-  }, []); // TODO inputs - TS lint
+  }, [pushError]);
 
   return authedUser;
 };
