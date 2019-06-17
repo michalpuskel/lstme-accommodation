@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import { IError } from "../../ts/interfaces";
+import { IError } from "../../@types/interfaces";
 import UserContext from "../../hooks/_context/UserContext";
 import ErrorContext from "../../hooks/_context/ErrorContext";
 import useAuthedUser from "../../hooks/user/useAuthedUser";

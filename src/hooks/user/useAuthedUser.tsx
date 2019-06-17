@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { auth, database } from "../../config/firebase";
-import { IUser, IError } from "../../ts/interfaces";
+import { IUser, IError } from "../../@types/interfaces";
 
 const useAuthedUser = (pushError: any) => {
   const [authedUser, setAuthedUser] = useState<IUser | null | undefined>(
