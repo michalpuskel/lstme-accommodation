@@ -32,7 +32,7 @@ const useAuthedUser = (pushError: any) => {
                   code: "user-ban"
                 })
               );
-              setAuthedUser(null);
+              setAuthedUser(null); // TODO set after user interaction
             } else {
               setAuthedUser(data);
             }

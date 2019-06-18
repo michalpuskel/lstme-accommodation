@@ -15,3 +15,31 @@ export interface IError {
   code: string;
   data?: any;
 }
+
+export interface IFormLoginState {
+  email: string;
+  password: string;
+}
+
+export interface IFormRegistrationState {
+  passwordConfirm: string;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+}
+
+export interface IFormAuthAction {
+  field: string;
+  value: string;
+}
+
+export interface IFormField {
+  field: string;
+  input: string;
+  handler: (event: any) => void;
+  id: string;
+}
+
+export interface IForm {
+  [field: string]: IFormField;
+}
