@@ -43,3 +43,15 @@ export interface IFormField {
 export interface IForm {
   [field: string]: IFormField;
 }
+
+export interface IFormLogin extends IForm {
+  email: IFormField;
+  password: IFormField;
+}
+
+export interface IFormRegistration extends IForm {
+  passwordConfirm: IFormField;
+  firstName: IFormField;
+  lastName: IFormField;
+  birthDate: IFormField;
+}

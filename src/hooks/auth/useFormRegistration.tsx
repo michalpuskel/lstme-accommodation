@@ -1,10 +1,14 @@
 import { useReducer, useCallback } from "react";
 
-import { IFormRegistrationState } from "../../@types/interfaces";
+import {
+  IFormRegistrationState,
+  IFormRegistration
+} from "../../@types/interfaces";
+
 import formRegistrationReducer from "../_reducers/formRegistrationReducer";
 import { toHashMap } from "../../helpers/auth";
 
-const useFormRegistration = () => {
+const useFormRegistration = (): IFormRegistration => {
   const [fields, dispatch] = useReducer(formRegistrationReducer, {
     passwordConfirm: "",
     firstName: "",
@@ -22,7 +26,7 @@ const useFormRegistration = () => {
     id: `${field}Input`
   }));
 
-  return toHashMap(formRegistration);
+  return toHashMap(formRegistration) as IFormRegistration;
 };
 
 export default useFormRegistration;

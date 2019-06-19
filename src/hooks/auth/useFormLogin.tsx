@@ -1,10 +1,10 @@
 import { useReducer, useCallback } from "react";
 
-import { IFormLoginState } from "../../@types/interfaces";
+import { IFormLoginState, IFormLogin } from "../../@types/interfaces";
 import formLoginReducer from "../_reducers/formLoginReducer";
 import { toHashMap } from "../../helpers/auth";
 
-const useFormLogin = () => {
+const useFormLogin = (): IFormLogin => {
   const [fields, dispatch] = useReducer(formLoginReducer, {
     email: "",
     password: ""
@@ -20,7 +20,7 @@ const useFormLogin = () => {
     id: `${field}Input`
   }));
 
-  return toHashMap(formLogin);
+  return toHashMap(formLogin) as IFormLogin;
 };
 
 export default useFormLogin;
