@@ -9,6 +9,8 @@
   "rules": {
     "no-console": "warn",
     "no-debugger": "warn",
-    "@typescript-eslint/indent": "off"
+
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2]
   }
 }
