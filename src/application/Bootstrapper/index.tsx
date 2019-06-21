@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ReactElement } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import { IError } from "../../@types/interfaces";
@@ -12,7 +12,7 @@ import Loading from "../../components/_visual/Loading";
 
 // import { auth } from "../../config/firebase";
 
-const Bootstrapper = () => {
+const Bootstrapper = (): ReactElement => {
   // auth.signOut();
 
   // auth.signInWithEmailAndPassword("test3@gmail.com", "123456");

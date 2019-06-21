@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const Auth = () => {
+const Auth = (): ReactElement => {
   console.log("TODO tsx router");
 
   return <div>TODO TypeScript auth</div>;

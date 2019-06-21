@@ -2,8 +2,8 @@ import { useCallback } from "react";
 
 import { auth } from "../../config/firebase";
 
-const useLogOut = () =>
-  useCallback(async () => {
+const useLogOut = (): CallableFunction =>
+  useCallback(async (): Promise<void> => {
     try {
       await auth.signOut();
     } catch (error) {

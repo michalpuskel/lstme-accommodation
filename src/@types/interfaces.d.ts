@@ -55,3 +55,8 @@ export interface IFormRegistration extends IForm {
   lastName: IFormField;
   birthDate: IFormField;
 }
+
+export interface IToggleable {
+  value: boolean;
+  toggle: CallableFunction;
+}

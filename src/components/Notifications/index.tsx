@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const Notifications = () => {
+const Notifications = (): ReactElement => {
   return <div>TODO notifications TS</div>;
 };
 

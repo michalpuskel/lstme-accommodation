@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 import Layout from "../../application/Layout";
 
-const NotFound = () => (
+const NotFound = (): ReactElement => (
   <Layout title="Neexistujúca stránka">
     <p>
       Asi ste zablúdili. <br />

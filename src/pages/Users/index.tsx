@@ -1,6 +1,6 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const Users = () => {
+const Users = (): ReactElement => {
   console.log("TODO tsx router");
 
   return <div>TODO TypeScript Users</div>;

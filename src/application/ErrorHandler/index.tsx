@@ -4,7 +4,7 @@ interface ErrorHandlerProps {
   errorBuffer: IError[];
 }
 
-const ErrorHandler = (props: ErrorHandlerProps) => {
+const ErrorHandler = (props: ErrorHandlerProps): null => {
   console.log("ERR BUFFER", props.errorBuffer); // TODO toast
 
   return null;
