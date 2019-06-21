@@ -1,6 +1,11 @@
 import { useReducer, useCallback } from "react";
 
-import { IFormLoginState, IFormLogin } from "../../@types/interfaces";
+import {
+  IFormLogin,
+  IFormField,
+  IFormLoginState
+} from "../../@types/interfaces";
+
 import formLoginReducer from "../_reducers/formLoginReducer";
 import { toHashMap } from "../../helpers/auth";
 
@@ -10,15 +15,22 @@ const useFormLogin = (): IFormLogin => {
     password: ""
   });
 
-  const formLogin = Object.keys(fields).map((field: string) => ({
-    field,
-    input: fields[field as keyof IFormLoginState],
-    handler: useCallback(
-      event => dispatch({ field, value: event.target.value }),
-      []
-    ),
-    id: `${field}Input`
-  }));
+  const changeHandler = useCallback(
+    (name, value: string): void => dispatch({ field: name, value }),
+    []
+  );
+
+  // const hash = {};
+  // const formLogin = Object.keys(fields).forEach(key => {});
+
+  const formLogin = Object.keys(fields).map(
+    (field: string): IFormField => ({
+      name: field,
+      value: fields[field as keyof IFormLoginState],
+      onChange: changeHandler,
+      id: `${field}Input`
+    })
+  );
 
   return toHashMap(formLogin) as IFormLogin;
 };

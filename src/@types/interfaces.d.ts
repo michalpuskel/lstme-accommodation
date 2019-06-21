@@ -34,9 +34,9 @@ export interface IFormAuthAction {
 }
 
 export interface IFormField {
-  field: string;
-  input: string;
-  handler: (event: any) => void;
+  name: string;
+  value: string;
+  onChange: (name, value: string) => void;
   id: string;
 }
 

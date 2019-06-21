@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useCallback, ChangeEvent } from "react";
 
 // TODO refactor
 const FormBasic = props => {
+  // const inputHandler = useCallback(event => {
+  //   const { name, value } = event.target;
+  //   field.onChange(name, value);
+  // });
+
+  // const checkboxHandler = useCallback(event => {
+  //   const name = event.target.name;
+  //   const value = event.target.checked;
+  //   field.onChange(name, value);
+  // });
+
+  // const inputHandler = useCallback(
+  //   (event: ChangeEvent<HTMLInputElement>): void =>
+  //     dispatch({ field: event.target.name, value: event.target.value }),
+  //   []
+  // );
+
   return (
     <>
       <div className="field">
