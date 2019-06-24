@@ -22,7 +22,7 @@ export enum EAuthType {
   REGISTRATION
 }
 
-interface IFormAuthFields {
+export interface IFormAuthFields {
   email: string;
   password: string;
 
@@ -31,6 +31,8 @@ interface IFormAuthFields {
   lastName: string;
   birthDate: string;
 }
+
+export type test = { [field in keyof IFormAuthFields]: string };
 
 export interface IFormAuthState {
   fields: { [field in keyof IFormAuthFields]: string };
@@ -42,19 +44,20 @@ export enum EAuthAction {
   UPDATE_FIELD_ERRORS
 }
 
-export interface IFormAuthAction {
-  type: EAuthAction;
-  payload: IFormAuthActionUpdateField | IFormAuthActionUpdateFieldErrors;
+export interface IFormAuthUpdateFieldAction {
+  type: EAuthAction.UPDATE_FIELD;
+  payload: {
+    name: keyof IFormAuthFields;
+    value: string;
+  };
 }
 
-interface IFormAuthActionUpdateField {
-  name: keyof IFormAuthFields;
-  value: string;
-}
-
-interface IFormAuthActionUpdateFieldErrors {
-  field: keyof IFormAuthFields;
-  error: IError;
+export interface IFormAuthUpdateFieldErrorsAction {
+  type: EAuthAction.UPDATE_FIELD_ERRORS;
+  payload: {
+    field: keyof IFormAuthFields;
+    error: IError;
+  };
 }
 
 export interface IToggleable {
