@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { NavLink } from "react-router-dom";
 
-import { IUser } from "../../../@types/interfaces";
+import { IUser } from "../../../@types/typings";
 import { useUserContext } from "../../../hooks/_context/UserContext";
 import useLogOut from "../../../hooks/user/useLogOut";
 import { userName } from "../../../helpers/user";

@@ -3,7 +3,7 @@ import { useReducer, useCallback } from "react";
 import {
   IFormRegistrationState,
   IFormRegistration
-} from "../../@types/interfaces";
+} from "../../@types/typings";
 
 import formRegistrationReducer from "../_reducers/formRegistrationReducer";
 import { toHashMap } from "../../helpers/auth";
@@ -21,7 +21,7 @@ const useFormRegistration = (): IFormRegistration => {
     input: fields[field as keyof IFormRegistrationState],
     handler: useCallback(
       event => dispatch({ field, value: event.target.value }),
-      []
+      [field]
     ),
     id: `${field}Input`
   }));

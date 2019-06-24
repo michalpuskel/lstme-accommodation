@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-import { IToggleable } from "../@types/interfaces";
+import { IToggleable } from "../@types/typings";
 
 const useToggleable = (): IToggleable => {
   const [value, setValue] = useState<boolean>(false);

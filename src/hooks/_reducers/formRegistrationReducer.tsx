@@ -1,7 +1,7 @@
 import {
   IFormRegistrationState,
   IFormAuthAction
-} from "../../@types/interfaces";
+} from "../../@types/typings";
 
 const formRegistrationReducer = (
   state: IFormRegistrationState,

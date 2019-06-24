@@ -1,4 +1,4 @@
-import { IError } from "../../@types/interfaces";
+import { IError } from "../../@types/typings";
 
 interface ErrorHandlerProps {
   errorBuffer: IError[];

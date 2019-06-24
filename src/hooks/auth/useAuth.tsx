@@ -1,21 +1,21 @@
 import { useState, useCallback } from "react";
 
-import { EAuthType } from "../../@types/enums";
+import { EAuthType } from "../../@types/typings";
 import useFormLogin from "./useFormLogin";
 import useFormRegistration from "./useFormRegistration";
 import useSubmitLoginHandler from "./useSubmitLoginHandler";
 import useSubmitRegistrationHandler from "./useSubmitRegistrationHandler";
 
 const useAuth = () => {
-  const [authType, setAuthType] = useState<EAuthType>(EAuthType.Login);
+  const [authType, setAuthType] = useState<EAuthType>(EAuthType.LOGIN);
   const formLogin = useFormLogin();
   const formRegistration = useFormRegistration();
 
   const navRegistrationHandler = useCallback(
-    () => setAuthType(EAuthType.Registration),
+    () => setAuthType(EAuthType.REGISTRATION),
     []
   );
-  const navLoginHandler = useCallback(() => setAuthType(EAuthType.Login), []);
+  const navLoginHandler = useCallback(() => setAuthType(EAuthType.LOGIN), []);
 
   const submitLoginHandler = useSubmitLoginHandler(formLogin);
   const submitRegistrationHandler = useSubmitRegistrationHandler(
@@ -26,7 +26,7 @@ const useAuth = () => {
   return {
     authType,
 
-    [EAuthType.Login]: {
+    [EAuthType.LOGIN]: {
       form: formLogin,
       handler: {
         nav: navLoginHandler,
@@ -34,7 +34,7 @@ const useAuth = () => {
       }
     },
 
-    [EAuthType.Registration]: {
+    [EAuthType.REGISTRATION]: {
       form: formRegistration,
       handler: {
         nav: navRegistrationHandler,
