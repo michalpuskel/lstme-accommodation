@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 
-import { EAuthType } from "../../@types/typings";
+import { EAuthType } from "../../@types";
 import useFormLogin from "./useFormLogin";
 import useFormRegistration from "./useFormRegistration";
 import useSubmitLoginHandler from "./useSubmitLoginHandler";

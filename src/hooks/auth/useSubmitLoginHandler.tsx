@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { IFormLogin } from "../../@types/interfaces";
+import { IFormLogin } from "../../@types";
 import { auth } from "../../config/firebase";
 
 const useSubmitLoginHandler = (formLogin: IFormLogin) =>

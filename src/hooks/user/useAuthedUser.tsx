@@ -2,7 +2,7 @@ import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { User } from "firebase";
 
 import { auth, database } from "../../config/firebase";
-import { IUser, IError } from "../../@types/typings";
+import { IUser, IError } from "../../@types";
 
 const useAuthedUser = (
   pushError: Dispatch<SetStateAction<IError[]>>

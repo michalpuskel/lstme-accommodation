@@ -1,21 +1,4 @@
-export interface IUser {
-  uid: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  birth_date: string;
-  is_supervisor: boolean;
-  is_super_admin: boolean;
-  room_id: string;
-  swap_received_from_id: string;
-  swap_sent_to_id: string;
-}
-
-export interface IError {
-  code: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any;
-}
+import { IError } from ".";
 
 export enum EAuthType {
   LOGIN,
@@ -32,12 +15,14 @@ export interface IFormAuthFields {
   birthDate: string;
 }
 
-export type test = { [field in keyof IFormAuthFields]: string };
-
 export interface IFormAuthState {
-  fields: { [field in keyof IFormAuthFields]: string };
-  errors?: { [field in keyof IFormAuthFields]?: IError[] };
+  fields: IFormAuthStateFields;
+  errors?: IFormAuthStateErrors;
 }
+export type IFormAuthStateFields = { [field in keyof IFormAuthFields]: string };
+export type IFormAuthStateErrors = {
+  [field in keyof IFormAuthFields]?: IError[];
+};
 
 export enum EAuthAction {
   UPDATE_FIELD,
@@ -58,9 +43,4 @@ export interface IFormAuthUpdateFieldErrorsAction {
     field: keyof IFormAuthFields;
     error: IError;
   };
-}
-
-export interface IToggleable {
-  value: boolean;
-  toggle: () => void;
 }

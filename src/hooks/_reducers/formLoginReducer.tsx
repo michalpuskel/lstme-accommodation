@@ -1,4 +1,4 @@
-import { IFormLoginState, IFormAuthAction } from "../../@types/typings";
+import { IFormAuthState, IFormAuthAction } from "../../@types";
 
 const formLoginReducer = (
   state: IFormLoginState,

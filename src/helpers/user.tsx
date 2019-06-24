@@ -1,4 +1,4 @@
-import { IUser } from "../@types/typings";
+import { IUser } from "../@types";
 
 export const userName = (user: IUser): string =>
   `${user.first_name} ${user.last_name}`;

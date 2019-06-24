@@ -3,8 +3,8 @@ import {
   IFormAuthUpdateFieldAction,
   IFormAuthUpdateFieldErrorsAction,
   EAuthAction,
-  IFormAuthFields
-} from "../../@types/typings";
+  IFormAuthStateFields
+} from "../../@types/auth";
 
 const formAuthReducer = (
   state: IFormAuthState,
@@ -12,10 +12,10 @@ const formAuthReducer = (
 ): IFormAuthState => {
   switch (action.type) {
     case EAuthAction.UPDATE_FIELD:
-      const fields: IFormAuthFields = {
+      const fields = ({
         ...[state.fields],
         [action.payload.name]: action.payload.value
-      };
+      } as unknown) as IFormAuthStateFields;
       return {
         ...state,
         fields

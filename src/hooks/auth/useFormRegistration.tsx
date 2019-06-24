@@ -3,7 +3,7 @@ import { useReducer, useCallback } from "react";
 import {
   IFormRegistrationState,
   IFormRegistration
-} from "../../@types/typings";
+} from "../../@types";
 
 import formRegistrationReducer from "../_reducers/formRegistrationReducer";
 import { toHashMap } from "../../helpers/auth";

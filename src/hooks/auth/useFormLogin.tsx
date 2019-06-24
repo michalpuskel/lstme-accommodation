@@ -4,7 +4,7 @@ import {
   IFormLogin,
   IFormField,
   IFormLoginState
-} from "../../@types/typings";
+} from "../../@types";
 
 import formLoginReducer from "../_reducers/formLoginReducer";
 import { toHashMap } from "../../helpers/auth";
