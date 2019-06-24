@@ -2,12 +2,16 @@ import {
   IFormAuthState,
   IFormAuthUpdateFieldAction,
   IFormAuthUpdateFieldErrorsAction,
+  IFormAuthResetFieldErrorsAction,
   EAuthAction
 } from "../../@types/auth";
 
 const formAuthReducer = (
   state: IFormAuthState,
-  action: IFormAuthUpdateFieldAction | IFormAuthUpdateFieldErrorsAction
+  action:
+  | IFormAuthUpdateFieldAction
+  | IFormAuthUpdateFieldErrorsAction
+  | IFormAuthResetFieldErrorsAction
 ): IFormAuthState => {
   switch (action.type) {
     case EAuthAction.UPDATE_FIELD:
@@ -36,6 +40,13 @@ const formAuthReducer = (
         errors = { [action.payload.field]: [action.payload.error] };
       }
       return { ...state, errors };
+
+    case EAuthAction.RESET_FIELD_ERRORS:
+      if (state.errors) {
+        const { [action.payload.field]: deleted, ...errors } = state.errors;
+        return { ...state, errors };
+      }
+      return state;
 
     default:
       console.info("unknown action", action);

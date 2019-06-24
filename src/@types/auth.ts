@@ -24,7 +24,8 @@ export interface IFormAuthState {
 
 export enum EAuthAction {
   UPDATE_FIELD,
-  UPDATE_FIELD_ERRORS
+  UPDATE_FIELD_ERRORS,
+  RESET_FIELD_ERRORS
 }
 
 export interface IFormAuthUpdateFieldAction {
@@ -40,5 +41,12 @@ export interface IFormAuthUpdateFieldErrorsAction {
   payload: {
     field: keyof IFormAuthFields;
     error: IError;
+  };
+}
+
+export interface IFormAuthResetFieldErrorsAction {
+  type: EAuthAction.RESET_FIELD_ERRORS;
+  payload: {
+    field: keyof IFormAuthFields;
   };
 }
