@@ -16,13 +16,11 @@ export interface IFormAuthFields {
 }
 
 export interface IFormAuthState {
-  fields: IFormAuthStateFields;
-  errors?: IFormAuthStateErrors;
+  fields: { [field in keyof IFormAuthFields]: string };
+  errors?: {
+    [field in keyof IFormAuthFields]?: IError[];
+  };
 }
-export type IFormAuthStateFields = { [field in keyof IFormAuthFields]: string };
-export type IFormAuthStateErrors = {
-  [field in keyof IFormAuthFields]?: IError[];
-};
 
 export enum EAuthAction {
   UPDATE_FIELD,
