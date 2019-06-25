@@ -1,7 +1,15 @@
-import { createContext, useContext } from "react";
+/* eslint-disable @typescript-eslint/indent */
 
-const ErrorContext = createContext<any>(undefined);
+import { createContext, useContext, Dispatch, SetStateAction } from "react";
+import { IError } from "../../@types";
 
-export const usePushErrorContext = () => useContext<any>(ErrorContext);
+const ErrorContext = createContext<
+  Dispatch<SetStateAction<IError[]>> | undefined
+>(undefined);
+
+export const usePushErrorContext = ():
+  | Dispatch<SetStateAction<IError[]>>
+  | undefined =>
+  useContext<Dispatch<SetStateAction<IError[]>> | undefined>(ErrorContext);
 
 export default ErrorContext;
