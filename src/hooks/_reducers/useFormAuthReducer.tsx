@@ -1,3 +1,5 @@
+import { useReducer, Dispatch } from "react";
+
 import {
   IFormAuthState,
   IFormAuthUpdateFieldAction,
@@ -6,12 +8,14 @@ import {
   EAuthAction
 } from "../../@types/auth";
 
-const formAuthReducer = (
+const reducer = (
   state: IFormAuthState,
+  /* eslint-disable @typescript-eslint/indent */
   action:
-  | IFormAuthUpdateFieldAction
-  | IFormAuthUpdateFieldErrorsAction
-  | IFormAuthResetFieldErrorsAction
+    | IFormAuthUpdateFieldAction
+    | IFormAuthUpdateFieldErrorsAction
+    | IFormAuthResetFieldErrorsAction
+  /* eslint-enable @typescript-eslint/indent */
 ): IFormAuthState => {
   switch (action.type) {
     case EAuthAction.UPDATE_FIELD:
@@ -44,7 +48,9 @@ const formAuthReducer = (
     case EAuthAction.RESET_FIELD_ERRORS:
       if (state.errors) {
         const { [action.payload.field]: deleted, ...errors } = state.errors;
-        return { ...state, errors };
+        return errors === {}
+          ? { fields: { ...state.fields } }
+          : { ...state, errors };
       }
       return state;
 
@@ -54,4 +60,27 @@ const formAuthReducer = (
   }
 };
 
-export default formAuthReducer;
+const initialState = {
+  fields: {
+    email: "",
+    password: "",
+
+    passwordConfirm: "",
+    firstName: "",
+    lastName: "",
+    birthDate: ""
+  }
+};
+
+const useFormAuthReducer = (): [
+  IFormAuthState,
+  /* eslint-disable @typescript-eslint/indent */
+  Dispatch<
+    | IFormAuthUpdateFieldAction
+    | IFormAuthUpdateFieldErrorsAction
+    | IFormAuthResetFieldErrorsAction
+  >
+  /* eslint-enable @typescript-eslint/indent */
+] => useReducer(reducer, initialState);
+
+export default useFormAuthReducer;
