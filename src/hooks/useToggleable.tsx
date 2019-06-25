@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-
 import { IToggleable } from "../@types";
 
 const useToggleable = (): IToggleable => {

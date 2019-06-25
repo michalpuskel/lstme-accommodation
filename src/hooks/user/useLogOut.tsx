@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-
 import { auth } from "../../config/firebase";
 
 const useLogOut = (): CallableFunction =>

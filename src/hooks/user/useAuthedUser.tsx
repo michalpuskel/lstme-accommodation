@@ -36,7 +36,7 @@ const useAuthedUser = (
                   code: "user-ban"
                 })
               );
-              setAuthedUser(null); // TODO set after user interaction
+              setAuthedUser(null); // TODO set after user interaction ?
             } else {
               setAuthedUser(data);
             }
