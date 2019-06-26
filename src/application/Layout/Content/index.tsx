@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, ReactElement } from "react";
 
 import { useUserContext } from "../../../hooks/_context/UserContext";
 import Notifications from "../../../components/Notifications";
@@ -7,7 +7,7 @@ interface ContentProps {
   children: ReactNode;
 }
 
-const Content = (props: ContentProps) => {
+const Content = (props: ContentProps): ReactElement => {
   const user = useUserContext();
 
   return (

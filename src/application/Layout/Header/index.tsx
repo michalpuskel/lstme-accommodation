@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, ReactElement } from "react";
 
 import "./Header.scss";
 import { useUserContext } from "../../../hooks/_context/UserContext";
@@ -11,23 +11,29 @@ interface HeaderProps {
   breadcrumb: any; // TODO
 }
 
-const Header = memo((props: HeaderProps) => {
-  const user = useUserContext();
+const Header = memo(
+  (props: HeaderProps): ReactElement => {
+    const user = useUserContext();
 
-  return (
-    <header className="hero-head">
-      <div className={`nav__border--bottom ${!user ? "auth" : ""}`} />
-      <div className="container">
-        <nav className="navbar" role="navigation" aria-label="main navigation">
-          {user && <Navigation />}
-        </nav>
+    return (
+      <header className="hero-head">
+        <div className={`nav__border--bottom ${!user ? "auth" : ""}`} />
+        <div className="container">
+          <nav
+            className="navbar"
+            role="navigation"
+            aria-label="main navigation"
+          >
+            {user && <Navigation />}
+          </nav>
 
-        {props.breadcrumb && <Breadcrumb breadcrumb={props.breadcrumb} />}
+          {props.breadcrumb && <Breadcrumb breadcrumb={props.breadcrumb} />}
 
-        <h1 className="title header__title">{props.title}</h1>
-      </div>
-    </header>
-  );
-});
+          <h1 className="title header__title">{props.title}</h1>
+        </div>
+      </header>
+    );
+  }
+);
 
 export default Header;

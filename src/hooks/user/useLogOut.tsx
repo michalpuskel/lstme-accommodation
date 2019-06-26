@@ -1,7 +1,7 @@
-import { useCallback } from "react";
+import { useCallback, MouseEvent } from "react";
 import { auth } from "../../config/firebase";
 
-const useLogOut = (): CallableFunction =>
+const useLogOut = (): ((event: MouseEvent<HTMLButtonElement>) => void) =>
   useCallback(async (): Promise<void> => {
     try {
       await auth.signOut();

@@ -1,4 +1,10 @@
-import React, { FunctionComponent, createElement, Attributes } from "react";
+import React, {
+  FunctionComponent,
+  ReactElement,
+  createElement,
+  Attributes
+} from "react";
+
 import { Route, Redirect } from "react-router-dom";
 
 interface ProtectedRouteProps {
@@ -21,9 +27,9 @@ const ProtectedRoute = ({
 
   exact,
   path
-}: ProtectedRouteProps) => (
+}: ProtectedRouteProps): ReactElement => (
   <Route
-    render={props =>
+    render={(props): ReactElement =>
       condition && props.match.params.userId === privateId ? (
         createElement(component, { ...(props as Attributes) }, null)
       ) : (

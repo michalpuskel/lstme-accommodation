@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { useUserContext } from "../../hooks/_context/UserContext";
@@ -11,7 +11,7 @@ import Users from "../../pages/Users";
 import UserDetail from "../../pages/UserDetail";
 import NotFound from "../../pages/NotFound";
 
-const Router = () => {
+const Router = (): ReactElement => {
   const user = useUserContext();
   const isLoggedIn = !!user;
   const isSuperAdmin = !!(user && user.is_super_admin);

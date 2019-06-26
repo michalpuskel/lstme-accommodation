@@ -1,5 +1,5 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const BreadcrumbItem = () => <div>TODO breadcrumb item</div>;
+const BreadcrumbItem = (): ReactElement => <div>TODO breadcrumb item</div>;
 
 export default BreadcrumbItem;

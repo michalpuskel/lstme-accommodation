@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 interface BreadcrumbProps {
   breadcrumb: any; // TODO
 }
 
-const Breadcrumb = (props: BreadcrumbProps) => (
+const Breadcrumb = (props: BreadcrumbProps): ReactElement => (
   <div>TODO breadcrumb{props.breadcrumb} </div>
 );
 
