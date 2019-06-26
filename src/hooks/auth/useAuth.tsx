@@ -1,13 +1,18 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, MouseEvent } from "react";
 
 import { IError } from "../../@types";
-import { EAuthType, IFormAuthFields, EAuthAction } from "../../@types/auth";
+import {
+  IAuth,
+  EAuthType,
+  IFormAuthFields,
+  EAuthAction
+} from "../../@types/auth";
 
 import useFormAuthReducer from "../_reducers/useFormAuthReducer";
 import useSubmitLoginHandler from "./useSubmitLoginHandler";
 import useSubmitRegistrationHandler from "./useSubmitRegistrationHandler";
 
-const useAuth = (): any => {
+const useAuth = (): IAuth => {
   const [authType, setAuthType] = useState<EAuthType>(EAuthType.LOGIN);
   const [formAuth, dispatch] = useFormAuthReducer();
 
@@ -39,36 +44,28 @@ const useAuth = (): any => {
     [dispatch]
   );
 
-  const navRegistrationHandler = useCallback(
-    (): void => setAuthType(EAuthType.REGISTRATION),
-    []
-  );
-  const navLoginHandler = useCallback(
-    (): void => setAuthType(EAuthType.LOGIN),
-    []
-  );
-
   const submitLoginHandler = useSubmitLoginHandler(formAuth);
   const submitRegistrationHandler = useSubmitRegistrationHandler(formAuth);
 
-  return {
-    type: authType,
-    form: formAuth,
+  const onSubmit = useCallback(
+    (): ((event: MouseEvent<HTMLButtonElement>) => void) =>
+      authType === EAuthType.LOGIN
+        ? submitLoginHandler
+        : submitRegistrationHandler,
+    [authType, submitLoginHandler, submitRegistrationHandler]
+  );
 
+  return {
+    type: {
+      get: authType,
+      set: setAuthType
+    },
+    form: formAuth,
     handler: {
       onChange,
       pushError,
       resetErrors,
-
-      [EAuthType.LOGIN]: {
-        nav: navRegistrationHandler,
-        submit: submitLoginHandler
-      },
-
-      [EAuthType.REGISTRATION]: {
-        nav: navLoginHandler,
-        submit: submitRegistrationHandler
-      }
+      onSubmit
     }
   };
 };

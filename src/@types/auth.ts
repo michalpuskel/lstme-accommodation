@@ -1,9 +1,9 @@
-import { MouseEvent } from "react";
+import { Dispatch, SetStateAction, MouseEvent } from "react";
 import { IError } from ".";
 
 export enum EAuthType {
-  LOGIN = "Prihlásenie",
-  REGISTRATION = "Registrácia"
+  LOGIN,
+  REGISTRATION
 }
 
 export interface IFormAuthFields {
@@ -53,30 +53,15 @@ export interface IFormAuthResetFieldErrorsAction {
 }
 
 export interface IAuth {
-  type: EAuthType;
+  type: {
+    get: EAuthType;
+    set: Dispatch<SetStateAction<EAuthType>>;
+  };
   form: IFormAuthState;
-
   handler: {
     onChange: (name: keyof IFormAuthFields, value: string) => void;
     pushError: (field: keyof IFormAuthFields, error: IError) => void;
     resetErrors: (field: keyof IFormAuthFields) => void;
-
-    [authType: EAuthType]: {
-      nav: () => void;
-      submit: (
-        formAuth: IFormAuthState
-      ) => (event: MouseEvent<HTMLButtonElement>) => void;
-    };
+    onSubmit: () => (event: MouseEvent<HTMLButtonElement>) => void;
   };
-}
-
-type TAuthType = {
-  [type in EAuthType]: IAuthTypeHandlers;
-};
-
-interface IAuthTypeHandlers {
-  nav: () => void;
-  submit: (
-    formAuth: IFormAuthState
-  ) => (event: MouseEvent<HTMLButtonElement>) => void;
 }
