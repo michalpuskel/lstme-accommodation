@@ -1,43 +1,72 @@
 import { useState, useCallback } from "react";
 
-import { EAuthType } from "../../@types";
-import useFormLogin from "./useFormLogin";
-import useFormRegistration from "./useFormRegistration";
+import { IError } from "../../@types";
+import { EAuthType, IFormAuthFields, EAuthAction } from "../../@types/auth";
+
+import useFormAuthReducer from "../_reducers/useFormAuthReducer";
 import useSubmitLoginHandler from "./useSubmitLoginHandler";
 import useSubmitRegistrationHandler from "./useSubmitRegistrationHandler";
 
-const useAuth = () => {
+const useAuth = (): any => {
   const [authType, setAuthType] = useState<EAuthType>(EAuthType.LOGIN);
-  const formLogin = useFormLogin();
-  const formRegistration = useFormRegistration();
+  const [formAuth, dispatch] = useFormAuthReducer();
+
+  const onChange = useCallback(
+    (name: keyof IFormAuthFields, value: string): void =>
+      dispatch({
+        type: EAuthAction.UPDATE_FIELD,
+        payload: { name, value }
+      }),
+    [dispatch]
+  );
+
+  const pushError = useCallback(
+    (field: keyof IFormAuthFields, error: IError): void =>
+      dispatch({
+        type: EAuthAction.UPDATE_FIELD_ERRORS,
+        payload: { field, error }
+      }),
+    [dispatch]
+  );
+
+  const resetErrors = useCallback(
+    (field: keyof IFormAuthFields): void => {
+      dispatch({
+        type: EAuthAction.RESET_FIELD_ERRORS,
+        payload: { field }
+      });
+    },
+    [dispatch]
+  );
 
   const navRegistrationHandler = useCallback(
-    () => setAuthType(EAuthType.REGISTRATION),
+    (): void => setAuthType(EAuthType.REGISTRATION),
     []
   );
-  const navLoginHandler = useCallback(() => setAuthType(EAuthType.LOGIN), []);
-
-  const submitLoginHandler = useSubmitLoginHandler(formLogin);
-  const submitRegistrationHandler = useSubmitRegistrationHandler(
-    formLogin,
-    formRegistration
+  const navLoginHandler = useCallback(
+    (): void => setAuthType(EAuthType.LOGIN),
+    []
   );
 
+  const submitLoginHandler = useSubmitLoginHandler(formAuth);
+  const submitRegistrationHandler = useSubmitRegistrationHandler(formAuth);
+
   return {
-    authType,
+    type: authType,
+    form: formAuth,
 
-    [EAuthType.LOGIN]: {
-      form: formLogin,
-      handler: {
-        nav: navLoginHandler,
-        submit: submitLoginHandler
-      }
-    },
+    handler: {
+      onChange,
+      pushError,
+      resetErrors,
 
-    [EAuthType.REGISTRATION]: {
-      form: formRegistration,
-      handler: {
+      [EAuthType.LOGIN]: {
         nav: navRegistrationHandler,
+        submit: submitLoginHandler
+      },
+
+      [EAuthType.REGISTRATION]: {
+        nav: navLoginHandler,
         submit: submitRegistrationHandler
       }
     }

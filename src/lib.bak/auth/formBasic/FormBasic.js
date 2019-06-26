@@ -19,6 +19,8 @@ const FormBasic = props => {
   //   []
   // );
 
+  // id: `${field}Input`
+
   return (
     <>
       <div className="field">

@@ -6,9 +6,9 @@ export interface IUser {
   birth_date: string;
   is_supervisor: boolean;
   is_super_admin: boolean;
-  room_id: string;
-  swap_received_from_id: string;
-  swap_sent_to_id: string;
+  room_id: string | null;
+  swap_received_from_id: string | null;
+  swap_sent_to_id: string | null;
 }
 
 export interface IError {
