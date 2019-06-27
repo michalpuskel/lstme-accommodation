@@ -8,7 +8,7 @@ import useAuthedUser from "../../hooks/user/useAuthedUser";
 
 import Router from "../Router";
 import ErrorHandler from "../ErrorHandler";
-import Loading from "../../components/_visual/Loading";
+import Loading from "../../components/Loading";
 
 // import { auth } from "../../config/firebase";
 
