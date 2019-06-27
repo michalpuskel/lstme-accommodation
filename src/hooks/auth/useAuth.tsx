@@ -16,33 +16,24 @@ const useAuth = (): IAuth => {
   const [authType, setAuthType] = useState<EAuthType>(EAuthType.LOGIN);
   const [formAuth, dispatch] = useFormAuthReducer();
 
-  const onChange = useCallback(
-    (name: keyof IFormAuthFields, value: string): void =>
-      dispatch({
-        type: EAuthAction.UPDATE_FIELD,
-        payload: { name, value }
-      }),
-    [dispatch]
-  );
+  const onChange = (name: keyof IFormAuthFields, value: string): void =>
+    dispatch({
+      type: EAuthAction.UPDATE_FIELD,
+      payload: { name, value }
+    });
 
-  const pushError = useCallback(
-    (field: keyof IFormAuthFields, error: IError): void =>
-      dispatch({
-        type: EAuthAction.UPDATE_FIELD_ERRORS,
-        payload: { field, error }
-      }),
-    [dispatch]
-  );
+  const pushError = (field: keyof IFormAuthFields, error: IError): void =>
+    dispatch({
+      type: EAuthAction.UPDATE_FIELD_ERRORS,
+      payload: { field, error }
+    });
 
-  const resetErrors = useCallback(
-    (field: keyof IFormAuthFields): void => {
-      dispatch({
-        type: EAuthAction.RESET_FIELD_ERRORS,
-        payload: { field }
-      });
-    },
-    [dispatch]
-  );
+  const resetErrors = (field: keyof IFormAuthFields): void => {
+    dispatch({
+      type: EAuthAction.RESET_FIELD_ERRORS,
+      payload: { field }
+    });
+  };
 
   const submitLoginHandler = useSubmitLoginHandler(formAuth);
   const submitRegistrationHandler = useSubmitRegistrationHandler(formAuth);
