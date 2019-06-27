@@ -21,3 +21,8 @@ export interface IToggleable {
   value: boolean;
   toggle: () => void;
 }
+
+export enum EButtonElement {
+  INPUT,
+  BUTTON
+}

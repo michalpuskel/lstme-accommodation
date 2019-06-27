@@ -47,11 +47,11 @@ const useAuth = (): IAuth => {
   );
 
   return {
-    type: {
-      get: authType,
-      set: setAuthType
-    },
-    form: formAuth,
+    authType,
+    setAuthType,
+
+    formAuth,
+
     handler: {
       onChange,
       pushError,

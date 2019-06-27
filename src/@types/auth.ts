@@ -53,11 +53,11 @@ export interface IFormAuthResetFieldErrorsAction {
 }
 
 export interface IAuth {
-  type: {
-    get: EAuthType;
-    set: Dispatch<SetStateAction<EAuthType>>;
-  };
-  form: IFormAuthState;
+  authType: EAuthType;
+  setAuthType: Dispatch<SetStateAction<EAuthType>>;
+
+  formAuth: IFormAuthState;
+
   handler: {
     onChange: (name: keyof IFormAuthFields, value: string) => void;
     pushError: (field: keyof IFormAuthFields, error: IError) => void;
