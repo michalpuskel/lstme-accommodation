@@ -3,11 +3,11 @@ import React, { ReactNode, ReactElement } from "react";
 import { useUserContext } from "../../../hooks/_context/UserContext";
 import Notifications from "../../../components/Notifications";
 
-interface ContentProps {
+interface IContentProps {
   children: ReactNode;
 }
 
-const Content = (props: ContentProps): ReactElement => {
+const Content = (props: IContentProps): ReactElement => {
   const user = useUserContext();
 
   return (

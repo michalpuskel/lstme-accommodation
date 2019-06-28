@@ -4,13 +4,13 @@ import Header from "./Header";
 import Content from "./Content";
 import Footer from "./Footer";
 
-interface LayoutProps {
+interface ILayoutProps {
   title: string;
   breadcrumb?: any; // TODO
   children: ReactNode;
 }
 
-const Layout = (props: LayoutProps): ReactElement => (
+const Layout = (props: ILayoutProps): ReactElement => (
   <>
     <Header title={props.title} breadcrumb={props.breadcrumb} />
     <Content> {props.children} </Content>

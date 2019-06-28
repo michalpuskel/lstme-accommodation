@@ -6,13 +6,13 @@ import { useUserContext } from "../../../hooks/_context/UserContext";
 import Navigation from "../../../components/nav/Navigation";
 import Breadcrumb from "../../../components/nav/Breadcrumb";
 
-interface HeaderProps {
+interface IHeaderProps {
   title: string;
   breadcrumb: any; // TODO
 }
 
 const Header = memo(
-  (props: HeaderProps): ReactElement => {
+  (props: IHeaderProps): ReactElement => {
     const user = useUserContext();
 
     return (

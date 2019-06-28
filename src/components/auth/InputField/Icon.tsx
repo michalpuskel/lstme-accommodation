@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
 import { TIconPosition, TIconImage } from "../../../@types";
 
-interface IconProps {
+export interface IIconProps {
   position: TIconPosition;
   image: TIconImage;
 }
 
-const Icon = (props: IconProps): ReactElement => (
+const Icon = (props: IIconProps): ReactElement => (
   <span className={`icon is-small ${props.position}`}>
     <i className={`fas ${props.image}`} />
   </span>

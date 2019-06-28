@@ -1,10 +1,10 @@
 import { IError } from "../../@types";
 
-interface ErrorHandlerProps {
+interface IErrorHandlerProps {
   errorBuffer: IError[];
 }
 
-const ErrorHandler = (props: ErrorHandlerProps): null => {
+const ErrorHandler = (props: IErrorHandlerProps): null => {
   console.log("ERR BUFFER", props.errorBuffer); // TODO toast
 
   return null;

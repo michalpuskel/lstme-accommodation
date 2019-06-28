@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { EButtonElement } from "../../../@types";
 
-interface ButtonProps {
+interface IButtonProps {
   element: EButtonElement;
 
   color: "is-success" | "is-light";
@@ -12,7 +12,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button = (props: ButtonProps): ReactElement => (
+const Button = (props: IButtonProps): ReactElement => (
   <div className="level-item">
     <div className="field">
       <div className="control">

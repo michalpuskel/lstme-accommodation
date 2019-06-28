@@ -7,7 +7,7 @@ import React, {
 
 import { Route, Redirect } from "react-router-dom";
 
-interface ProtectedRouteProps {
+interface IProtectedRouteProps {
   component: FunctionComponent;
   condition: boolean;
   redirect: string;
@@ -27,7 +27,7 @@ const ProtectedRoute = ({
 
   exact,
   path
-}: ProtectedRouteProps): ReactElement => (
+}: IProtectedRouteProps): ReactElement => (
   <Route
     render={(props): ReactElement =>
       condition && props.match.params.userId === privateId ? (

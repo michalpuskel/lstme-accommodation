@@ -12,7 +12,7 @@ import { submitButtonLabel, navButtonLabel } from "../../../helpers/auth";
 
 import Button from "./Button";
 
-interface AuthButtonsProps {
+interface IAuthButtonsProps {
   authType: EAuthType;
   setAuthType: Dispatch<SetStateAction<EAuthType>>;
   hasErrors: boolean;
@@ -22,7 +22,7 @@ const AuthButtons = ({
   authType,
   setAuthType,
   hasErrors
-}: AuthButtonsProps): ReactElement => {
+}: IAuthButtonsProps): ReactElement => {
   const navHandler = useCallback(
     (): void =>
       setAuthType(
