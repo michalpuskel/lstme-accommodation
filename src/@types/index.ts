@@ -26,3 +26,13 @@ export enum EButtonElement {
   INPUT,
   BUTTON
 }
+
+export type TIconPosition = "is-left" | "is-right";
+
+export type TIconImage =
+  | "fa-envelope"
+  | "fa-lock"
+  | "fa-user"
+  | "fa-calendar"
+  | "fa-check"
+  | "fa-exclamation-triangle";
