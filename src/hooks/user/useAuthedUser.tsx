@@ -6,12 +6,12 @@ import { IUser, IError } from "../../@types";
 
 const useAuthedUser = (
   pushError: Dispatch<SetStateAction<IError[]>>
-): IUser | null => {
+): IUser | null | undefined => {
   const [authedUser, setAuthedUser] = useState<IUser | null | undefined>(
     undefined
   );
 
-  useEffect((): (() => void) => {
+  useEffect((): void | (() => void) => {
     let unsubscribe: (() => void) | null = null;
 
     auth.onAuthStateChanged((currentUser: User | null): void => {
@@ -24,21 +24,21 @@ const useAuthedUser = (
           async snapshot => {
             const data = snapshot.data() as IUser | undefined;
 
-            if (!data) {
+            if (data) {
+              setAuthedUser(data);
+            } else {
               try {
                 await auth.signOut();
               } catch (error) {
                 console.error(error);
               }
 
-              pushError((buffer: IError[]): IError[] =>
+              pushError(buffer =>
                 buffer.concat({
                   code: "user-ban"
                 })
               );
               setAuthedUser(null); // TODO set after user interaction ?
-            } else {
-              setAuthedUser(data);
             }
           },
           (error: Error): void => console.error(error)
@@ -53,7 +53,7 @@ const useAuthedUser = (
     };
   }, [pushError]);
 
-  return authedUser as IUser | null;
+  return authedUser;
 };
 
 export default useAuthedUser;
