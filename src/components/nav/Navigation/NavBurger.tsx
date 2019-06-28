@@ -1,19 +1,26 @@
-import React, { memo, ReactElement } from "react";
+import React, { memo, ReactElement, HTMLAttributes } from "react";
+// import cx from 'classnames';
 
-interface NavBurgerProps {
-  showMenu: boolean;
-  toggleMenu: () => void;
+interface INavBurgerProps {
+  isActive?: boolean;
 }
 
 const NavBurger = memo(
-  (props: NavBurgerProps): ReactElement => (
+  ({
+    isActive,
+    ...rest
+  }: INavBurgerProps & HTMLAttributes<HTMLDivElement>): ReactElement => (
     <div
       role="button"
-      className={`navbar-burger burger ${props.showMenu ? "is-active" : ""}`}
+      className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
+      // className={cx('navbar-burger burger', {
+      //   'is-active': isActive
+      // })}
       aria-label="menu"
       aria-expanded="false"
       data-target="navMenu"
-      onClick={props.toggleMenu}
+      {...rest}
+      // onClick={props.toggleMenu}
     >
       <span aria-hidden="true" />
       <span aria-hidden="true" />

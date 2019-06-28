@@ -8,18 +8,15 @@ import NavUser from "./NavUser";
 
 const Navigation = memo(
   (): ReactElement => {
-    const showMenu = useToggleable();
+    const { value, toggle } = useToggleable();
 
     return (
       <>
         <div className="navbar-brand">
-          <NavBrand showMenu={showMenu.value} toggleMenu={showMenu.toggle} />
+          <NavBrand isActive={value} onClick={toggle} />
         </div>
 
-        <div
-          id="navMenu"
-          className={`navbar-menu ${showMenu ? "is-active" : ""}`}
-        >
+        <div id="navMenu" className={`navbar-menu ${value ? "is-active" : ""}`}>
           <NavLinks />
           <NavUser />
         </div>
