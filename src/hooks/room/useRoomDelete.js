@@ -4,64 +4,69 @@ import { database, dbTimestamp } from "../../config/firebase";
 
 const useRoomDelete = (roomId, accommodatedUsers) => {
   //TODO transaction 'collection' read / delete
-  const roomDelete = useCallback(async () => {
-    const roomRef = database.collection("rooms").doc(roomId);
-    const bedsRef = database
-      .collection("rooms")
-      .doc(roomId)
-      .collection("beds");
+  const roomDelete = useCallback(
+    async event => {
+      event && event.preventDefault();
 
-    try {
-      const swappingUsers = [];
+      const roomRef = database.collection("rooms").doc(roomId);
+      const bedsRef = database
+        .collection("rooms")
+        .doc(roomId)
+        .collection("beds");
 
-      Object.keys(accommodatedUsers).map(async userId => {
-        const userRef = database.collection("users").doc(userId);
-        const userDoc = await userRef.get();
-        const { swap_sent_to_id, swap_received_from_id } = userDoc.data();
+      try {
+        // const swappingUsers = [];
 
-        const swapPartnerId = swap_sent_to_id || swap_received_from_id;
-        if (swapPartnerId) {
-          swappingUsers.push(userId);
-          swappingUsers.push(swapPartnerId);
-        }
-      });
+        // Object.keys(accommodatedUsers).map(async userId => {
+        //   const userRef = database.collection("users").doc(userId);
+        //   const userDoc = await userRef.get();
+        //   const { swap_sent_to_id, swap_received_from_id } = userDoc.data();
 
-      const roomDoc = await roomRef.get();
-      const room = roomDoc.data();
+        //   const swapPartnerId = swap_sent_to_id || swap_received_from_id;
+        //   if (swapPartnerId) {
+        //     swappingUsers.push(userId);
+        //     swappingUsers.push(swapPartnerId);
+        //   }
+        // });
 
-      swappingUsers.map(async userId => {
-        const userRef = database.collection("users").doc(userId);
-        await userRef.update({
-          swap_sent_to_id: null,
-          swap_received_from_id: null
-        });
+        // const roomDoc = await roomRef.get();
+        // const room = roomDoc.data();
 
-        const notificationRef = database
-          .collection("notifications")
-          .doc(userId)
-          .collection("denials")
-          .doc();
-        await notificationRef.set({
-          uid: notificationRef.id,
-          room: room.name,
-          type: "room-delete",
-          timestamp: dbTimestamp
-        });
-        return userRef;
-      });
+        // swappingUsers.map(async userId => {
+        //   const userRef = database.collection("users").doc(userId);
+        //   await userRef.update({
+        //     swap_sent_to_id: null,
+        //     swap_received_from_id: null
+        //   });
 
-      Object.keys(accommodatedUsers).map(async userId => {
-        const userRef = database.collection("users").doc(userId);
-        await userRef.update({ room_id: null });
-        bedsRef.doc(userId).delete();
-        return userRef;
-      });
+        //   const notificationRef = database
+        //     .collection("notifications")
+        //     .doc(userId)
+        //     .collection("denials")
+        //     .doc();
+        //   await notificationRef.set({
+        //     uid: notificationRef.id,
+        //     room: room.name,
+        //     type: "room-delete",
+        //     timestamp: dbTimestamp
+        //   });
+        //   return userRef;
+        // });
 
-      await roomRef.delete();
-    } catch (error) {
-      console.error(error);
-    }
-  }, [roomId, accommodatedUsers]);
+        // Object.keys(accommodatedUsers).map(async userId => {
+        //   const userRef = database.collection("users").doc(userId);
+        //   await userRef.update({ room_id: null });
+        //   bedsRef.doc(userId).delete();
+        //   return userRef;
+        // });
+
+        await roomRef.delete();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [roomId]
+  );
 
   return roomDelete;
 };

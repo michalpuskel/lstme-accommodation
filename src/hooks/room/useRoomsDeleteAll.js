@@ -4,7 +4,9 @@ const useRoomsDeleteAll = () => {
   //TODO transaction 'collection' read / delete
   const [deleteRooms, setDeleteRooms] = useState(false);
 
-  const roomsDeleteAll = useCallback(() => {
+  const roomsDeleteAll = useCallback(event => {
+    event.preventDefault();
+
     setDeleteRooms(true);
   }, []);
 

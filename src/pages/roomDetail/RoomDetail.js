@@ -12,6 +12,8 @@ const RoomDetail = props => {
   const room = useRoom(props.match.params.roomId);
   const breadcrumb = useRoomBreadcrumb();
 
+  console.log("ROOM", room);
+
   return (
     <Layout
       title={room ? `Rezervácia izby: ${room.name}` : ""}
