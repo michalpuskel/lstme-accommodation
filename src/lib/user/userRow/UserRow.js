@@ -136,9 +136,7 @@ const UserRow = props => {
             onChange={changeIsSuperAdminHandler}
             disabled={isMyRow()}
           />
-          <label htmlFor={`rights_super_admin_${props.uid}`}>
-            Super&nbsp;admin
-          </label>
+          <label htmlFor={`rights_super_admin_${props.uid}`}>Admin</label>
         </div>
       </td>
 
