@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./BedList.scss";
@@ -22,7 +22,10 @@ import useTrue from "../../../hooks/utils/useTrue";
 import Bed from "../bed/Bed";
 import BedEmpty from "../bedEmpty/BedEmpty";
 import FormEditRoom from "../../../lib/room/formEditRoom/FormEditRoom";
+import FormBookUpBed from "../formBookUpBed";
 import Modal from "../../../lib/modal/Modal";
+import useHomelessUsers from "../../../hooks/room/useHomelessUsers";
+import useSubmitBookUpBedHandler from "../../../hooks/room/useSubmitBookUpBedHandler";
 
 // TODO refactor buttons
 const BedList = props => {
@@ -51,6 +54,19 @@ const BedList = props => {
   const validName = useValidateNewRoomName(input.name);
   const editRoomModal = useModal();
   const submitRoomEditHandler = useSubmitRoomEditHandler(props.uid, input);
+
+  const [bedBookUpUserId, setBedBookUpUserId] = useState();
+  const homelessUsers = useHomelessUsers(
+    props.is_supervisor_only,
+    setBedBookUpUserId
+  );
+  const reservationBookUpModal = useModal();
+  const validBookUp = Object.keys(homelessUsers).length > 0;
+  const submitBookUpBedHandler = useSubmitBookUpBedHandler(
+    homelessUsers[bedBookUpUserId],
+    props.uid,
+    validBookUp
+  );
 
   if (props.deleteRooms) {
     roomDelete();
@@ -148,6 +164,31 @@ const BedList = props => {
           >
             <FormEditRoom input={input} handler={handler} id={id} />
           </Modal>
+
+          {user.is_super_admin && (
+            <Modal
+              title="Rezervácia postele"
+              button={{
+                action: {
+                  label: "Rezervovať posteľ",
+                  check: () => !!bedBookUpUserId,
+                  class: "is-primary"
+                },
+                dismiss: {
+                  label: "Zrušiť",
+                  handler: reservationBookUpModal.toggleModal
+                }
+              }}
+              onSubmit={submitBookUpBedHandler}
+              active={reservationBookUpModal.showModal}
+            >
+              <FormBookUpBed
+                homelessUsers={homelessUsers}
+                userId={bedBookUpUserId}
+                setUserId={setBedBookUpUserId}
+              />
+            </Modal>
+          )}
         </>
       )}
 
@@ -184,6 +225,19 @@ const BedList = props => {
               ))}
             </tbody>
             <tfoot>
+              {props.detail && user.is_super_admin && freeBedExists() && (
+                <tr>
+                  <td colSpan={3} className="has-text-centered td--v-center">
+                    <button
+                      className="button is-primary is-outlined"
+                      onClick={reservationBookUpModal.toggleModal}
+                    >
+                      Rezervovať posteľ
+                    </button>
+                  </td>
+                </tr>
+              )}
+
               <tr>
                 <td
                   colSpan={user.is_super_admin ? "3" : "2"}
