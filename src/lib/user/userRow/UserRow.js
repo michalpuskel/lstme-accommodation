@@ -142,7 +142,7 @@ const UserRow = props => {
         </div>
       </td>
 
-      <td className="td--is-hidden-tablet-xl td--v-center">
+      <td className="td--is-hidden-tablet-xl td--v-center users-list__td--room">
         {props.room_id ? (
           <Link to={`/room/${props.room_id}`}> {props.roomName} </Link>
         ) : (
