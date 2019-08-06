@@ -18,7 +18,7 @@ const useRoomDelete = (roomId, accommodatedUsers) => {
         await database.runTransaction(async transaction => {
           const swappingUsers = [];
 
-          Object.keys(accommodatedUsers).map(async userId => {
+          Object.keys(accommodatedUsers).forEach(async userId => {
             const userRef = database.collection("users").doc(userId);
             const userDoc = await transaction.get(userRef);
             const { swap_sent_to_id, swap_received_from_id } = userDoc.data();
@@ -33,7 +33,7 @@ const useRoomDelete = (roomId, accommodatedUsers) => {
           const roomDoc = await transaction.get(roomRef);
           const room = roomDoc.data();
 
-          swappingUsers.map(userId => {
+          swappingUsers.forEach(userId => {
             const userRef = database.collection("users").doc(userId);
             transaction.update(userRef, {
               swap_sent_to_id: null,
@@ -51,14 +51,12 @@ const useRoomDelete = (roomId, accommodatedUsers) => {
               type: "room-delete",
               timestamp: dbTimestamp
             });
-            return userRef;
           });
 
-          Object.keys(accommodatedUsers).map(userId => {
+          Object.keys(accommodatedUsers).forEach(userId => {
             const userRef = database.collection("users").doc(userId);
             transaction.update(userRef, { room_id: null });
             transaction.delete(bedsRef.doc(userId));
-            return userRef;
           });
 
           transaction.delete(roomRef);
