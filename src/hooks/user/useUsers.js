@@ -20,7 +20,8 @@ const useUsers = () => {
       .collection("users")
       .orderBy("is_supervisor", "desc")
       .orderBy("is_super_admin", "desc")
-      .orderBy("last_name");
+      .orderBy("last_name")
+      .orderBy("first_name");
     const unsubscribe = ref.onSnapshot(
       snapshot => {
         snapshot.docChanges().forEach(changeHandler);

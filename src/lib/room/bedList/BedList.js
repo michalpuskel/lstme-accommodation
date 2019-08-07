@@ -204,6 +204,33 @@ const BedList = props => {
                   <Link to={`/room/${props.uid}`}> izba: {props.name} </Link>
                 </th>
               </tr>
+
+              <tr>
+                <td
+                  colSpan={user.is_super_admin ? 3 : 2}
+                  className="has-text-centered"
+                >
+                  {user.is_supervisor ? (
+                    <div className="field">
+                      <input
+                        className="is-checkradio is-success"
+                        id={`room_${props.uid}`}
+                        name={`room_${props.uid}`}
+                        type="checkbox"
+                        checked={props.is_supervisor_only}
+                        onChange={changeSupervisorOnlyHandler}
+                      />
+                      <label htmlFor={`room_${props.uid}`}>
+                        Izba len pre vedúcich
+                      </label>
+                    </div>
+                  ) : (
+                    <em>
+                      pre {props.is_supervisor_only ? "inštruktorov" : "deti"}
+                    </em>
+                  )}
+                </td>
+              </tr>
             </thead>
             <tbody>
               {Object.keys(bedList).map(userId => (
@@ -225,18 +252,21 @@ const BedList = props => {
               ))}
             </tbody>
             <tfoot>
-              {props.detail && user.is_super_admin && freeBedExists() && (
-                <tr>
-                  <td colSpan={3} className="has-text-centered td--v-center">
-                    <button
-                      className="button is-primary is-outlined"
-                      onClick={reservationBookUpModal.toggleModal}
-                    >
-                      Rezervovať posteľ
-                    </button>
-                  </td>
-                </tr>
-              )}
+              {props.detail &&
+                user.is_supervisor &&
+                user.is_super_admin &&
+                freeBedExists() && (
+                  <tr>
+                    <td colSpan={3} className="has-text-centered td--v-center">
+                      <button
+                        className="button is-primary is-outlined"
+                        onClick={reservationBookUpModal.toggleModal}
+                      >
+                        Rezervovať posteľ
+                      </button>
+                    </td>
+                  </tr>
+                )}
 
               <tr>
                 <td
@@ -245,29 +275,6 @@ const BedList = props => {
                 >
                   voľných miest:{" "}
                   {emptyBedCount(props.bed_count, Object.keys(bedList).length)}
-                </td>
-              </tr>
-
-              <tr>
-                <td
-                  colSpan={user.is_super_admin ? "3" : "2"}
-                  className="has-text-centered"
-                >
-                  <div className="field">
-                    <input
-                      className={`is-checkradio ${
-                        user.is_supervisor ? "is-success" : "is-danger"
-                      }`}
-                      id={`room_${props.uid}`}
-                      name={`room_${props.uid}`}
-                      type="checkbox"
-                      checked={props.is_supervisor_only}
-                      onChange={changeSupervisorOnlyHandler}
-                    />
-                    <label htmlFor={`room_${props.uid}`}>
-                      Izba len pre vedúcich
-                    </label>
-                  </div>
                 </td>
               </tr>
 
