@@ -40,16 +40,18 @@ const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
             </div>
           </div>
 
-          {Object.keys(homelessUsers).map(homelessUserId => (
-            <UserBookUpRow
-              key={homelessUserId}
-              homelessUsers={homelessUsers}
-              homelessUserId={homelessUserId}
-              userId={userId}
-              changeUser={changeUserHandler}
-              roomId={roomId}
-            />
-          ))}
+          <div className="homeless-users__div--list">
+            {Object.keys(homelessUsers).map(homelessUserId => (
+              <UserBookUpRow
+                key={homelessUserId}
+                homelessUsers={homelessUsers}
+                homelessUserId={homelessUserId}
+                userId={userId}
+                changeUser={changeUserHandler}
+                roomId={roomId}
+              />
+            ))}
+          </div>
         </>
       ) : (
         "Neexistujú žiadni neubytovaní účastníci s príslušnými právami na ubytovanie na tejto izbe."
