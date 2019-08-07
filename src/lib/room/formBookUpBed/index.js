@@ -38,7 +38,7 @@ const UserBookUpRow = ({
   return (
     <div className="field">
       <input
-        className="is-checkradio"
+        className="is-checkradio is-link"
         id={`${radioId}_:_${homelessUserId}`}
         type="radio"
         name="bedBookUpUserId"
