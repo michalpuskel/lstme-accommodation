@@ -174,7 +174,7 @@ const BedList = props => {
             action: {
               label: "Rezervovať posteľ",
               check: () => !!bedBookUpUserId,
-              class: "is-primary"
+              class: "is-link"
             },
             dismiss: {
               label: "Zrušiť",
@@ -239,6 +239,7 @@ const BedList = props => {
                   userId={userId}
                   onReservationCancel={reservationCancel}
                   detail={props.detail}
+                  freeBedExists={freeBedExists()}
                 />
               ))}
               {emptyBeds(
@@ -248,23 +249,12 @@ const BedList = props => {
                   key={index}
                   roomIsSupervisorOnly={props.is_supervisor_only}
                   onReservationBookUp={reservationBookUp}
+                  freeBedExists={freeBedExists()}
+                  onBookUp={reservationBookUpModal.toggleModal}
                 />
               ))}
             </tbody>
             <tfoot>
-              {user.is_supervisor && user.is_super_admin && freeBedExists() && (
-                <tr>
-                  <td colSpan={3} className="has-text-centered td--v-center">
-                    <button
-                      className="button is-primary is-outlined"
-                      onClick={reservationBookUpModal.toggleModal}
-                    >
-                      Rezervovať posteľ
-                    </button>
-                  </td>
-                </tr>
-              )}
-
               <tr>
                 <td
                   colSpan={user.is_super_admin ? "3" : "2"}

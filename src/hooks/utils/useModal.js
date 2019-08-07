@@ -3,9 +3,13 @@ import { useState, useCallback } from "react";
 const useModal = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const toggleModal = useCallback(() => {
-    setShowModal(!showModal);
-  }, [showModal, setShowModal]);
+  const toggleModal = useCallback(
+    event => {
+      event.stopPropagation();
+      setShowModal(!showModal);
+    },
+    [showModal, setShowModal]
+  );
 
   return {
     showModal,

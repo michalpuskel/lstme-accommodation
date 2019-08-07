@@ -39,10 +39,25 @@ const Bed = props => {
       <td className="td--v-center">
         <strong>{userName(user)}</strong>
       </td>
-      <td className="td--v-center">{userAge(user)}</td>
-      {authedUser.is_super_admin && (
+
+      <td
+        className="td--v-center td--text-right"
+        colSpan={
+          authedUser.is_supervisor &&
+          authedUser.is_super_admin &&
+          props.freeBedExists
+            ? props.detail
+              ? 1
+              : 2
+            : 1
+        }
+      >
+        {userAge(user)}
+      </td>
+
+      {authedUser.is_super_admin && props.detail && (
         <td className="has-text-centered td--v-center">
-          {!isMyBed() && props.detail && (
+          {!isMyBed() && (
             <button
               className="button is-danger is-outlined"
               onClick={reservationCancelHandler}
