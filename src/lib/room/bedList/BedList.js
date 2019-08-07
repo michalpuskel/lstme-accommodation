@@ -164,32 +164,32 @@ const BedList = props => {
           >
             <FormEditRoom input={input} handler={handler} id={id} />
           </Modal>
-
-          {user.is_super_admin && (
-            <Modal
-              title="Rezervácia postele"
-              button={{
-                action: {
-                  label: "Rezervovať posteľ",
-                  check: () => !!bedBookUpUserId,
-                  class: "is-primary"
-                },
-                dismiss: {
-                  label: "Zrušiť",
-                  handler: reservationBookUpModal.toggleModal
-                }
-              }}
-              onSubmit={submitBookUpBedHandler}
-              active={reservationBookUpModal.showModal}
-            >
-              <FormBookUpBed
-                homelessUsers={homelessUsers}
-                userId={bedBookUpUserId}
-                setUserId={setBedBookUpUserId}
-              />
-            </Modal>
-          )}
         </>
+      )}
+
+      {user.is_supervisor && user.is_super_admin && (
+        <Modal
+          title="Rezervácia postele"
+          button={{
+            action: {
+              label: "Rezervovať posteľ",
+              check: () => !!bedBookUpUserId,
+              class: "is-primary"
+            },
+            dismiss: {
+              label: "Zrušiť",
+              handler: reservationBookUpModal.toggleModal
+            }
+          }}
+          onSubmit={submitBookUpBedHandler}
+          active={reservationBookUpModal.showModal}
+        >
+          <FormBookUpBed
+            homelessUsers={homelessUsers}
+            userId={bedBookUpUserId}
+            setUserId={setBedBookUpUserId}
+          />
+        </Modal>
       )}
 
       <div className="column is-narrow">
@@ -252,21 +252,18 @@ const BedList = props => {
               ))}
             </tbody>
             <tfoot>
-              {props.detail &&
-                user.is_supervisor &&
-                user.is_super_admin &&
-                freeBedExists() && (
-                  <tr>
-                    <td colSpan={3} className="has-text-centered td--v-center">
-                      <button
-                        className="button is-primary is-outlined"
-                        onClick={reservationBookUpModal.toggleModal}
-                      >
-                        Rezervovať posteľ
-                      </button>
-                    </td>
-                  </tr>
-                )}
+              {user.is_supervisor && user.is_super_admin && freeBedExists() && (
+                <tr>
+                  <td colSpan={3} className="has-text-centered td--v-center">
+                    <button
+                      className="button is-primary is-outlined"
+                      onClick={reservationBookUpModal.toggleModal}
+                    >
+                      Rezervovať posteľ
+                    </button>
+                  </td>
+                </tr>
+              )}
 
               <tr>
                 <td
