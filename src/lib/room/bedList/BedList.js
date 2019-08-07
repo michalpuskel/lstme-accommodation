@@ -188,6 +188,7 @@ const BedList = props => {
             homelessUsers={homelessUsers}
             userId={bedBookUpUserId}
             setUserId={setBedBookUpUserId}
+            roomId={props.uid}
           />
         </Modal>
       )}
