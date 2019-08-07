@@ -1,8 +1,17 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+
+import "./FormBookUpBed.scss";
 import useUserName from "../../../hooks/user/useUserName";
 
 const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
-  const changeUser = useCallback(
+  const [usersFilter, setUsersFilter] = useState("");
+
+  const changeFilterHandler = useCallback(
+    event => setUsersFilter(event.target.value),
+    []
+  );
+
+  const changeUserHandler = useCallback(
     event => {
       setUserId(event.target.value);
     },
@@ -11,18 +20,40 @@ const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
 
   return (
     <>
-      {homelessUsers && Object.keys(homelessUsers).length > 0
-        ? Object.keys(homelessUsers).map(homelessUserId => (
+      {homelessUsers && Object.keys(homelessUsers).length > 0 ? (
+        <>
+          <div className="field has-addons modal__div--search">
+            <div className="control is-expanded">
+              <input
+                className="input"
+                type="text"
+                placeholder="Filter účastníkov"
+                value={usersFilter}
+                onChange={changeFilterHandler}
+                autoFocus
+              />
+            </div>
+            <div className="control">
+              <button type="button" className="button is-info">
+                Hľadať
+              </button>
+            </div>
+          </div>
+
+          {Object.keys(homelessUsers).map(homelessUserId => (
             <UserBookUpRow
               key={homelessUserId}
               homelessUsers={homelessUsers}
               homelessUserId={homelessUserId}
               userId={userId}
-              changeUser={changeUser}
+              changeUser={changeUserHandler}
               roomId={roomId}
             />
-          ))
-        : "Neexistujú žiadni neubytovaní účastníci s príslušnými právami na ubytovanie na tejto izbe."}
+          ))}
+        </>
+      ) : (
+        "Neexistujú žiadni neubytovaní účastníci s príslušnými právami na ubytovanie na tejto izbe."
+      )}
     </>
   );
 };

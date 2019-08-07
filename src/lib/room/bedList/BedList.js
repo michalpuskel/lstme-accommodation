@@ -167,31 +167,33 @@ const BedList = props => {
         </>
       )}
 
-      {user.is_supervisor && user.is_super_admin && (
-        <Modal
-          title="Rezervácia postele"
-          button={{
-            action: {
-              label: "Rezervovať posteľ",
-              check: () => !!bedBookUpUserId,
-              class: "is-link"
-            },
-            dismiss: {
-              label: "Zrušiť",
-              handler: reservationBookUpModal.toggleModal
-            }
-          }}
-          onSubmit={submitBookUpBedHandler}
-          active={reservationBookUpModal.showModal}
-        >
-          <FormBookUpBed
-            homelessUsers={homelessUsers}
-            userId={bedBookUpUserId}
-            setUserId={setBedBookUpUserId}
-            roomId={props.uid}
-          />
-        </Modal>
-      )}
+      {user.is_supervisor &&
+        user.is_super_admin &&
+        reservationBookUpModal.showModal && (
+          <Modal
+            title="Rezervácia postele"
+            button={{
+              action: {
+                label: "Rezervovať posteľ",
+                check: () => !!bedBookUpUserId,
+                class: "is-link"
+              },
+              dismiss: {
+                label: "Zrušiť",
+                handler: reservationBookUpModal.toggleModal
+              }
+            }}
+            onSubmit={submitBookUpBedHandler}
+            active={reservationBookUpModal.showModal}
+          >
+            <FormBookUpBed
+              homelessUsers={homelessUsers}
+              userId={bedBookUpUserId}
+              setUserId={setBedBookUpUserId}
+              roomId={props.uid}
+            />
+          </Modal>
+        )}
 
       <div className="column is-narrow">
         <div className="box">
