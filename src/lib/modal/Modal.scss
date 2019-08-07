@@ -1,0 +1,13 @@
+@import "src/resources/sass/variables";
+
+.modal__section--max-height {
+  max-height: 600px;
+
+  @media screen and (max-width: $breakpoint-desktop - 1px) {
+    max-height: 400px;
+  }
+
+  @media screen and (max-width: $breakpoint-mobile-xxs - 1px) {
+    max-height: 300px;
+  }
+}

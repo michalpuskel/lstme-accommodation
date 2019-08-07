@@ -1,4 +1,5 @@
 import React from "react";
+import "./Modal.scss";
 
 const Modal = props => {
   return (
@@ -20,7 +21,9 @@ const Modal = props => {
             />
           </header>
 
-          <section className="modal-card-body">{props.children}</section>
+          <section className="modal-card-body modal__section--max-height">
+            {props.children}
+          </section>
 
           <footer className="modal-card-foot">
             <input

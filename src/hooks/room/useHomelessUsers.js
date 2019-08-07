@@ -20,7 +20,8 @@ const useHomelessUsers = (roomIsSupervisorOnly, setUserId) => {
       .collection("users")
       .where("room_id", "==", null)
       .where("is_supervisor", "==", roomIsSupervisorOnly)
-      .orderBy("last_name", "desc");
+      .orderBy("last_name")
+      .orderBy("first_name");
     const unsubscribe = ref.onSnapshot(
       snapshot => {
         setUserId(undefined);
