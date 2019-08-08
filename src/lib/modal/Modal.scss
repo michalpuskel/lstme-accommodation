@@ -1,8 +1,10 @@
 @import "src/resources/sass/variables";
 
 .modal__section--max-height {
-  display: flex;
-  flex-direction: column;
+  &.homeless-users__section--modal-body {
+    display: flex;
+    flex-direction: column;
+  }
 
   max-height: 600px;
 

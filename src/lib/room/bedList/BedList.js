@@ -183,6 +183,7 @@ const BedList = props => {
                 handler: reservationBookUpModal.toggleModal
               }
             }}
+            bodySectionClass="homeless-users__section--modal-body"
             onSubmit={submitBookUpBedHandler}
             active={reservationBookUpModal.showModal}
           >

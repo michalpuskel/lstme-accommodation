@@ -21,7 +21,11 @@ const Modal = props => {
             />
           </header>
 
-          <section className="modal-card-body modal__section--max-height">
+          <section
+            className={`modal-card-body modal__section--max-height ${
+              props.bodySectionClass ? props.bodySectionClass : ""
+            }`}
+          >
             {props.children}
           </section>
 
