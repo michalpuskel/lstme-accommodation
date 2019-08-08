@@ -2,6 +2,23 @@ import React from "react";
 import "./Modal.scss";
 
 const Modal = props => {
+  const submitHandler = async event => {
+    event.persist();
+    event.preventDefault();
+
+    if (!props.button.action.check()) {
+      console.log("TODO CHEEECK");
+      return;
+    }
+
+    try {
+      await props.onSubmit(event);
+      props.button.dismiss.handler(event);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={`modal ${props.active ? "is-active" : ""}`}>
       <div
@@ -10,7 +27,7 @@ const Modal = props => {
       />
 
       <div className="modal-card">
-        <form onSubmit={props.onSubmit}>
+        <form onSubmit={submitHandler}>
           <header className="modal-card-head">
             <p className="modal-card-title">{props.title}</p>
             <button
@@ -34,11 +51,6 @@ const Modal = props => {
               className={`button ${props.button.action.class}`}
               type="submit"
               value={props.button.action.label}
-              onClick={
-                props.button.action.check()
-                  ? props.button.dismiss.handler
-                  : null
-              }
             />
 
             <button
