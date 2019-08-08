@@ -3,7 +3,13 @@ import React, { useCallback, useState } from "react";
 import "./FormBookUpBed.scss";
 import useUserName from "../../../hooks/user/useUserName";
 
-const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
+const FormBookUpBed = ({
+  homelessUsers,
+  homelessAuthedUser,
+  userId,
+  setUserId,
+  roomId
+}) => {
   const [usersFilter, setUsersFilter] = useState("");
 
   const changeFilterHandler = useCallback(
@@ -18,9 +24,12 @@ const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
     [setUserId]
   );
 
+  const homelessUsersExist =
+    homelessUsers && Object.keys(homelessUsers).length > 0;
+
   return (
     <>
-      {homelessUsers && Object.keys(homelessUsers).length > 0 ? (
+      {homelessUsersExist || homelessAuthedUser ? (
         <>
           <div className="field has-addons modal__div--search">
             <div className="control is-expanded">
@@ -41,16 +50,29 @@ const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
           </div>
 
           <div className="homeless-users__div--list">
-            {Object.keys(homelessUsers).map(homelessUserId => (
-              <UserBookUpRow
-                key={homelessUserId}
-                homelessUsers={homelessUsers}
-                homelessUserId={homelessUserId}
-                userId={userId}
-                changeUser={changeUserHandler}
-                roomId={roomId}
-              />
-            ))}
+            {homelessAuthedUser && (
+              <>
+                <UserBookUpRow
+                  homelessUser={homelessAuthedUser}
+                  userId={userId}
+                  changeUser={changeUserHandler}
+                  roomId={roomId}
+                />
+
+                {homelessUsersExist && <hr />}
+              </>
+            )}
+
+            {homelessUsersExist &&
+              Object.keys(homelessUsers).map(homelessUserId => (
+                <UserBookUpRow
+                  key={homelessUserId}
+                  homelessUser={homelessUsers[homelessUserId]}
+                  userId={userId}
+                  changeUser={changeUserHandler}
+                  roomId={roomId}
+                />
+              ))}
           </div>
         </>
       ) : (
@@ -60,13 +82,7 @@ const FormBookUpBed = ({ homelessUsers, userId, setUserId, roomId }) => {
   );
 };
 
-const UserBookUpRow = ({
-  homelessUsers,
-  homelessUserId,
-  userId,
-  changeUser,
-  roomId
-}) => {
+const UserBookUpRow = ({ homelessUser, userId, changeUser, roomId }) => {
   const userName = useUserName();
   const radioId = "userRadioInput";
 
@@ -74,16 +90,17 @@ const UserBookUpRow = ({
     <div className="field">
       <input
         className="is-checkradio is-link"
-        id={`${radioId}_:_${homelessUserId}@${roomId}`}
+        id={`${radioId}_:_${homelessUser.uid}@${roomId}`}
         type="radio"
         name="bedBookUpUserId"
-        checked={userId === homelessUserId}
+        checked={userId === homelessUser.uid}
         onChange={changeUser}
-        value={homelessUserId}
+        value={homelessUser.uid}
         required
       />
-      <label htmlFor={`${radioId}_:_${homelessUserId}@${roomId}`}>
-        {userName(homelessUsers[homelessUserId])}
+
+      <label htmlFor={`${radioId}_:_${homelessUser.uid}@${roomId}`}>
+        {userName(homelessUser)}
       </label>
     </div>
   );

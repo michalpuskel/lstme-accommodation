@@ -56,14 +56,17 @@ const BedList = props => {
   const submitRoomEditHandler = useSubmitRoomEditHandler(props.uid, input);
 
   const [bedBookUpUserId, setBedBookUpUserId] = useState();
-  const homelessUsers = useHomelessUsers(
+  const { homelessUsers, homelessAuthedUser } = useHomelessUsers(
     props.is_supervisor_only,
     setBedBookUpUserId
   );
   const reservationBookUpModal = useModal();
-  const validBookUp = Object.keys(homelessUsers).length > 0;
+  const validBookUp =
+    Object.keys(homelessUsers).length > 0 || homelessAuthedUser;
   const submitBookUpBedHandler = useSubmitBookUpBedHandler(
-    homelessUsers[bedBookUpUserId],
+    homelessAuthedUser && homelessAuthedUser.uid === bedBookUpUserId
+      ? homelessAuthedUser
+      : homelessUsers[bedBookUpUserId],
     props.uid,
     validBookUp
   );
@@ -188,6 +191,7 @@ const BedList = props => {
             active={reservationBookUpModal.showModal}
           >
             <FormBookUpBed
+              homelessAuthedUser={homelessAuthedUser}
               homelessUsers={homelessUsers}
               userId={bedBookUpUserId}
               setUserId={setBedBookUpUserId}
