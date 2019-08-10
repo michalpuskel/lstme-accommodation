@@ -1,6 +1,8 @@
+import "./FormBookUpBed.scss";
+
 import React, { useCallback, useState } from "react";
 
-import "./FormBookUpBed.scss";
+import { parseSearch } from "../../../helpers";
 import useUserName from "../../../hooks/user/useUserName";
 
 const FormBookUpBed = ({
@@ -26,6 +28,7 @@ const FormBookUpBed = ({
 
   const homelessUsersExist =
     homelessUsers && Object.keys(homelessUsers).length > 0;
+  const userName = useUserName();
 
   return (
     <>
@@ -64,15 +67,21 @@ const FormBookUpBed = ({
             )}
 
             {homelessUsersExist &&
-              Object.keys(homelessUsers).map(homelessUserId => (
-                <UserBookUpRow
-                  key={homelessUserId}
-                  homelessUser={homelessUsers[homelessUserId]}
-                  userId={userId}
-                  changeUser={changeUserHandler}
-                  roomId={roomId}
-                />
-              ))}
+              Object.keys(homelessUsers)
+                .filter(homelessUserId =>
+                  parseSearch(userName(homelessUsers[homelessUserId])).match(
+                    parseSearch(usersFilter)
+                  )
+                )
+                .map(homelessUserId => (
+                  <UserBookUpRow
+                    key={homelessUserId}
+                    homelessUser={homelessUsers[homelessUserId]}
+                    userId={userId}
+                    changeUser={changeUserHandler}
+                    roomId={roomId}
+                  />
+                ))}
           </div>
         </>
       ) : (
