@@ -1,5 +1,6 @@
 export const parseSearch = text =>
   text
+    .replace(/\\/g, "")
     .trim()
     .toLowerCase()
     .normalize("NFD")
