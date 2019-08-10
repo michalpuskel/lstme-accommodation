@@ -14,6 +14,23 @@ const FormBookUpBed = ({
 }) => {
   const [usersFilter, setUsersFilter] = useState("");
 
+  const homelessUsersExist =
+    homelessUsers && Object.keys(homelessUsers).length > 0;
+
+  const userName = useUserName();
+  const visibleUsers = Object.keys(homelessUsers).filter(homelessUserId =>
+    parseSearch(userName(homelessUsers[homelessUserId])).match(
+      parseSearch(usersFilter)
+    )
+  );
+
+  const handleSelectUser = event => {
+    if (visibleUsers) {
+      const selectedUserId = visibleUsers[0];
+      setUserId(selectedUserId);
+    }
+  };
+
   const changeFilterHandler = useCallback(
     event => setUsersFilter(event.target.value),
     []
@@ -25,10 +42,6 @@ const FormBookUpBed = ({
     },
     [setUserId]
   );
-
-  const homelessUsersExist =
-    homelessUsers && Object.keys(homelessUsers).length > 0;
-  const userName = useUserName();
 
   return (
     <>
@@ -46,7 +59,11 @@ const FormBookUpBed = ({
               />
             </div>
             <div className="control">
-              <button type="button" className="button is-info">
+              <button
+                onClick={handleSelectUser}
+                type="button"
+                className="button is-info"
+              >
                 Hľadať
               </button>
             </div>
@@ -67,21 +84,15 @@ const FormBookUpBed = ({
             )}
 
             {homelessUsersExist &&
-              Object.keys(homelessUsers)
-                .filter(homelessUserId =>
-                  parseSearch(userName(homelessUsers[homelessUserId])).match(
-                    parseSearch(usersFilter)
-                  )
-                )
-                .map(homelessUserId => (
-                  <UserBookUpRow
-                    key={homelessUserId}
-                    homelessUser={homelessUsers[homelessUserId]}
-                    userId={userId}
-                    changeUser={changeUserHandler}
-                    roomId={roomId}
-                  />
-                ))}
+              visibleUsers.map(homelessUserId => (
+                <UserBookUpRow
+                  key={homelessUserId}
+                  homelessUser={homelessUsers[homelessUserId]}
+                  userId={userId}
+                  changeUser={changeUserHandler}
+                  roomId={roomId}
+                />
+              ))}
           </div>
         </>
       ) : (
