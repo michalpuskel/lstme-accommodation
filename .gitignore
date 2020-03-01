@@ -23,8 +23,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # private
+/.env   
+/.env.build
 /.env.development
 /.env.production
 /src/resources/private
 /.vscode
 /.history
+
+.now
