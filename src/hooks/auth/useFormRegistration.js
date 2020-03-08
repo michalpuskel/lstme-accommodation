@@ -48,6 +48,7 @@ const useFormRegistration = () => {
     changeFirstNameInputHandler,
     changeLastNameInputHandler,
     changeBirthDateInputHandler,
+    setBirthDateInput,
     id: { passwordConfirm, firstName, lastName, birthDate }
   };
 };

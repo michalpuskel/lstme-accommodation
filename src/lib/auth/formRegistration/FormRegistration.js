@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import useCheckPasswordConfirmed from "../../../hooks/auth/useCheckPasswordConfirmed";
 
@@ -6,6 +7,11 @@ import useCheckPasswordConfirmed from "../../../hooks/auth/useCheckPasswordConfi
 const FormRegistration = props => {
   const checkPasswordConfirmed = useCheckPasswordConfirmed();
   const { passwordInput, passwordConfirmInput } = props;
+
+  const invokeDatePicker = () => {
+    const now = moment().format("YYYY-MM-DD");
+    props.setBirthDateInput(now);
+  };
 
   const check = checkPasswordConfirmed({
     passwordInput,
@@ -94,6 +100,7 @@ const FormRegistration = props => {
             type="date"
             value={props.birthDateInput}
             onChange={props.changeBirthDateInputHandler}
+            onClick={invokeDatePicker}
             required
           />
           <span className="icon is-small is-left">
