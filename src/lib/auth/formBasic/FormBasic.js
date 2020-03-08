@@ -1,5 +1,5 @@
 import React from "react";
-import { strongPassword, isFreeEmail } from "../../../helpers";
+import { strongPassword, isFreeEmail, validateEmail } from "../../../helpers";
 
 // TODO refactor
 const FormBasic = ({ authType, emailClass, setEmailClass, ...props }) => {
@@ -9,7 +9,7 @@ const FormBasic = ({ authType, emailClass, setEmailClass, ...props }) => {
     if (authType === "login") {
       setEmailClass("");
     }
-  }, [authType]);
+  }, [authType, setEmailClass]);
 
   const passwordValidation = (() => {
     if (authType === "login") return;
@@ -25,6 +25,12 @@ const FormBasic = ({ authType, emailClass, setEmailClass, ...props }) => {
 
   const checkEmail = () => {
     if (authType === "login") return;
+
+    const valid = validateEmail(props.emailInput);
+    if (!valid) {
+      setEmailClass("is-danger");
+      return;
+    }
 
     setLoadingEmail(true);
 
@@ -65,7 +71,11 @@ const FormBasic = ({ authType, emailClass, setEmailClass, ...props }) => {
           </span>
         </div>
         {emailClass === "is-danger" && (
-          <p className="help is-danger">Tento email je už obsadený</p>
+          <p className="help is-danger">
+            {validateEmail(props.emailInput)
+              ? "Tento email je už obsadený"
+              : "Email má nesprávny formát"}
+          </p>
         )}
       </div>
 
