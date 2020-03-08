@@ -21,7 +21,8 @@ const useAuth = setError => {
   const submitLoginHandler = useSubmitLoginHandler(formBasic, setError);
   const submitRegistrationHandler = useSubmitRegistrationHandler({
     formBasic,
-    formRegistration
+    formRegistration,
+    setError
   });
 
   return {

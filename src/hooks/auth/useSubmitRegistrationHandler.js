@@ -2,7 +2,11 @@ import { useCallback } from "react";
 
 import { auth, database } from "../../config/firebase";
 
-const useSubmitRegistrationHandler = ({ formBasic, formRegistration }) => {
+const useSubmitRegistrationHandler = ({
+  formBasic,
+  formRegistration,
+  setError
+}) => {
   const submitRegistrationHandler = useCallback(
     async event => {
       event.preventDefault();
@@ -18,24 +22,27 @@ const useSubmitRegistrationHandler = ({ formBasic, formRegistration }) => {
         newUser = { uid, email };
       } catch (error) {
         console.error(error);
+        setError({ code: error.code });
       }
 
-      const ref = database.collection("users").doc(newUser.uid);
-      try {
-        await ref.set({
-          uid: newUser.uid,
-          email: newUser.email,
-          first_name: formRegistration.firstNameInput,
-          last_name: formRegistration.lastNameInput,
-          birth_date: formRegistration.birthDateInput,
-          is_supervisor: false,
-          is_super_admin: false,
-          room_id: null,
-          swap_sent_to_id: null,
-          swap_received_from_id: null
-        });
-      } catch (error) {
-        console.error(error);
+      if (newUser) {
+        const ref = database.collection("users").doc(newUser.uid);
+        try {
+          await ref.set({
+            uid: newUser.uid,
+            email: newUser.email,
+            first_name: formRegistration.firstNameInput,
+            last_name: formRegistration.lastNameInput,
+            birth_date: formRegistration.birthDateInput,
+            is_supervisor: false,
+            is_super_admin: false,
+            room_id: null,
+            swap_sent_to_id: null,
+            swap_received_from_id: null
+          });
+        } catch (error) {
+          console.error(error);
+        }
       }
       //TODO transaction end
     },
@@ -44,7 +51,8 @@ const useSubmitRegistrationHandler = ({ formBasic, formRegistration }) => {
       formBasic.passwordInput,
       formRegistration.birthDateInput,
       formRegistration.firstNameInput,
-      formRegistration.lastNameInput
+      formRegistration.lastNameInput,
+      setError
     ]
     //TODO question: is it worth to memoize? callback will update quite often on every input change...
   );
