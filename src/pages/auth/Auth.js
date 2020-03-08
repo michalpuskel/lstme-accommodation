@@ -11,6 +11,7 @@ import ErrorMessage from "../../lib/ErrorMessage";
 // TODO refactor
 const Auth = () => {
   const [error, setError] = React.useState();
+  const [emailClass, setEmailClass] = React.useState("");
 
   const {
     authType,
@@ -35,7 +36,12 @@ const Auth = () => {
                   : submitRegistrationHandler
               }
             >
-              <FormBasic {...formBasic} authType={authType} />
+              <FormBasic
+                {...formBasic}
+                authType={authType}
+                emailClass={emailClass}
+                setEmailClass={setEmailClass}
+              />
 
               {authType === "login" ? (
                 <div className="level auth__buttons">
@@ -74,6 +80,7 @@ const Auth = () => {
                   passwordInput={formBasic.passwordInput}
                   {...formRegistration}
                   navLoginHandler={navLoginHandler}
+                  emailClass={emailClass}
                 />
               )}
             </form>

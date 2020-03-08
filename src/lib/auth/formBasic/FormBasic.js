@@ -1,21 +1,43 @@
 import React from "react";
-import { strongPassword } from "../../../helpers";
+import { strongPassword, isFreeEmail } from "../../../helpers";
 
 // TODO refactor
-const FormBasic = ({ authType, ...props }) => {
+const FormBasic = ({ authType, emailClass, setEmailClass, ...props }) => {
+  const [loadingEmail, setLoadingEmail] = React.useState(false);
+
+  React.useEffect(() => {
+    if (authType === "login") {
+      setEmailClass("");
+    }
+  }, [authType]);
+
   const passwordValidation = (() => {
-    if (authType === "login") return null;
+    if (authType === "login") return;
 
     return strongPassword(props.passwordInput) ? true : false;
   })();
 
   const passwordValidationClassName = (() => {
-    console.log({ authType });
     if (authType === "login") return "";
-    console.log("ok");
 
     return strongPassword(props.passwordInput) ? "is-success" : "is-danger";
   })();
+
+  const checkEmail = () => {
+    if (authType === "login") return;
+
+    setLoadingEmail(true);
+
+    isFreeEmail(props.emailInput)
+      .then(free => {
+        setEmailClass(free ? "is-success" : "is-danger");
+        setLoadingEmail(false);
+      })
+      .catch(e => {
+        console.error(e);
+        setLoadingEmail(false);
+      });
+  };
 
   return (
     <>
@@ -23,20 +45,28 @@ const FormBasic = ({ authType, ...props }) => {
         <label className="label" htmlFor={props.id.email}>
           Email
         </label>
-        <div className="control has-icons-left">
+        <div
+          className={`control has-icons-left ${
+            authType === "registration" && loadingEmail ? "is-loading" : ""
+          }`}
+        >
           <input
-            className="input"
+            className={`input ${emailClass}`}
             id={props.id.email}
             type="email"
             value={props.emailInput}
             onChange={props.changeEmailInputHandler}
             placeholder="meno@email.sk"
             required
+            onBlur={checkEmail}
           />
           <span className="icon is-small is-left">
             <i className="fas fa-envelope" />
           </span>
         </div>
+        {emailClass === "is-danger" && (
+          <p className="help is-danger">Tento email je už obsadený</p>
+        )}
       </div>
 
       <div className="field">
