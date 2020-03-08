@@ -1,7 +1,22 @@
 import React from "react";
+import { strongPassword } from "../../../helpers";
 
 // TODO refactor
-const FormBasic = props => {
+const FormBasic = ({ authType, ...props }) => {
+  const passwordValidation = (() => {
+    if (authType === "login") return null;
+
+    return strongPassword(props.passwordInput) ? true : false;
+  })();
+
+  const passwordValidationClassName = (() => {
+    console.log({ authType });
+    if (authType === "login") return "";
+    console.log("ok");
+
+    return strongPassword(props.passwordInput) ? "is-success" : "is-danger";
+  })();
+
   return (
     <>
       <div className="field">
@@ -30,7 +45,7 @@ const FormBasic = props => {
         </label>
         <div className="control has-icons-left">
           <input
-            className="input"
+            className={`input ${passwordValidationClassName}`}
             id={props.id.password}
             type="password"
             value={props.passwordInput}
@@ -42,6 +57,9 @@ const FormBasic = props => {
             <i className="fas fa-lock" />
           </span>
         </div>
+        {passwordValidation === false && (
+          <p className="help is-danger">Slabé heslo. Zadajte aspoň 6 znakov.</p>
+        )}
       </div>
     </>
   );

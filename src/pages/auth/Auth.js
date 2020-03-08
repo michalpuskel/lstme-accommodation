@@ -35,7 +35,7 @@ const Auth = () => {
                   : submitRegistrationHandler
               }
             >
-              <FormBasic {...formBasic} />
+              <FormBasic {...formBasic} authType={authType} />
 
               {authType === "login" ? (
                 <div className="level auth__buttons">

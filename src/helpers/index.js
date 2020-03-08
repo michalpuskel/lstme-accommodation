@@ -22,3 +22,5 @@ export const translateError = code => {
       return "Neznáma chyba, kontaktuje administrátora";
   }
 };
+
+export const strongPassword = password => password.length >= 6;

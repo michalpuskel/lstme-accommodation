@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 
 import useCheckPasswordConfirmed from "../../../hooks/auth/useCheckPasswordConfirmed";
+import { strongPassword } from "../../../helpers";
 
 //TODO refactor
 const FormRegistration = props => {
@@ -118,7 +119,7 @@ const FormRegistration = props => {
                   className="button is-success"
                   type="submit"
                   value="Registrovať"
-                  disabled={check}
+                  disabled={check || !strongPassword(passwordInput)}
                 />
               </div>
             </div>
