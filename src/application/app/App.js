@@ -4,6 +4,10 @@ import UserContext from "../../config/UserContext";
 import Router from "../router/Router";
 
 const App = ({ user }) => {
+  React.useEffect(() => {
+    console.log("MOUNT");
+  }, []);
+
   return (
     <UserContext.Provider value={user}>
       <Router />

@@ -23,6 +23,7 @@ const useUserDelete = () => {
       });
 
       if (auth.currentUser.uid === userId) {
+        console.log("me user delete");
         await auth.currentUser.delete();
       } else {
         const ref = database.collection("users").doc(userId);

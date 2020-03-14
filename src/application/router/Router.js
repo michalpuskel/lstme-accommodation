@@ -17,6 +17,8 @@ const Router = () => {
   const user = useContext(UserContext);
   const { ban } = useContext(BanContext);
 
+  console.log("CONTEXT USER", user && user.email);
+
   return (
     <Switch>
       <ProtectedRoute

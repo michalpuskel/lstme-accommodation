@@ -9,6 +9,8 @@ const Bootstrapper = () => {
   const [ban, setBan] = React.useState(false);
   const authedUser = useAuthedUser(setBan);
 
+  console.log({ ban });
+
   return (
     <BrowserRouter>
       {/* {console.log("AUTH", authedUser)} TODO feedabck */}
@@ -16,7 +18,7 @@ const Bootstrapper = () => {
         <Loading />
       ) : (
         <BanContext.Provider value={{ ban, setBan }}>
-          <App user={authedUser} />
+          <App user={authedUser} key={authedUser && authedUser.uid} />
         </BanContext.Provider>
       )}
     </BrowserRouter>
