@@ -18,7 +18,10 @@ const useAuth = setError => {
     setAuthType("login");
   }, [setAuthType]);
 
-  const submitLoginHandler = useSubmitLoginHandler(formBasic, setError);
+  const { submitLoginHandler, loading: loadingLogin } = useSubmitLoginHandler(
+    formBasic,
+    setError
+  );
   const submitRegistrationHandler = useSubmitRegistrationHandler({
     formBasic,
     formRegistration,
@@ -32,7 +35,8 @@ const useAuth = setError => {
     navRegistrationHandler,
     navLoginHandler,
     submitLoginHandler,
-    submitRegistrationHandler
+    submitRegistrationHandler,
+    loadingLogin
   };
 };
 

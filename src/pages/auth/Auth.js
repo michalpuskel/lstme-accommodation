@@ -21,7 +21,8 @@ const Auth = () => {
     navRegistrationHandler,
     navLoginHandler,
     submitLoginHandler,
-    submitRegistrationHandler
+    submitRegistrationHandler,
+    loadingLogin
   } = useAuth(setError);
 
   const { ban, setBan } = useContext(BanContext);
@@ -58,11 +59,14 @@ const Auth = () => {
                     <div className="level-item">
                       <div className="field">
                         <div className="control">
-                          <input
-                            className="button is-success"
+                          <button
+                            className={`button is-success ${
+                              loadingLogin ? "is-loading" : ""
+                            }`}
                             type="submit"
-                            value="Prihlásiť"
-                          />
+                          >
+                            Prihlásiť
+                          </button>
                         </div>
                       </div>
                     </div>
