@@ -22,7 +22,8 @@ const Auth = () => {
     navLoginHandler,
     submitLoginHandler,
     submitRegistrationHandler,
-    loadingLogin
+    loadingLogin,
+    loadingRegistration
   } = useAuth(setError);
 
   const { ban, setBan } = useContext(BanContext);
@@ -94,6 +95,7 @@ const Auth = () => {
                   {...formRegistration}
                   navLoginHandler={navLoginHandler}
                   emailClass={emailClass}
+                  loading={loadingRegistration}
                 />
               )}
             </form>

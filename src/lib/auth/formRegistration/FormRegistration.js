@@ -5,7 +5,7 @@ import useCheckPasswordConfirmed from "../../../hooks/auth/useCheckPasswordConfi
 import { strongPassword } from "../../../helpers";
 
 //TODO refactor
-const FormRegistration = ({ emailClass, ...props }) => {
+const FormRegistration = ({ loading, emailClass, ...props }) => {
   const checkPasswordConfirmed = useCheckPasswordConfirmed();
   const { passwordInput, passwordConfirmInput } = props;
 
@@ -115,16 +115,17 @@ const FormRegistration = ({ emailClass, ...props }) => {
           <div className="level-item">
             <div className="field">
               <div className="control">
-                <input
-                  className="button is-success"
+                <button
+                  className={`button is-success ${loading ? "is-loading" : ""}`}
                   type="submit"
-                  value="Registrovať"
                   disabled={
                     check ||
                     !strongPassword(passwordInput) ||
                     emailClass === "is-danger"
                   }
-                />
+                >
+                  Registrovať
+                </button>
               </div>
             </div>
           </div>

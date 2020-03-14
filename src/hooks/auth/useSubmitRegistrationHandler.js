@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { auth, database } from "../../config/firebase";
 
@@ -7,8 +7,11 @@ const useSubmitRegistrationHandler = ({
   formRegistration,
   setError
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const submitRegistrationHandler = useCallback(
     async event => {
+      setLoading(true);
       event.preventDefault();
 
       //TODO transaction begin
@@ -23,6 +26,7 @@ const useSubmitRegistrationHandler = ({
       } catch (error) {
         console.error(error);
         setError({ code: error.code });
+        setLoading(false);
       }
 
       if (newUser) {
@@ -42,9 +46,12 @@ const useSubmitRegistrationHandler = ({
           });
         } catch (error) {
           console.error(error);
+          setLoading(false);
         }
       }
       //TODO transaction end
+
+      setLoading(false);
     },
     [
       formBasic.emailInput,
@@ -57,7 +64,7 @@ const useSubmitRegistrationHandler = ({
     //TODO question: is it worth to memoize? callback will update quite often on every input change...
   );
 
-  return submitRegistrationHandler;
+  return { submitRegistrationHandler, loading };
 };
 
 export default useSubmitRegistrationHandler;

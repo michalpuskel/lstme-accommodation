@@ -22,7 +22,10 @@ const useAuth = setError => {
     formBasic,
     setError
   );
-  const submitRegistrationHandler = useSubmitRegistrationHandler({
+  const {
+    submitRegistrationHandler,
+    loading: loadingRegistration
+  } = useSubmitRegistrationHandler({
     formBasic,
     formRegistration,
     setError
@@ -36,7 +39,8 @@ const useAuth = setError => {
     navLoginHandler,
     submitLoginHandler,
     submitRegistrationHandler,
-    loadingLogin
+    loadingLogin,
+    loadingRegistration
   };
 };
 
