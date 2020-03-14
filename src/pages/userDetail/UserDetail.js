@@ -12,7 +12,7 @@ import Layout from "../../application/layout/layout/Layout";
 const UserDetail = props => {
   const userId = props.match.params.userId;
 
-  const userDelete = useUserDelete(userId);
+  const userDelete = useUserDelete();
   const user = useUser(userId);
   const userInfo = useUserInfo(user);
   const roomInfo = useRoomInfo(user);
@@ -33,7 +33,7 @@ const UserDetail = props => {
         await swapDeny();
       }
 
-      await userDelete();
+      await userDelete(userId);
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +42,8 @@ const UserDetail = props => {
     swapDeny,
     user.swap_received_from_id,
     user.swap_sent_to_id,
-    userDelete
+    userDelete,
+    userId
   ]);
 
   return (

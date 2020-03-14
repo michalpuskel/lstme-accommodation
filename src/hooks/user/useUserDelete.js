@@ -2,8 +2,8 @@ import { useCallback } from "react";
 
 import { auth, database } from "../../config/firebase";
 
-const useUserDelete = userId => {
-  const userDelete = useCallback(async () => {
+const useUserDelete = () => {
+  const userDelete = useCallback(async userId => {
     const userRef = database.collection("users").doc(userId);
 
     try {
@@ -37,7 +37,7 @@ const useUserDelete = userId => {
     } catch (error) {
       console.error(error);
     }
-  }, [userId]);
+  }, []);
 
   return userDelete;
 };
