@@ -9,6 +9,8 @@ const Bootstrapper = () => {
   const [ban, setBan] = React.useState(false);
   const authedUser = useAuthedUser(setBan);
 
+  console.log({ authedUser });
+
   console.log({ ban });
 
   return (
