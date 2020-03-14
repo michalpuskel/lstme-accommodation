@@ -20,11 +20,14 @@ const UserRow = props => {
   const changeIsSupervisorHandler = useChangeIsSupervisorHandler(props.uid);
   const changeIsSuperAdminHandler = useChangeIsSuperAdminHandler(props.uid);
 
-  const onUserDeleteHandler = useCallback(() => {
-    const deleteUser = { ...props, userDelete };
-    props.setDeleteUser(deleteUser);
-    props.toggleModal();
-  }, [props]);
+  const onUserDeleteHandler = useCallback(
+    event => {
+      const deleteUser = { ...props, userDelete };
+      props.setDeleteUser(deleteUser);
+      props.toggleModal(event);
+    },
+    [props]
+  );
 
   return (
     <tr className={isMyRow() ? "is-selected" : ""}>
