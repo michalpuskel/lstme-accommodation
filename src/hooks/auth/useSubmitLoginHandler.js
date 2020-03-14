@@ -28,7 +28,7 @@ const useSubmitLoginHandler = (formBasic, setError) => {
 
       setLoading(false);
     },
-    [formBasic.emailInput, formBasic.passwordInput, setError]
+    [formBasic.emailInput, formBasic.passwordInput, setError, ban]
     //TODO question: is it worth to memoize? callback will update quite often on every input change...
   );
 
