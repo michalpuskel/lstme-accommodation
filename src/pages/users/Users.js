@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import "./Users.scss";
 import useUsers from "../../hooks/user/useUsers";
@@ -13,16 +13,31 @@ import TableHeader from "../../lib/user/tableHeader/TableHeader";
 import UserRow from "../../lib/user/userRow/UserRow";
 import Modal from "../../lib/modal/Modal";
 
+import UserContext from "../../config/UserContext";
+
 const Users = () => {
   const userList = useUsers();
   const roomList = useRooms();
 
   const deleteAllModal = useModal();
-  const usersDeleteAll = null; // TODO admin auth
 
   const deleteUserModal = useModal();
   const [deleteUser, setDeleteUser] = useState({});
   const userDelete = useUserDelete();
+
+  const currentUser = useContext(UserContext);
+
+  const handleDeleteAllUsers = () => {
+    Object.keys(userList || {}).forEach(async userId => {
+      if (currentUser.uid !== userId) {
+        try {
+          await userDelete(userId);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    });
+  };
 
   const trueFunction = useTrue();
   const userName = useUserName();
@@ -103,7 +118,7 @@ const Users = () => {
             handler: deleteAllModal.toggleModal
           }
         }}
-        onSubmit={usersDeleteAll}
+        onSubmit={handleDeleteAllUsers}
         active={deleteAllModal.showModal}
       >
         Skutočne si praješ vymazať všetkých účastníkov? Je to{" "}
