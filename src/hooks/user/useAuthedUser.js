@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { auth, database } from "../../config/firebase";
 
-const useAuthedUser = () => {
+const useAuthedUser = setBan => {
   const [authedUser, setAuthedUser] = useState(undefined);
 
   useEffect(() => {
@@ -14,20 +14,27 @@ const useAuthedUser = () => {
         const ref = database.collection("users").doc(uid);
         unsubscribe = ref.onSnapshot(
           snapshot => {
-            setAuthedUser({ ...snapshot.data() });
+            if (snapshot.exists) {
+              setAuthedUser({ ...snapshot.data() });
+            } else {
+              setAuthedUser(null);
+              setBan(true);
+            }
           },
           error => console.error(error)
         );
       } else {
         setAuthedUser(null);
+        setBan(false);
       }
     });
 
     return () => {
       unsubscribe && unsubscribe();
       setAuthedUser(undefined);
+      setBan(false);
     };
-  }, []);
+  }, [setBan]);
 
   return authedUser;
 };

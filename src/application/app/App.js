@@ -3,10 +3,10 @@ import React from "react";
 import UserContext from "../../config/UserContext";
 import Router from "../router/Router";
 
-const App = props => {
+const App = ({ user, ban }) => {
   return (
-    <UserContext.Provider value={props.user}>
-      <Router />
+    <UserContext.Provider value={user}>
+      <Router ban={ban} />
     </UserContext.Provider>
   );
 };

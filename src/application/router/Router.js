@@ -12,7 +12,7 @@ import Users from "../../pages/users/Users";
 import UserDetail from "../../pages/userDetail/UserDetail";
 import NotFound from "../../pages/notFound/NotFound";
 
-const Router = () => {
+const Router = ({ ban }) => {
   const user = useContext(UserContext);
 
   return (
@@ -21,7 +21,7 @@ const Router = () => {
         exact
         path="/"
         component={Rooms}
-        condition={user}
+        condition={user && !ban}
         redirect="/auth"
       />
       <ProtectedRoute
@@ -35,14 +35,14 @@ const Router = () => {
         exact
         path="/room/:roomId"
         component={RoomDetail}
-        condition={user}
+        condition={user && !ban}
         redirect="/auth"
       />
       <ProtectedRoute
         exact
         path="/users"
         component={Users}
-        condition={user && user.is_super_admin}
+        condition={user && user.is_super_admin && !ban}
         redirect="/auth"
       />
       <PrivateRoute
@@ -51,7 +51,7 @@ const Router = () => {
         component={UserDetail}
         condition={user}
         redirect="/auth"
-        privateId={user && user.uid}
+        privateId={user && user.uid && !ban}
       />
       <Route component={NotFound} />
     </Switch>
