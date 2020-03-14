@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import PrivateRoute from "./PrivateRoute";
 import UserContext from "../../config/UserContext";
+import BanContext from "../../config/BanContext";
 
 import Auth from "../../pages/auth/Auth";
 import Rooms from "../../pages/rooms/Rooms";
@@ -12,8 +13,9 @@ import Users from "../../pages/users/Users";
 import UserDetail from "../../pages/userDetail/UserDetail";
 import NotFound from "../../pages/notFound/NotFound";
 
-const Router = ({ ban }) => {
+const Router = () => {
   const user = useContext(UserContext);
+  const { ban } = useContext(BanContext);
 
   return (
     <Switch>

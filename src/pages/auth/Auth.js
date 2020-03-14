@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./Auth.scss";
 import useAuth from "../../hooks/auth/useAuth";
@@ -7,6 +7,7 @@ import Layout from "../../application/layout/layout/Layout";
 import FormBasic from "../../lib/auth/formBasic/FormBasic";
 import FormRegistration from "../../lib/auth/formRegistration/FormRegistration";
 import ErrorMessage from "../../lib/ErrorMessage";
+import BanContext from "../../config/BanContext";
 
 // TODO refactor
 const Auth = () => {
@@ -23,8 +24,16 @@ const Auth = () => {
     submitRegistrationHandler
   } = useAuth(setError);
 
+  const { ban, setBan } = useContext(BanContext);
+
+  const banError = {
+    message:
+      "Váš účet bol zablokovaný. Pre viac informácií kontaktujte administrátora, prosím."
+  };
+
   return (
     <>
+      {ban && <ErrorMessage error={banError} setError={setBan} />}
       {error && <ErrorMessage error={error} setError={setError} />}
       <Layout title={authType === "login" ? "Prihlásenie" : "Registrácia"}>
         <div className="columns">
