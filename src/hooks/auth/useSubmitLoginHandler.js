@@ -1,13 +1,19 @@
-import { useCallback } from "react";
-
+import { useCallback, useContext } from "react";
+import BanContext from "../../config/BanContext";
 import { auth } from "../../config/firebase";
 
 const useSubmitLoginHandler = (formBasic, setError) => {
+  const { ban } = useContext(BanContext);
+
   const submitLoginHandler = useCallback(
     async event => {
       event.preventDefault();
 
       try {
+        if (ban) {
+          await auth.signOut();
+        }
+
         await auth.signInWithEmailAndPassword(
           formBasic.emailInput,
           formBasic.passwordInput
