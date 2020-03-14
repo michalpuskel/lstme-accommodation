@@ -14,7 +14,7 @@ export const translateError = code => {
       return "Zadali ste nesprávne heslo";
     case "auth/user-not-found":
       return "Zadali ste nesprávny email, užívateľ neexistuje";
-    case "auth/too-many-req uests":
+    case "auth/too-many-requests":
       return "Systém je preťažený, chvíľu počkajte a poskúste sa akciu zopakovať";
     case "auth/email-already-in-use":
       return "Užívateľ so zadaným emailom už je zaregistrovaný v systéme. Na tento email už nie je možné vytvoriť novú registráciu.";
