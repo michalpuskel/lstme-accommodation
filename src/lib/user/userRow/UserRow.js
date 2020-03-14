@@ -10,23 +10,30 @@ import useUserName from "../../../hooks/user/useUserName";
 import useUserAge from "../../../hooks/user/useUserAge";
 
 // TODO refactor
-const UserRow = props => {
+const UserRow = ({ userDelete, ...props }) => {
   const { isMyRow } = useIsMyRow(props.uid);
   const userName = useUserName();
   const userAge = useUserAge();
   const glueFormat = useUnbreakableSpaces();
 
-  const userDelete = null; // TODO admin auth
   const changeIsSupervisorHandler = useChangeIsSupervisorHandler(props.uid);
   const changeIsSuperAdminHandler = useChangeIsSuperAdminHandler(props.uid);
 
+  const handleDeleteUser = useCallback(async () => {
+    try {
+      await userDelete(props.uid);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [userDelete, props.uid]);
+
   const onUserDeleteHandler = useCallback(
     event => {
-      const deleteUser = { ...props, userDelete };
+      const deleteUser = { ...props, handleDeleteUser };
       props.setDeleteUser(deleteUser);
       props.toggleModal(event);
     },
-    [props]
+    [props, handleDeleteUser]
   );
 
   return (

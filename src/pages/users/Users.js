@@ -6,6 +6,7 @@ import useRooms from "../../hooks/room/useRooms";
 import useModal from "../../hooks/utils/useModal";
 import useTrue from "../../hooks/utils/useTrue";
 import useUserName from "../../hooks/user/useUserName";
+import useUserDelete from "../../hooks/user/useUserDelete";
 
 import Layout from "../../application/layout/layout/Layout";
 import TableHeader from "../../lib/user/tableHeader/TableHeader";
@@ -21,6 +22,7 @@ const Users = () => {
 
   const deleteUserModal = useModal();
   const [deleteUser, setDeleteUser] = useState({});
+  const userDelete = useUserDelete();
 
   const trueFunction = useTrue();
   const userName = useUserName();
@@ -56,6 +58,7 @@ const Users = () => {
                   index={index}
                   setDeleteUser={setDeleteUser}
                   toggleModal={deleteUserModal.toggleModal}
+                  userDelete={userDelete}
                 />
               );
             })}
@@ -80,7 +83,7 @@ const Users = () => {
             handler: deleteUserModal.toggleModal
           }
         }}
-        onSubmit={deleteUser.userDelete}
+        onSubmit={deleteUser.handleDeleteUser}
         active={deleteUserModal.showModal}
       >
         Skutočne si praješ vymazať účastníka: <em>{userName(deleteUser)}</em>?
