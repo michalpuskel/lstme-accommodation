@@ -25,7 +25,7 @@ const Auth = () => {
 
   return (
     <>
-      {error && ErrorMessage(error, setError)}
+      {error && <ErrorMessage error={error} setError={setError} />}
       <Layout title={authType === "login" ? "Prihlásenie" : "Registrácia"}>
         <div className="columns">
           <div className="column">
