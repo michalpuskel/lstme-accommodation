@@ -24,6 +24,13 @@ const useUserDelete = userId => {
 
       if (auth.currentUser.uid === userId) {
         await auth.currentUser.delete();
+      } else {
+        const ref = database.collection("users").doc(userId);
+        try {
+          await ref.delete();
+        } catch (error) {
+          console.error(error);
+        }
       }
 
       //TODO transaction end
