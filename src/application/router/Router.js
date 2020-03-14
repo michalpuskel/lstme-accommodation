@@ -51,9 +51,9 @@ const Router = () => {
         exact
         path="/user/:userId"
         component={UserDetail}
-        condition={user}
+        condition={user && !ban}
         redirect="/auth"
-        privateId={user && user.uid && !ban}
+        privateId={user && user.uid}
       />
       <Route component={NotFound} />
     </Switch>
