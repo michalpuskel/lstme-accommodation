@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import Layout from "../../application/layout/layout/Layout";
+import { database } from "../../config/firebase";
 import useRoomInfo from "../../hooks/room/useRoomInfo";
 import useSwapCancel from "../../hooks/room/useSwapCancel";
 import useSwapDeny from "../../hooks/room/useSwapDeny";
@@ -49,7 +50,18 @@ const UserDetail = props => {
     userId
   ]);
 
-  const handleEdit = () => {};
+  const handleEdit = async event => {
+    event.preventDefault();
+    const ref = database.collection("users").doc(userId);
+    try {
+      await ref.update({
+        first_name: firstName === undefined ? user.first_name : firstName,
+        last_name: lastName === undefined ? user.last_name : lastName
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const [firstName, setFirstName] = React.useState();
   const [lastName, setLastName] = React.useState();
@@ -60,10 +72,10 @@ const UserDetail = props => {
   return (
     <>
       <Layout title="Nastavenia používateľa">
-        <div className="columns is-multiline is-centered is-variable is-3">
-          <div className="column is-narrow">
-            <div className="box">
-              <form>
+        <form onSubmit={handleEdit}>
+          <div className="columns is-multiline is-centered is-variable is-3">
+            <div className="column is-narrow">
+              <div className="box">
                 <div className="field">
                   <label className="label" htmlFor="userDetailFirstName">
                     Meno
@@ -105,36 +117,37 @@ const UserDetail = props => {
                     </span>
                   </div>
                 </div>
-              </form>
-            </div>
-          </div>
-
-          <div className="column is-full">
-            <div className="level room-detail__buttons">
-              <div className="level-left">
-                <div className="level-item room-detail__button--margin">
-                  <button
-                    className="button is-info is-outlined"
-                    onClick={handleEdit}
-                  >
-                    Uložiť zmeny
-                  </button>
-                </div>
-              </div>
-
-              <div className="level-right">
-                <div className="level-item room-detail__button--margin">
-                  <button
-                    className="button is-danger is-outlined"
-                    onClick={deleteUserModal.toggleModal}
-                  >
-                    Vymazať konto
-                  </button>
-                </div>
               </div>
             </div>
+
+            <div className="column is-full">
+              <div className="level room-detail__buttons">
+                <div className="level-left">
+                  <div className="level-item room-detail__button--margin">
+                    <button
+                      type="submit"
+                      className="button is-info is-outlined"
+                    >
+                      Uložiť zmeny
+                    </button>
+                  </div>
+                </div>
+
+                <div className="level-right">
+                  <div className="level-item room-detail__button--margin">
+                    <button
+                      type="button"
+                      className="button is-danger is-outlined"
+                      onClick={deleteUserModal.toggleModal}
+                    >
+                      Vymazať konto
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </form>
       </Layout>
 
       <Modal
