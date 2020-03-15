@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import moment from "moment";
 
 const useFormRegistration = () => {
   const [passwordConfirmInput, setPasswordConfirmInput] = useState("");
@@ -29,7 +30,10 @@ const useFormRegistration = () => {
 
   const changeBirthDateInputHandler = useCallback(
     event => {
-      setBirthDateInput(event.target.value);
+      const now = moment().format("YYYY-MM-DD");
+      const newValue = event.target.value;
+
+      setBirthDateInput(newValue < now ? newValue : now);
     },
     [setBirthDateInput]
   );
