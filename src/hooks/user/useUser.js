@@ -9,7 +9,8 @@ const useUser = userId => {
     birth_date: 0,
     swap_received_from_id: null,
     swap_sent_to_id: null,
-    room_id: null
+    room_id: null,
+    email: ""
   });
 
   useEffect(() => {
