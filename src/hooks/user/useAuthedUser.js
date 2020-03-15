@@ -44,7 +44,7 @@ const useAuthedUser = setBan => {
         const ref = database.collection("users").doc(uid);
         unsubscribe = ref.onSnapshot(
           snapshot => {
-            console.log({ snapshot });
+            // console.log({ snapshot });
 
             if (snapshot.exists) {
               setAuthedUser(prevUser => {

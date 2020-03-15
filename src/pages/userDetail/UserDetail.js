@@ -51,8 +51,8 @@ const UserDetail = props => {
 
   const handleEdit = () => {};
 
-  const [firstName, setFirstName] = React.useState(user.first_name);
-  const [lastName, setLastName] = React.useState(user.last_name);
+  const [firstName, setFirstName] = React.useState();
+  const [lastName, setLastName] = React.useState();
 
   const deleteUserModal = useModal();
   const trueFunction = useTrue();
@@ -73,7 +73,9 @@ const UserDetail = props => {
                       className="input"
                       id="userDetailFirstName"
                       type="text"
-                      value={firstName}
+                      value={
+                        firstName === undefined ? user.first_name : firstName
+                      }
                       onChange={e => setFirstName(e.target.value)}
                       placeholder="Meno"
                       required
@@ -93,7 +95,7 @@ const UserDetail = props => {
                       className="input"
                       id="userDetailLastName"
                       type="text"
-                      value={lastName}
+                      value={lastName === undefined ? user.last_name : lastName}
                       onChange={e => setLastName(e.target.value)}
                       placeholder="Priezvisko"
                       required
