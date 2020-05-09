@@ -4,7 +4,9 @@ const useFormNewEvent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
+
   const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   const changeTitle = useCallback(
     (event) => {
@@ -30,6 +32,7 @@ const useFormNewEvent = () => {
   const changeImage = useCallback(
     (event) => {
       setImage(event.target.value);
+      setImageFile(event.target.files[0]);
     },
     [setImage]
   );
@@ -40,6 +43,7 @@ const useFormNewEvent = () => {
       description,
       url,
       image,
+      imageFile,
     },
     handler: {
       changeTitle,

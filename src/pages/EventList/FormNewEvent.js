@@ -9,6 +9,7 @@ const FormNewEvent = (props) => {
         <label className="label" htmlFor={id.title}>
           Názov
         </label>
+
         <div className="control has-icons-left">
           <input
             className="input"
@@ -24,10 +25,12 @@ const FormNewEvent = (props) => {
           </span>
         </div>
       </div>
+
       <div className="field">
         <label className="label" htmlFor={id.description}>
           Popis
         </label>
+
         <div className="control">
           <textarea
             className="textarea"
@@ -35,14 +38,16 @@ const FormNewEvent = (props) => {
             value={input.description}
             onChange={handler.changeDescription}
             placeholder="Bližší popis organizácie"
-            rows={4}
+            rows={2}
           />
         </div>
       </div>
+
       <div className="field">
         <label className="label" htmlFor={id.url}>
           URL linka
         </label>
+
         <div className="control has-icons-left">
           <input
             className="input"
@@ -57,7 +62,26 @@ const FormNewEvent = (props) => {
           </span>
         </div>
       </div>
-      <div>TODO image</div>
+
+      <div className="field">
+        <label className="label" htmlFor={id.image}>
+          Logo
+        </label>
+
+        <div className="control has-icons-left">
+          <input
+            className="input"
+            id={id.image}
+            type="file"
+            value={input.image}
+            onChange={handler.changeImage}
+            placeholder="obrázok v pätičke"
+          />
+          <span className="icon is-small is-left">
+            <i className="fas fa-upload" />
+          </span>
+        </div>
+      </div>
     </>
   );
 };

@@ -8,7 +8,7 @@ const useCampTitle = () => {
 
   const getCampTitle = useCallback(
     () => `${moment().format("YYYY")} ${event_id ? "LSTME" : ""}`,
-    []
+    [event_id]
   );
 
   return getCampTitle;

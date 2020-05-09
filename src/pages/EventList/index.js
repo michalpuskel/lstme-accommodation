@@ -12,7 +12,7 @@ const EventList = () => {
 
   const { input, handler, id } = useFormNewEvent();
   const newEventModal = useModal();
-  const submitEventAddHandler = useSubmitEventAddhandler();
+  const submitEventAddHandler = useSubmitEventAddhandler(input.imageFile);
 
   return (
     <Layout title="Zoznam organizácií">
