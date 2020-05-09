@@ -10,11 +10,9 @@ const NavBrand = (props) => {
 
   return (
     <>
-      {event_id && (
-        <Link className="navbar-item" to="/">
-          <h1 className="title">LSTME</h1>
-        </Link>
-      )}
+      <Link className="navbar-item" to="/">
+        <h1 className="title">{event_id ? "LSTME" : "Výber organizácie"}</h1>
+      </Link>
       <NavBurger showMenu={props.showMenu} toggleMenu={props.toggleMenu} />
     </>
   );

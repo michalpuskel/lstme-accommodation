@@ -4,7 +4,7 @@ import Layout from "../../application/layout/layout/Layout";
 
 const EventList = () => {
   return (
-    <Layout title="Výber organizácie">
+    <Layout title="Zoznam organizácií">
       <div>event list</div>
     </Layout>
   );
