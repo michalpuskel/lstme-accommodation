@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -12,6 +12,7 @@ import RoomDetail from "../../pages/roomDetail/RoomDetail";
 import Users from "../../pages/users/Users";
 import UserDetail from "../../pages/userDetail/UserDetail";
 import NotFound from "../../pages/notFound/NotFound";
+import EventList from "../../pages/EventList";
 
 const Router = () => {
   const user = useContext(UserContext);
@@ -19,45 +20,61 @@ const Router = () => {
 
   console.log("CONTEXT USER", user && user.email);
 
+  const { event_id } = user || {};
+
   return (
     <Switch>
-      <ProtectedRoute
-        exact
-        path="/"
-        component={Rooms}
-        condition={user && !ban}
-        redirect="/auth"
+      {!event_id && <Redirect to="/events" />}
+      <Route
+        component={() => (
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/"
+              component={Rooms}
+              condition={user && !ban}
+              redirect="/auth"
+            />
+            <ProtectedRoute
+              exact
+              path="/auth"
+              component={Auth}
+              condition={!user}
+              redirect="/"
+            />
+            <ProtectedRoute
+              exact
+              path="/events"
+              component={EventList}
+              condition={user && !ban}
+              redirect="/auth"
+            />
+            <ProtectedRoute
+              exact
+              path="/room/:roomId"
+              component={RoomDetail}
+              condition={user && !ban}
+              redirect="/auth"
+            />
+            <ProtectedRoute
+              exact
+              path="/users"
+              component={Users}
+              condition={user && user.is_super_admin && !ban}
+              redirect="/auth"
+            />
+            <PrivateRoute
+              exact
+              path="/user/:userId"
+              component={UserDetail}
+              condition={user && !ban}
+              redirect="/auth"
+              privateId={user && user.uid}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        )}
       />
-      <ProtectedRoute
-        exact
-        path="/auth"
-        component={Auth}
-        condition={!user}
-        redirect="/"
-      />
-      <ProtectedRoute
-        exact
-        path="/room/:roomId"
-        component={RoomDetail}
-        condition={user && !ban}
-        redirect="/auth"
-      />
-      <ProtectedRoute
-        exact
-        path="/users"
-        component={Users}
-        condition={user && user.is_super_admin && !ban}
-        redirect="/auth"
-      />
-      <PrivateRoute
-        exact
-        path="/user/:userId"
-        component={UserDetail}
-        condition={user && !ban}
-        redirect="/auth"
-        privateId={user && user.uid}
-      />
-      <Route component={NotFound} />
     </Switch>
   );
 };
