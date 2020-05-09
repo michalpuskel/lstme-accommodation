@@ -6,7 +6,7 @@ import UserContext from "../../../config/UserContext";
 import Navigation from "../../../lib/nav/navigation/Navigation";
 import Breadcrumb from "../../../lib/nav/breadcrumb/Breadcrumb";
 
-const Header = props => {
+const Header = (props) => {
   const user = useContext(UserContext);
 
   return (

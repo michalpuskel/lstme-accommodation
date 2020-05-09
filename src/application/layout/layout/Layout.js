@@ -4,7 +4,7 @@ import Header from "../header/Header";
 import Content from "../content/Content";
 import Footer from "../footer/Footer";
 
-const Layout = props => {
+const Layout = (props) => {
   return (
     <>
       <Header title={props.title} breadcrumb={props.breadcrumb} />
