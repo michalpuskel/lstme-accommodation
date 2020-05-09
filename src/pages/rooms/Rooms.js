@@ -38,12 +38,12 @@ const Rooms = () => {
               action: {
                 label: "Vytvoriť izbu",
                 check: validName,
-                class: "is-success"
+                class: "is-success",
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: newRoomModal.toggleModal
-              }
+                handler: newRoomModal.toggleModal,
+              },
             }}
             onSubmit={submitRoomAddHandler}
             active={newRoomModal.showModal}
@@ -57,12 +57,12 @@ const Rooms = () => {
               action: {
                 label: "Vymazať všetky izby",
                 check: trueFunction,
-                class: "is-danger"
+                class: "is-danger",
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: deleteAllModal.toggleModal
-              }
+                handler: deleteAllModal.toggleModal,
+              },
             }}
             onSubmit={roomsDeleteAll}
             active={deleteAllModal.showModal}
@@ -98,7 +98,7 @@ const Rooms = () => {
       )}
 
       <div className="columns is-multiline is-centered is-vcentered is-variable is-3">
-        {Object.keys(roomList).map(roomId => (
+        {Object.keys(roomList).map((roomId) => (
           <BedList
             key={roomId}
             {...roomList[roomId]}
