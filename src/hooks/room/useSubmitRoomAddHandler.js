@@ -32,6 +32,7 @@ const useSubmitRoomAddHandler = (input, onRoomAdd) => {
       input.isSupervisorOnly,
       input.name,
       onRoomAdd,
+      user.event_id,
     ]
     //TODO question: is it worth to memoize? callback will update quite often on every input change...
   );
