@@ -20,6 +20,20 @@ const EventRow = ({ title, description, image, imageFile, uid }) => {
     }
   };
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // const ref = database.collection("users").doc(user.uid);
+    // try {
+    //   await ref.update({
+    //     event_id: uid,
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+
   return (
     <div
       className={`box event-list__row ${
@@ -28,11 +42,29 @@ const EventRow = ({ title, description, image, imageFile, uid }) => {
       onClick={handleSelect}
     >
       <div className="flex justify-between">
-        <div className="pr-8">
-          <h3 className="title">{title}</h3>
+        <div className="pr-8 w-full">
+          <h3 className="title">
+            <div className="flex justify-between">
+              {title}
+              {user.is_super_admin && (
+                <button
+                  className="button is-danger is-outlined is-small"
+                  onClick={handleDelete}
+                >
+                  <span className="icon" title="Nenávratne vymazať organizáciu">
+                    <i className="fas fa-times" />
+                  </span>
+                </button>
+              )}
+            </div>
+          </h3>
           {description && <p>{description}</p>}
         </div>
-        <EventImage image={image} imageFile={imageFile} />
+        {imageFile ? (
+          <EventImage image={image} imageFile={imageFile} />
+        ) : (
+          <div className="event-image-placeholder" />
+        )}
       </div>
     </div>
   );
