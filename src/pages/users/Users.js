@@ -28,7 +28,7 @@ const Users = () => {
   const currentUser = useContext(UserContext);
 
   const handleDeleteAllUsers = () => {
-    Object.keys(userList || {}).forEach(async userId => {
+    Object.keys(userList || {}).forEach(async (userId) => {
       if (currentUser.uid !== userId) {
         try {
           await userDelete(userId);
@@ -62,21 +62,25 @@ const Users = () => {
           </thead>
 
           <tbody>
-            {Object.keys(userList).map((userId, index) => {
-              const roomId = userList[userId].room_id;
-              const room = roomList[roomId];
-              return (
-                <UserRow
-                  key={userId}
-                  {...userList[userId]}
-                  roomName={room ? room.name : null}
-                  index={index}
-                  setDeleteUser={setDeleteUser}
-                  toggleModal={deleteUserModal.toggleModal}
-                  userDelete={userDelete}
-                />
-              );
-            })}
+            {Object.keys(userList)
+              .filter(
+                (userId) => userList[userId].event_id === currentUser.event_id
+              )
+              .map((userId, index) => {
+                const roomId = userList[userId].room_id;
+                const room = roomList[roomId];
+                return (
+                  <UserRow
+                    key={userId}
+                    {...userList[userId]}
+                    roomName={room ? room.name : null}
+                    index={index}
+                    setDeleteUser={setDeleteUser}
+                    toggleModal={deleteUserModal.toggleModal}
+                    userDelete={userDelete}
+                  />
+                );
+              })}
           </tbody>
 
           <tfoot className="tfoot--is-hidden-mobile-xs">
@@ -91,12 +95,12 @@ const Users = () => {
           action: {
             label: "Vymazať konto",
             check: trueFunction,
-            class: "is-danger"
+            class: "is-danger",
           },
           dismiss: {
             label: "Zrušiť",
-            handler: deleteUserModal.toggleModal
-          }
+            handler: deleteUserModal.toggleModal,
+          },
         }}
         onSubmit={deleteUser.handleDeleteUser}
         active={deleteUserModal.showModal}
@@ -111,12 +115,12 @@ const Users = () => {
           action: {
             label: "Vymazať všetkých účastníkov",
             check: trueFunction,
-            class: "is-danger"
+            class: "is-danger",
           },
           dismiss: {
             label: "Zrušiť",
-            handler: deleteAllModal.toggleModal
-          }
+            handler: deleteAllModal.toggleModal,
+          },
         }}
         onSubmit={handleDeleteAllUsers}
         active={deleteAllModal.showModal}

@@ -1,16 +1,24 @@
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 
 import { auth, database } from "../../config/firebase";
+import UserContext from "../../config/UserContext";
 
 const useUserDelete = () => {
-  const userDelete = useCallback(async userId => {
+  const currentUser = useContext(UserContext);
+
+  const userDelete = useCallback(async (userId) => {
     const userRef = database.collection("users").doc(userId);
 
     try {
       //TODO transaction begin
-      await database.runTransaction(async transaction => {
+      await database.runTransaction(async (transaction) => {
         const userDoc = await transaction.get(userRef);
-        const { room_id } = userDoc.data();
+
+        const { room_id, event_id } = userDoc.data();
+        if (currentUser.event_id !== event_id) {
+          throw new Error("delete-other-event-user");
+        }
+
         if (room_id) {
           const bedRef = database
             .collection("rooms")
@@ -27,16 +35,20 @@ const useUserDelete = () => {
         await auth.currentUser.delete();
       } else {
         const ref = database.collection("users").doc(userId);
-        try {
-          await ref.delete();
-        } catch (error) {
-          console.error(error);
-        }
+
+        await ref.delete();
       }
 
       //TODO transaction end
     } catch (error) {
-      console.error(error);
+      if (error.message === "delete-other-event-user") {
+        console.log(
+          "Attempt for 'Deleting user from other event' was skipped",
+          `user id: ${userId}`
+        );
+      } else {
+        console.error(error);
+      }
     }
   }, []);
 
