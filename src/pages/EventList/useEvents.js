@@ -16,7 +16,7 @@ const useEvents = () => {
   }, []);
 
   useEffect(() => {
-    const ref = database.collection("events").orderBy("timestamp", "desc");
+    const ref = database.collection("events").orderBy("timestamp");
     const unsubscribe = ref.onSnapshot(
       (snapshot) => {
         snapshot.docChanges().forEach(changeHandler);

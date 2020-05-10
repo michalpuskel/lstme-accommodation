@@ -1,8 +1,7 @@
 import React from "react";
+import "./EventList.scss";
 
-import logo from "../../resources/img/logo.svg";
-
-const EventRow = ({ title, description, image }) => {
+const EventRow = ({ title, description, image, imageFile }) => {
   return (
     <div className="box">
       <div className="flex justify-between">
@@ -10,30 +9,35 @@ const EventRow = ({ title, description, image }) => {
           <h3 className="title">{title}</h3>
           {description && <p>{description}</p>}
         </div>
-        <Image image={image} />
+        <Image image={image} imageFile={imageFile} />
       </div>
     </div>
   );
 };
 
-const Image = ({ image }) => {
+const Image = ({ image, imageFile }) => {
   const [imageUrl, setImageUrl] = React.useState();
 
   React.useEffect(() => {
-    if (!image) return;
+    if (!imageFile) return;
 
-    fetch(image)
+    fetch(imageFile)
       .then((loadedBase64) => loadedBase64.blob())
       .then((blob) => {
         setImageUrl(URL.createObjectURL(blob));
-        console.log({ blob });
       });
-  }, [image]);
+  }, [imageFile]);
 
-  if (!image) return null;
+  if (!imageFile) return null;
 
   return imageUrl ? (
-    <img src={imageUrl} alt="LSTME" width="96" height="96" />
+    <img
+      src={imageUrl}
+      alt={image}
+      width="96"
+      height="96"
+      className="event-list__image"
+    />
   ) : (
     <span className="button is-loading">Loading</span>
   );

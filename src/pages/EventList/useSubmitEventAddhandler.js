@@ -1,14 +1,14 @@
 import { useCallback } from "react";
 import { database, dbTimestamp } from "../../config/firebase";
 
-const useSubmitEventAddhandler = ({ imageFile, ...input }) => {
+const useSubmitEventAddhandler = ({ image, imageFile, ...input }) => {
   const submitEventAddhandler = useCallback(
     async (event) => {
       event.preventDefault();
 
       const ref = database.collection("events").doc();
 
-      const fbWrite = async (image) => {
+      const fbWrite = async ({ image, imageFile }) => {
         try {
           await ref.set({
             uid: ref.id,
@@ -16,6 +16,7 @@ const useSubmitEventAddhandler = ({ imageFile, ...input }) => {
             description: input.description,
             url: input.url,
             image,
+            imageFile: imageFile ?? null,
             timestamp: dbTimestamp,
           });
         } catch (error) {
@@ -29,13 +30,13 @@ const useSubmitEventAddhandler = ({ imageFile, ...input }) => {
         reader.onloadend = async () => {
           const base64data = reader.result;
 
-          fbWrite(base64data);
+          fbWrite({ image: imageFile.name, imageFile: base64data });
         };
       } else {
-        fbWrite(null);
+        fbWrite({ image });
       }
     },
-    [input.title, input.description, input.url, imageFile]
+    [input.title, input.description, input.url, image, imageFile]
   );
 
   return submitEventAddhandler;
