@@ -1,10 +1,13 @@
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 
 import { database, dbTimestamp } from "../../config/firebase";
+import UserContext from "../../config/UserContext";
 
 const useSubmitRoomAddHandler = (input, onRoomAdd) => {
+  const user = useContext(UserContext);
+
   const submitRoomAddHandler = useCallback(
-    async event => {
+    async (event) => {
       event.preventDefault();
       onRoomAdd();
 
@@ -16,7 +19,8 @@ const useSubmitRoomAddHandler = (input, onRoomAdd) => {
           bed_count: input.bedCount,
           is_supervisor_only: input.isSupervisorOnly,
           description: input.description,
-          timestamp: dbTimestamp
+          timestamp: dbTimestamp,
+          event_id: user.event_id,
         });
       } catch (error) {
         console.error(error);
@@ -27,7 +31,7 @@ const useSubmitRoomAddHandler = (input, onRoomAdd) => {
       input.description,
       input.isSupervisorOnly,
       input.name,
-      onRoomAdd
+      onRoomAdd,
     ]
     //TODO question: is it worth to memoize? callback will update quite often on every input change...
   );

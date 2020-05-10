@@ -98,13 +98,15 @@ const Rooms = () => {
       )}
 
       <div className="columns is-multiline is-centered is-vcentered is-variable is-3">
-        {Object.keys(roomList).map((roomId) => (
-          <BedList
-            key={roomId}
-            {...roomList[roomId]}
-            deleteRooms={deleteRooms}
-          />
-        ))}
+        {Object.keys(roomList)
+          .filter((roomId) => roomList[roomId].event_id === user.event_id)
+          .map((roomId) => (
+            <BedList
+              key={roomId}
+              {...roomList[roomId]}
+              deleteRooms={deleteRooms}
+            />
+          ))}
       </div>
     </Layout>
   );

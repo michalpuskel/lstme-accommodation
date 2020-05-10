@@ -28,7 +28,7 @@ import useHomelessUsers from "../../../hooks/room/useHomelessUsers";
 import useSubmitBookUpBedHandler from "../../../hooks/room/useSubmitBookUpBedHandler";
 
 // TODO refactor buttons
-const BedList = props => {
+const BedList = (props) => {
   const bedList = useBeds(props.uid);
   const user = useContext(UserContext);
 
@@ -71,7 +71,7 @@ const BedList = props => {
     validBookUp
   );
 
-  if (props.deleteRooms) {
+  if (props.deleteRooms && user.event_id === props.event_id) {
     roomDelete();
   }
 
@@ -135,12 +135,12 @@ const BedList = props => {
               action: {
                 label: "Vymazať izbu",
                 check: trueFunction,
-                class: "is-danger"
+                class: "is-danger",
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: deleteRoomModal.toggleModal
-              }
+                handler: deleteRoomModal.toggleModal,
+              },
             }}
             onSubmit={roomDelete}
             active={deleteRoomModal.showModal}
@@ -155,12 +155,12 @@ const BedList = props => {
               action: {
                 label: "Uložiť úpravy",
                 check: validName,
-                class: "is-info"
+                class: "is-info",
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: editRoomModal.toggleModal
-              }
+                handler: editRoomModal.toggleModal,
+              },
             }}
             onSubmit={submitRoomEditHandler}
             active={editRoomModal.showModal}
@@ -179,12 +179,12 @@ const BedList = props => {
               action: {
                 label: "Rezervovať posteľ",
                 check: () => !!bedBookUpUserId,
-                class: "is-link"
+                class: "is-link",
               },
               dismiss: {
                 label: "Zrušiť",
-                handler: reservationBookUpModal.toggleModal
-              }
+                handler: reservationBookUpModal.toggleModal,
+              },
             }}
             bodySectionClass="homeless-users__section--modal-body"
             onSubmit={submitBookUpBedHandler}
@@ -241,7 +241,7 @@ const BedList = props => {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(bedList).map(userId => (
+              {Object.keys(bedList).map((userId) => (
                 <Bed
                   key={userId}
                   userId={userId}
@@ -252,7 +252,7 @@ const BedList = props => {
               ))}
               {emptyBeds(
                 emptyBedCount(props.bed_count, Object.keys(bedList).length)
-              ).map(index => (
+              ).map((index) => (
                 <BedEmpty
                   key={index}
                   roomIsSupervisorOnly={props.is_supervisor_only}
