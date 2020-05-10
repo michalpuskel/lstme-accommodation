@@ -9,13 +9,13 @@ const useRooms = () => {
   const glueFormat = useUnbreakableSpaces();
 
   const changeHandler = useCallback(
-    change => {
+    (change) => {
       const data = change.doc.data();
       data.name = glueFormat(data.name);
       dispatch({
         type: change.type,
         id: data.uid,
-        data
+        data,
       });
     },
     [glueFormat]
@@ -24,10 +24,10 @@ const useRooms = () => {
   useEffect(() => {
     const ref = database.collection("rooms").orderBy("timestamp");
     const unsubscribe = ref.onSnapshot(
-      snapshot => {
+      (snapshot) => {
         snapshot.docChanges().forEach(changeHandler);
       },
-      error => console.error(error)
+      (error) => console.error(error)
     );
 
     return () => {
