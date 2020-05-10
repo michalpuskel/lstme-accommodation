@@ -17,6 +17,10 @@ const NavLinks = () => {
           Účastníci
         </NavLink>
       )}
+
+      <NavLink className="navbar-item" to="/events">
+        Organizácie
+      </NavLink>
     </div>
   );
 };
