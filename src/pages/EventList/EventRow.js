@@ -24,14 +24,12 @@ const EventRow = ({ title, description, image, imageFile, uid }) => {
     event.preventDefault();
     event.stopPropagation();
 
-    // const ref = database.collection("users").doc(user.uid);
-    // try {
-    //   await ref.update({
-    //     event_id: uid,
-    //   });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    const ref = database.collection("events").doc(uid);
+    try {
+      await ref.delete();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
