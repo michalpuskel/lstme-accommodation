@@ -13,6 +13,7 @@ import Users from "../../pages/users/Users";
 import UserDetail from "../../pages/userDetail/UserDetail";
 import NotFound from "../../pages/notFound/NotFound";
 import EventList from "../../pages/EventList";
+import useEvent from "../../pages/EventList/useEvent";
 
 const Router = () => {
   const user = useContext(UserContext);
@@ -21,6 +22,7 @@ const Router = () => {
   console.log("CONTEXT USER", user && user.email);
 
   const { event_id } = user || {};
+  const event = useEvent(event_id);
 
   return (
     <Switch>
@@ -28,7 +30,7 @@ const Router = () => {
         exact
         path="/"
         component={Rooms}
-        condition={user && !ban && event_id}
+        condition={user && !ban && event_id && event}
         redirect={!(user && !ban) ? "/auth" : "/events"}
       />
       <ProtectedRoute
@@ -49,14 +51,14 @@ const Router = () => {
         exact
         path="/room/:roomId"
         component={RoomDetail}
-        condition={user && !ban && event_id}
+        condition={user && !ban && event_id && event}
         redirect={!(user && !ban) ? "/auth" : "/events"}
       />
       <ProtectedRoute
         exact
         path="/users"
         component={Users}
-        condition={user && user.is_super_admin && !ban && event_id}
+        condition={user && user.is_super_admin && !ban && event_id && event}
         redirect={!(user && user.is_super_admin && !ban) ? "/auth" : "/events"}
       />
       <PrivateRoute

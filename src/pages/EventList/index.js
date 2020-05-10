@@ -8,6 +8,7 @@ import useFormNewEvent from "./useFormNewEvent";
 import useSubmitEventAddhandler from "./useSubmitEventAddhandler";
 import useEvents from "./useEvents";
 import EventRow from "./EventRow";
+import useEvent from "./useEvent";
 
 const EventList = () => {
   const user = useContext(UserContext);
@@ -17,6 +18,10 @@ const EventList = () => {
   const { input, handler, id } = useFormNewEvent();
   const newEventModal = useModal();
   const submitEventAddHandler = useSubmitEventAddhandler(input);
+
+  const { event_id } = user || {};
+  const event = useEvent(event_id);
+  const hasRemovedEvent = !event;
 
   return (
     <Layout title="Zoznam organizácií">
@@ -59,6 +64,14 @@ const EventList = () => {
       <div className="columns is-multiline is-vcentered is-variable is-3">
         <div className="column">
           <div className="content">
+            {hasRemovedEvent && (
+              <div className="box has-background-warning">
+                <p>
+                  Vaša organizácia bola zrušená, vyberte si prosím nejakú inú.
+                </p>
+              </div>
+            )}
+
             {events.length > 0 ? (
               events.map((eventId) => (
                 <EventRow key={eventId} {...eventList[eventId]} />
