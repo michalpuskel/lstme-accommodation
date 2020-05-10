@@ -36,7 +36,7 @@ const MyEvent = () => {
           </div>
         </>
       ) : (
-        <div className="box">
+        <div className="box mt-16">
           <p>Nie ste prihlásený do žiadnej organizácie.</p>
         </div>
       )}

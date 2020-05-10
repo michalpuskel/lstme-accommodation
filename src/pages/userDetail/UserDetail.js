@@ -11,8 +11,9 @@ import useUserName from "../../hooks/user/useUserName";
 import useModal from "../../hooks/utils/useModal";
 import useTrue from "../../hooks/utils/useTrue";
 import Modal from "../../lib/modal/Modal";
+import MyEvent from "../EventList/MyEvent";
 
-const UserDetail = props => {
+const UserDetail = (props) => {
   const userId = props.match.params.userId;
 
   const userDelete = useUserDelete();
@@ -47,16 +48,16 @@ const UserDetail = props => {
     user.swap_received_from_id,
     user.swap_sent_to_id,
     userDelete,
-    userId
+    userId,
   ]);
 
-  const handleEdit = async event => {
+  const handleEdit = async (event) => {
     event.preventDefault();
     const ref = database.collection("users").doc(userId);
     try {
       await ref.update({
         first_name: firstName === undefined ? user.first_name : firstName,
-        last_name: lastName === undefined ? user.last_name : lastName
+        last_name: lastName === undefined ? user.last_name : lastName,
       });
     } catch (error) {
       console.error(error);
@@ -74,52 +75,6 @@ const UserDetail = props => {
       <Layout title="Nastavenia používateľa">
         <form onSubmit={handleEdit}>
           <div className="columns is-multiline is-centered is-variable is-3">
-            <div className="column is-narrow">
-              <div className="box">
-                <div className="field">
-                  <label className="label" htmlFor="userDetailFirstName">
-                    Meno
-                  </label>
-                  <div className="control has-icons-left">
-                    <input
-                      className="input"
-                      id="userDetailFirstName"
-                      type="text"
-                      value={
-                        firstName === undefined ? user.first_name : firstName
-                      }
-                      onChange={e => setFirstName(e.target.value)}
-                      placeholder="Meno"
-                      required
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-user" />
-                    </span>
-                  </div>
-                </div>
-
-                <div className="field">
-                  <label className="label" htmlFor="userDetailLastName">
-                    Priezvisko
-                  </label>
-                  <div className="control has-icons-left">
-                    <input
-                      className="input"
-                      id="userDetailLastName"
-                      type="text"
-                      value={lastName === undefined ? user.last_name : lastName}
-                      onChange={e => setLastName(e.target.value)}
-                      placeholder="Priezvisko"
-                      required
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-user" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div className="column is-full">
               <div className="level room-detail__buttons">
                 <div className="level-left">
@@ -146,8 +101,56 @@ const UserDetail = props => {
                 </div>
               </div>
             </div>
+
+            <div className="column is-narrow">
+              <div className="box">
+                <div className="field">
+                  <label className="label" htmlFor="userDetailFirstName">
+                    Meno
+                  </label>
+                  <div className="control has-icons-left">
+                    <input
+                      className="input"
+                      id="userDetailFirstName"
+                      type="text"
+                      value={
+                        firstName === undefined ? user.first_name : firstName
+                      }
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Meno"
+                      required
+                    />
+                    <span className="icon is-small is-left">
+                      <i className="fas fa-user" />
+                    </span>
+                  </div>
+                </div>
+
+                <div className="field">
+                  <label className="label" htmlFor="userDetailLastName">
+                    Priezvisko
+                  </label>
+                  <div className="control has-icons-left">
+                    <input
+                      className="input"
+                      id="userDetailLastName"
+                      type="text"
+                      value={lastName === undefined ? user.last_name : lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Priezvisko"
+                      required
+                    />
+                    <span className="icon is-small is-left">
+                      <i className="fas fa-user" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
+
+        <MyEvent />
       </Layout>
 
       <Modal
@@ -156,12 +159,12 @@ const UserDetail = props => {
           action: {
             label: "Vymazať konto",
             check: trueFunction,
-            class: "is-danger"
+            class: "is-danger",
           },
           dismiss: {
             label: "Zrušiť",
-            handler: deleteUserModal.toggleModal
-          }
+            handler: deleteUserModal.toggleModal,
+          },
         }}
         onSubmit={handleUserDelete}
         active={deleteUserModal.showModal}
