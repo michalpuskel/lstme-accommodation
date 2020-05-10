@@ -1,30 +1,35 @@
 import "./FormBookUpBed.scss";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 
 import { parseSearch } from "../../../helpers";
 import useUserName from "../../../hooks/user/useUserName";
+import UserContext from "../../../config/UserContext";
 
 const FormBookUpBed = ({
   homelessUsers,
   homelessAuthedUser,
   userId,
   setUserId,
-  roomId
+  roomId,
 }) => {
   const [usersFilter, setUsersFilter] = useState("");
 
   const homelessUsersExist =
     homelessUsers && Object.keys(homelessUsers).length > 0;
 
+  const currentUser = useContext(UserContext);
+
   const userName = useUserName();
-  const visibleUsers = Object.keys(homelessUsers).filter(homelessUserId =>
-    parseSearch(userName(homelessUsers[homelessUserId])).match(
-      parseSearch(usersFilter)
-    )
+  const visibleUsers = Object.keys(homelessUsers).filter(
+    (homelessUserId) =>
+      homelessUsers[homelessUserId].event_id === currentUser.event_id &&
+      parseSearch(userName(homelessUsers[homelessUserId])).match(
+        parseSearch(usersFilter)
+      )
   );
 
-  const handleSelectUser = event => {
+  const handleSelectUser = (event) => {
     if (visibleUsers) {
       const selectedUserId = visibleUsers[0];
       setUserId(selectedUserId);
@@ -32,12 +37,12 @@ const FormBookUpBed = ({
   };
 
   const changeFilterHandler = useCallback(
-    event => setUsersFilter(event.target.value),
+    (event) => setUsersFilter(event.target.value),
     []
   );
 
   const changeUserHandler = useCallback(
-    event => {
+    (event) => {
       setUserId(event.target.value);
     },
     [setUserId]
@@ -84,7 +89,7 @@ const FormBookUpBed = ({
             )}
 
             {homelessUsersExist &&
-              visibleUsers.map(homelessUserId => (
+              visibleUsers.map((homelessUserId) => (
                 <UserBookUpRow
                   key={homelessUserId}
                   homelessUser={homelessUsers[homelessUserId]}
