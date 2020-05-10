@@ -9,6 +9,7 @@ import useSubmitEventAddhandler from "./useSubmitEventAddhandler";
 import useEvents from "./useEvents";
 import EventRow from "./EventRow";
 import useEvent from "./useEvent";
+import MyEvent from "./MyEvent";
 
 const EventList = () => {
   const user = useContext(UserContext);
@@ -21,7 +22,7 @@ const EventList = () => {
 
   const { event_id } = user || {};
   const event = useEvent(event_id);
-  const hasRemovedEvent = !event;
+  const hasRemovedEvent = event_id && !event;
 
   return (
     <Layout title="Zoznam organizácií">
@@ -74,7 +75,7 @@ const EventList = () => {
 
             {events.length > 0 ? (
               events.map((eventId) => (
-                <EventRow key={eventId} {...eventList[eventId]} />
+                <EventRow key={eventId} {...eventList[eventId]} controls />
               ))
             ) : (
               <div className="box">
@@ -84,6 +85,8 @@ const EventList = () => {
                 </p>
               </div>
             )}
+
+            <MyEvent />
           </div>
         </div>
       </div>

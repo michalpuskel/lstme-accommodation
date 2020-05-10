@@ -4,7 +4,7 @@ import UserContext from "../../config/UserContext";
 import "./EventList.scss";
 import EventImage from "./EventImage";
 
-const EventRow = ({ title, description, image, imageFile, uid }) => {
+const EventRow = ({ title, description, image, imageFile, uid, controls }) => {
   const user = useContext(UserContext);
 
   const handleSelect = async (event) => {
@@ -35,16 +35,16 @@ const EventRow = ({ title, description, image, imageFile, uid }) => {
   return (
     <div
       className={`box event-list__row ${
-        user.event_id === uid ? "event-list__row--selected" : ""
-      }`}
-      onClick={handleSelect}
+        user.event_id === uid && controls ? "event-list__row--selected" : ""
+      } ${controls ? "event-list__row--controls" : ""}`}
+      onClick={controls ? handleSelect : undefined}
     >
       <div className="flex justify-between">
         <div className="pr-8 w-full">
           <h3 className="title">
             <div className="flex justify-between">
               {title}
-              {user.is_super_admin && (
+              {user.is_super_admin && controls && (
                 <button
                   className="button is-danger is-outlined is-small"
                   onClick={handleDelete}
