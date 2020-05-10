@@ -10,7 +10,8 @@ const useCampTitle = () => {
   const event = useEvent(event_id);
 
   const getCampTitle = useCallback(
-    () => `${moment().format("YYYY")} ${event_id && event ? event.title : ""}`,
+    () =>
+      `${moment().format("YYYY")}${event_id && event ? ` ${event.title}` : ""}`,
     [event_id, event]
   );
 
