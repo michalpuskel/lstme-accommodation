@@ -1,18 +1,27 @@
 import { useCallback } from "react";
-
 import { database, dbTimestamp } from "../../config/firebase";
 
-const useSubmitEventAddhandler = (imageFile) => {
+const useSubmitEventAddhandler = (input) => {
   const submitEventAddhandler = useCallback(
     async (event) => {
       event.preventDefault();
 
-      console.log({ imageFile });
+      const ref = database.collection("events").doc();
 
-      console.log("SUBMIT EVENT");
-      //TODO trim title
+      try {
+        await ref.set({
+          uid: ref.id,
+          title: input.title.trim(),
+          description: input.description,
+          url: input.url,
+          image: (await input.imageFile?.text()) ?? null,
+          timestamp: dbTimestamp,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
-    [imageFile]
+    [input.title, input.description, input.url, input.imageFile]
   );
 
   return submitEventAddhandler;

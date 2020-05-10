@@ -6,13 +6,17 @@ import Modal from "../../lib/modal/Modal";
 import FormNewEvent from "./FormNewEvent";
 import useFormNewEvent from "./useFormNewEvent";
 import useSubmitEventAddhandler from "./useSubmitEventAddhandler";
+import useEvents from "./useEvents";
+import EventRow from "./EventRow";
 
 const EventList = () => {
   const user = useContext(UserContext);
+  const eventList = useEvents();
+  const events = Object.keys(eventList);
 
   const { input, handler, id } = useFormNewEvent();
   const newEventModal = useModal();
-  const submitEventAddHandler = useSubmitEventAddhandler(input.imageFile);
+  const submitEventAddHandler = useSubmitEventAddhandler(input);
 
   return (
     <Layout title="Zoznam organizácií">
@@ -51,6 +55,25 @@ const EventList = () => {
           </div>
         </>
       )}
+
+      <div className="columns is-multiline is-vcentered is-variable is-3">
+        <div className="column">
+          <div className="content">
+            {events.length > 0 ? (
+              events.map((eventId) => (
+                <EventRow key={eventId} {...eventList[eventId]} />
+              ))
+            ) : (
+              <div className="box">
+                <p>
+                  Nie sú vytvorené žiadne organizácie, požiadajte administrátora
+                  o vytvorenie.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 };
